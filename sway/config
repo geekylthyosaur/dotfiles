@@ -1,0 +1,240 @@
+exec pipewire
+exec pipewire-pulse
+
+xwayland disable
+default_border pixel 1
+smart_borders on
+hide_edge_borders smart
+focus_follows_mouse no
+
+# Colors (see $XDG_DATA_HOME/style.css)
+set $bg #282828
+set $bg0 #1d2021
+set $bg1 #3c3836
+set $bg2 #504945
+set $fg #ebdbb2
+set $fg0 #fbf1c7
+set $fg1 #d5c4a1
+set $fg2 #bdae93
+set $red #cc241d
+set $green #98971a
+set $yellow #d79921
+set $blue #458588
+set $purple #b16286
+set $aqua #689d6a
+set $orange #fe8019
+set $gray #a89984
+
+# Variables
+set $mod Mod4
+set $left h
+set $down j
+set $up k
+set $right l
+set $term alacritty
+set $menu fuzzel --font="Noto Sans Mono: size=9" --no-icons --background-color=282828f0 --text-color=ebdbb2ff --selection-color=ebdbb2ff --selection-text-color=282828ff --border-color=458588ff --border-radius=0 --terminal="alacritty -e" --horizontal-pad=10 --vertical-pad=10 --inner-pad=10 --lines=1
+# set $menu wofi -c ~/.config/wofi/config -s ~/.config/wofi/style.css
+
+set $wallpapers $HOME/media/pictures/wallpapers/
+
+# Random wallpaper
+output * bg `find $wallpapers -type f | shuf -n 1` fill
+
+# Example configuration:
+# output HDMI-A-1 resolution 1920x1080 position 1920,0
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+
+# Idle configuration
+# Example configuration:
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+#          before-sleep 'swaylock -f -c 000000'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+
+input "type:keyboard" {
+    repeat_delay 235
+    repeat_rate 35
+
+    xkb_layout us,ua
+    xkb_options grp:alt_shift_toggle
+}
+
+input "2:14:SynPS/2_Synaptics_TouchPad" {
+    dwt enabled
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
+}
+
+input "2:10:TPPS/2_Elan_TrackPoint" {
+    left_handed enabled
+}
+
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
+
+### Key bindings
+# Basics:
+    # Start a terminal
+    bindsym $mod+Return exec $term
+
+    # Kill focused window
+    bindsym $mod+q kill
+
+    # Start your launcher
+    bindsym $mod+d exec $menu
+
+    # Resize and move floating windows
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym $mod+Shift+r reload
+
+    # Exit sway (logs you out of your Wayland session)
+    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+# Brightness controll
+bindsym --locked XF86MonBrightnessDown exec light -U 5
+bindsym --locked XF86MonBrightnessUp exec light -A 5
+
+# Volume controll
+bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym --locked XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# Mic volume controll
+bindsym --locked Alt+XF86AudioLowerVolume exec pactl set-source-volume @DEFAULT_SOURCE@ -5%
+bindsym --locked Alt+XF86AudioRaiseVolume exec pactl set-source-volume @DEFAULT_SOURCE@ +5%
+
+# Moving around:
+    # Move your focus around
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+
+    # Move the focused window with the same, but add Shift
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+
+# Workspaces:
+    # Switch to workspace
+    bindsym $mod+1 workspace number 1
+    bindsym $mod+2 workspace number 2
+    bindsym $mod+3 workspace number 3
+    bindsym $mod+4 workspace number 4
+    bindsym $mod+5 workspace number 5
+    bindsym $mod+6 workspace number 6
+    bindsym $mod+7 workspace number 7
+    bindsym $mod+8 workspace number 8
+    bindsym $mod+9 workspace number 9
+    bindsym $mod+0 workspace number 10
+    # Move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace number 1
+    bindsym $mod+Shift+2 move container to workspace number 2
+    bindsym $mod+Shift+3 move container to workspace number 3
+    bindsym $mod+Shift+4 move container to workspace number 4
+    bindsym $mod+Shift+5 move container to workspace number 5
+    bindsym $mod+Shift+6 move container to workspace number 6
+    bindsym $mod+Shift+7 move container to workspace number 7
+    bindsym $mod+Shift+8 move container to workspace number 8
+    bindsym $mod+Shift+9 move container to workspace number 9
+    bindsym $mod+Shift+0 move container to workspace number 10
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
+
+# Layout stuff:
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+b splith
+    bindsym $mod+v splitv
+
+    # Switch the current container between different layout styles
+    bindsym $mod+e layout toggle split
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+w floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space focus mode_toggle
+
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+
+# Scratchpad:
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+
+# Focused window borders
+client.focused $blue $blue $blue
+
+for_window [app_id="Alacritty"] floating enable
+
+# Resizing containers:
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    # Ditto, with arrow keys
+    # bindsym Left resize shrink width 10px
+    # bindsym Down resize grow height 10px
+    # bindsym Up resize shrink height 10px
+    # bindsym Right resize grow width 10px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+mode "browser" {
+    set $dmenu wofi -c ~/.config/wofi/config -s ~/.config/wofi/style.css --show dmenu
+    
+    # Search with with google
+    set $search firefox --new-tab "https://www.google.com/search?q=$($dmenu)" && swaymsg "[app_id=Firefox] focus";
+    bindsym s mode "default"; exec $search
+
+    # Translate text from english to ukrainian
+    set $te firefox --new-tab "https://translate.google.com/?sl=en&tl=uk&text=$($dmenu)" && swaymsg "[app_id=Firefox] focus";
+    bindsym e mode "default"; exec $te
+
+    # Translate text from ukrainian to english
+    set $tu firefox --new-tab "https://translate.google.com/?sl=uk&tl=en&text=$($dmenu)" && swaymsg "[app_id=Firefox] focus";
+    bindsym u mode "default"; exec $tu
+
+    # Search on github.com
+    set $git firefox --new-tab "https://github.com/search?q=$($dmenu)" && swaymsg "[app_id=Firefox] focus";
+    bindsym g mode "default"; exec $git
+
+    # Return to default mode
+    bindsym Escape mode "default"
+}
+bindsym $mod+s mode "browser"
+
+# Status Bar:
+bar {
+    position bottom
+    swaybar_command waybar
+}
+
+include /etc/sway/config.d/*

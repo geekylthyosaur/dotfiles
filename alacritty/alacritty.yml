@@ -1,0 +1,51 @@
+font:
+  normal:
+    family: Noto Sans Mono 
+    style: Regular
+
+  bold:
+    family: Noto Sans Mono
+    style: Bold
+
+  italic:
+    family: Noto Sans Mono
+    style: Italic
+
+  bold_italic:
+    family: Noto Sans Mono
+    style: Bold Italic
+
+  size: 10
+
+colors:
+  primary:
+    background: '0x282828'
+    foreground: '0xdfbf8e'
+
+  normal:
+    black:   '0x665c54'
+    red:     '0xea6962'
+    green:   '0xa9b665'
+    yellow:  '0xe78a4e'
+    blue:    '0x458588'
+    magenta: '0xb16286'
+    cyan:    '0x689d6a'
+    white:   '0xdfbf8e'
+
+  bright:
+    black:   '0x928374'
+    red:     '0xea6962'
+    green:   '0xa9b665'
+    yellow:  '0xe3a84e'
+    blue:    '0x458588'
+    magenta: '0xb16286'
+    cyan:    '0x689d6a'
+    white:   '0xdfbf8e'
+
+window:
+  opacity:
+    0.9
+  padding:
+   x: 10
+   y: 10
+
