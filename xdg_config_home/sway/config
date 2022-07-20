@@ -32,32 +32,31 @@ set $down j
 set $up k
 set $right l
 set $term alacritty
-set $menu fuzzel --font="Noto Sans Mono: size=9" --no-icons --background-color=282828f0 --text-color=ebdbb2ff --selection-color=ebdbb2ff --selection-text-color=282828ff --border-color=458588ff --border-radius=0 --terminal="alacritty -e" --horizontal-pad=10 --vertical-pad=10 --inner-pad=10 --lines=1
-# set $menu wofi -c ~/.config/wofi/config -s ~/.config/wofi/style.css
+set $menu fuzzel --font="Noto Sans Mono: size=9" --no-icons --background-color=282828f0 --text-color=ebdbb2ff --selection-color=ebdbb2ff --selection-text-color=282828ff --border-color=458588ff --border-radius=0 --terminal="alacritty -e" --horizontal-pad=10 --vertical-pad=10 --inner-pad=10 --lines=1 --match-color=cc241dff --width=60
 
-set $wallpapers $HOME/media/pictures/wallpapers/
+set $random_wallpaper $(find $HOME/media/pictures/wallpapers/ -type f | shuf -n 1)
 
 # Random wallpaper
-output * bg `find $wallpapers -type f | shuf -n 1` fill
+output * bg $random_wallpaper fill
+
+client.focused $blue $blue $blue
 
 # Example configuration:
 # output HDMI-A-1 resolution 1920x1080 position 1920,0
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
 # Idle configuration
-# Example configuration:
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-#          before-sleep 'swaylock -f -c 000000'
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
+bindsym $mod+End exec swaylock -i $random_wallpaper
+
+exec swayidle -w \
+            timeout 300 'swaylock -f -c 000000 -i $random_wallpaper' \
+            timeout 600 'swaymsg "output * dpms off"' \
+            resume 'swaymsg "output * dpms on"' \
+            before-sleep 'swaylock -f -c 000000 -i $random_wallpaper'
 
 input "type:keyboard" {
-    repeat_delay 235
-    repeat_rate 35
+    repeat_delay 180
+    repeat_rate 60
 
     xkb_layout us,ua
     xkb_options grp:alt_shift_toggle
@@ -77,10 +76,13 @@ input "2:10:TPPS/2_Elan_TrackPoint" {
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
+for_window [app_id="floating"] floating enable
+
 ### Key bindings
 # Basics:
     # Start a terminal
     bindsym $mod+Return exec $term
+    bindsym $mod+Shift+Return exec $term --class="floating"
 
     # Kill focused window
     bindsym $mod+q kill
@@ -95,21 +97,21 @@ input "2:10:TPPS/2_Elan_TrackPoint" {
     bindsym $mod+Shift+r reload
 
     # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+    bindsym $mod+Shift+e exec swaymsg exit
 
 # Brightness controll
-bindsym --locked XF86MonBrightnessDown exec light -U 5
-bindsym --locked XF86MonBrightnessUp exec light -A 5
+    bindsym --locked XF86MonBrightnessDown exec light -U 5
+    bindsym --locked XF86MonBrightnessUp exec light -A 5
 
 # Volume controll
-bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym --locked XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+    bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+    bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+    bindsym --locked XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+    bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # Mic volume controll
-bindsym --locked Alt+XF86AudioLowerVolume exec pactl set-source-volume @DEFAULT_SOURCE@ -5%
-bindsym --locked Alt+XF86AudioRaiseVolume exec pactl set-source-volume @DEFAULT_SOURCE@ +5%
+    bindsym --locked Alt+XF86AudioRaiseVolume exec pactl set-source-volume @DEFAULT_SOURCE@ +5%
+    bindsym --locked Alt+XF86AudioLowerVolume exec pactl set-source-volume @DEFAULT_SOURCE@ -5%
 
 # Moving around:
     # Move your focus around
@@ -147,19 +149,8 @@ bindsym --locked Alt+XF86AudioRaiseVolume exec pactl set-source-volume @DEFAULT_
     bindsym $mod+Shift+8 move container to workspace number 8
     bindsym $mod+Shift+9 move container to workspace number 9
     bindsym $mod+Shift+0 move container to workspace number 10
-    # Note: workspaces can have any name you want, not just numbers.
-    # We just use 1-10 as the default.
 
 # Layout stuff:
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
-    bindsym $mod+b splith
-    bindsym $mod+v splitv
-
-    # Switch the current container between different layout styles
-    bindsym $mod+e layout toggle split
-
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen
 
@@ -167,26 +158,15 @@ bindsym --locked Alt+XF86AudioRaiseVolume exec pactl set-source-volume @DEFAULT_
     bindsym $mod+w floating toggle
 
     # Swap focus between the tiling area and the floating area
-    bindsym $mod+space focus mode_toggle
-
-    # Move focus to the parent container
-    bindsym $mod+a focus parent
+    bindsym $mod+Tab focus mode_toggle
 
 # Scratchpad:
-    # Sway has a "scratchpad", which is a bag of holding for windows.
-    # You can send windows there and get them back later.
-
     # Move the currently focused window to the scratchpad
-    bindsym $mod+Shift+minus move scratchpad
+    bindsym $mod+Shift+a move scratchpad
 
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
-    bindsym $mod+minus scratchpad show
-
-# Focused window borders
-client.focused $blue $blue $blue
-
-for_window [app_id="Alacritty"] floating enable
+    bindsym $mod+a scratchpad show
 
 # Resizing containers:
 mode "resize" {
@@ -195,12 +175,6 @@ mode "resize" {
     bindsym $up resize shrink height 10px
     bindsym $right resize grow width 10px
 
-    # Ditto, with arrow keys
-    # bindsym Left resize shrink width 10px
-    # bindsym Down resize grow height 10px
-    # bindsym Up resize shrink height 10px
-    # bindsym Right resize grow width 10px
-
     # Return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -208,23 +182,29 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 mode "browser" {
-    set $dmenu wofi -c ~/.config/wofi/config -s ~/.config/wofi/style.css --show dmenu
-    
+    # https://codeberg.org/dnkl/fuzzel/issues/106
+    set $dmenu $(echo "" | $menu --lines=0 --dmenu)    
+    set $toggle_kb swaymsg input "1:1:AT_Translated_Set_2_keyboard" xkb_switch_layout next
+
     # Search with with google
-    set $search firefox --new-tab "https://www.google.com/search?q=$($dmenu)" && swaymsg "[app_id=Firefox] focus";
+    set $search firefox --new-tab "https://www.google.com/search?q=$dmenu" && swaymsg "[app_id=Firefox] focus";
     bindsym s mode "default"; exec $search
 
     # Translate text from english to ukrainian
-    set $te firefox --new-tab "https://translate.google.com/?sl=en&tl=uk&text=$($dmenu)" && swaymsg "[app_id=Firefox] focus";
+    set $te firefox --new-tab "https://translate.google.com/?sl=en&tl=uk&text=$dmenu" && swaymsg "[app_id=Firefox] focus";
     bindsym e mode "default"; exec $te
 
     # Translate text from ukrainian to english
-    set $tu firefox --new-tab "https://translate.google.com/?sl=uk&tl=en&text=$($dmenu)" && swaymsg "[app_id=Firefox] focus";
-    bindsym u mode "default"; exec $tu
+    set $tu firefox --new-tab "https://translate.google.com/?sl=uk&tl=en&text=$dmenu" && swaymsg "[app_id=Firefox] focus";
+    bindsym u mode "default"; exec $toggle_kb; exec $tu;
 
     # Search on github.com
-    set $git firefox --new-tab "https://github.com/search?q=$($dmenu)" && swaymsg "[app_id=Firefox] focus";
+    set $git firefox --new-tab "https://github.com/search?q=$dmenu" && swaymsg "[app_id=Firefox] focus";
     bindsym g mode "default"; exec $git
+
+    # Weather
+    set $weather firefox --new-tab "https://www.ventusky.com/" && swaymsg "[app_id=Firefox] focus";
+    bindsym w mode "default"; exec $weather
 
     # Return to default mode
     bindsym Escape mode "default"
@@ -233,8 +213,6 @@ bindsym $mod+s mode "browser"
 
 # Status Bar:
 bar {
-    position bottom
     swaybar_command waybar
 }
 
-include /etc/sway/config.d/*
