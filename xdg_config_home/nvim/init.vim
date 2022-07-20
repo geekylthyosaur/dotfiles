@@ -41,9 +41,7 @@ Plug 'morhetz/gruvbox'
 call plug#end()
 
 colorscheme gruvbox
-if (has('termguicolors'))
-    set termguicolors
-endif
+highlight Normal guibg=none
 
 lua << EOF
 -- Set completeopt to have a better completion experience
