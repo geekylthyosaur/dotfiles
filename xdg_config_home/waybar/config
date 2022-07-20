@@ -4,7 +4,7 @@
     "spacing": 4,
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["clock"],
-    "modules-right": ["sway/language", "custom/playerctl", "pulseaudio", "backlight", "network", "battery"],
+    "modules-right": ["sway/language", "pulseaudio", "backlight", "network", "battery"],
     "sway/workspaces": {
         "disable-scroll-wraparound": true,
     },

@@ -32,6 +32,9 @@ set $down j
 set $up k
 set $right l
 set $term alacritty
+set $player_prev playerctl previous
+set $player_pause_toggle playerctl play-pause
+set $player_next playerctl next
 set $menu fuzzel --font="Noto Sans Mono: size=9" --no-icons --background-color=282828f0 --text-color=ebdbb2ff --selection-color=ebdbb2ff --selection-text-color=282828ff --border-color=458588ff --border-radius=0 --terminal="alacritty -e" --horizontal-pad=10 --vertical-pad=10 --inner-pad=10 --lines=1 --match-color=cc241dff --width=60
 
 set $random_wallpaper $(find $HOME/media/pictures/wallpapers/ -type f | shuf -n 1)
@@ -112,6 +115,11 @@ for_window [app_id="floating"] floating enable
 # Mic volume controll
     bindsym --locked Alt+XF86AudioRaiseVolume exec pactl set-source-volume @DEFAULT_SOURCE@ +5%
     bindsym --locked Alt+XF86AudioLowerVolume exec pactl set-source-volume @DEFAULT_SOURCE@ -5%
+
+# Music player
+    bindsym --locked $mod+XF86AudioLowerVolume exec $player_prev
+    bindsym --locked $mod+XF86AudioMute exec $player_pause_toggle
+    bindsym --locked $mod+XF86AudioRaiseVolume exec $player_next
 
 # Moving around:
     # Move your focus around
