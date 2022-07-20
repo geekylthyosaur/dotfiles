@@ -1,5 +1,12 @@
 set encoding=utf-8
 set number
+set relativenumber
+set guicursor=
+set nohlsearch
+set hidden
+set noswapfile
+set nowrap
+set termguicolors
 set scrolloff=11
 
 " Tabs
@@ -142,6 +149,7 @@ for _, lsp in ipairs(servers) do
     on_attach = on_attach,
     flags = {
       debounce_text_changes = 150,
+      procMacro = { enable = true },
     }
   }
 end
