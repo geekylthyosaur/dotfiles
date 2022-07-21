@@ -6,7 +6,7 @@ default_border pixel 1
 smart_borders on
 hide_edge_borders smart
 focus_follows_mouse no
-seat seat0 hide_cursor 1000
+seat seat0 hide_cursor 10000
 
 # Colors (see $XDG_DATA_HOME/style.css)
 set $bg #282828
