@@ -8,6 +8,7 @@ set noswapfile
 set nowrap
 set termguicolors
 set scrolloff=11
+set signcolumn=yes
 
 " Tabs
 set tabstop=4
@@ -69,10 +70,10 @@ cmp.setup {
     end,
   },
   mapping = {
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['k'] = cmp.mapping.select_prev_item(),
+    ['j'] = cmp.mapping.select_next_item(),
+    ['K'] = cmp.mapping.scroll_docs(-4),
+    ['J'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm {
