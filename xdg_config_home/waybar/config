@@ -1,6 +1,6 @@
 {
     "position": "bottom",
-    "height": 20,
+    "height": 24,
     "spacing": 4,
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["clock"],
