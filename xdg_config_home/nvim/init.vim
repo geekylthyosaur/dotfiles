@@ -150,8 +150,13 @@ for _, lsp in ipairs(servers) do
     on_attach = on_attach,
     flags = {
       debounce_text_changes = 150,
-      procMacro = { enable = true },
+    },
+    settings = {
+      ["rust-analyzer"] = {
+          checkOnSave = { enable = false },
+          -- procMacro = { enable = true },
+      }
     }
-  }
+  } 
 end
 EOF

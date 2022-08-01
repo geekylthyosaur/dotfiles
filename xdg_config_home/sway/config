@@ -1,5 +1,6 @@
 exec pipewire
 exec pipewire-pulse
+exec mako
 
 xwayland disable
 default_border pixel 1
@@ -36,9 +37,10 @@ set $term alacritty
 set $player_prev playerctl previous
 set $player_pause_toggle playerctl play-pause
 set $player_next playerctl next
-set $menu fuzzel --font="Noto Sans Mono: size=9" --no-icons --background-color=282828f0 --text-color=ebdbb2ff --selection-color=ebdbb2ff --selection-text-color=282828ff --border-color=458588ff --border-radius=0 --terminal="alacritty -e" --horizontal-pad=10 --vertical-pad=10 --inner-pad=10 --lines=1 --match-color=cc241dff --width=60
-
-set $random_wallpaper $(find $HOME/media/pictures/wallpapers/ -type f | shuf -n 1)
+set $scripts /home/dmytro/documents/scripts
+set $menu fuzzel --font="Noto Sans Mono: size=9" --no-icons --background-color=282828f0 --text-color=ebdbb2ff --selection-color=ebdbb2ff --selection-text-color=282828ff --border-color=458588ff --border-radius=0 --horizontal-pad=10 --vertical-pad=10 --inner-pad=10 --width=50
+set $random_wallpaper $($scripts/random_wallpaper.sh)
+set $browser firefox
 
 # Random wallpaper
 output * bg $random_wallpaper fill
@@ -92,7 +94,10 @@ for_window [app_id="floating"] floating enable
     bindsym $mod+q kill
 
     # Start your launcher
-    bindsym $mod+d exec $menu
+    bindsym $mod+d exec $menu --lines=1
+
+    # Power menu
+    bindsym $mod+Shift+q exec $scripts/power_menu.sh
 
     # Resize and move floating windows
     floating_modifier $mod normal
@@ -102,6 +107,8 @@ for_window [app_id="floating"] floating enable
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaymsg exit
+
+    bindsym $mod+b exec $browser
 
 # Brightness controll
     bindsym --locked XF86MonBrightnessDown exec light -U 5
@@ -196,27 +203,27 @@ mode "browser" {
     set $toggle_kb swaymsg input "1:1:AT_Translated_Set_2_keyboard" xkb_switch_layout next
 
     # Search with with google
-    set $search firefox --new-tab "https://www.google.com/search?q=$dmenu" && swaymsg "[app_id=Firefox] focus";
+    set $search $browser --new-tab "https://www.google.com/search?q=$dmenu" && swaymsg "[app_id=Firefox] focus";
     bindsym s mode "default"; exec $search
 
     # Translate text from english to ukrainian
-    set $te firefox --new-tab "https://translate.google.com/?sl=en&tl=uk&text=$dmenu" && swaymsg "[app_id=Firefox] focus";
+    set $te $browser --new-tab "https://translate.google.com/?sl=en&tl=uk&text=$dmenu" && swaymsg "[app_id=Firefox] focus";
     bindsym e mode "default"; exec $te
 
     # Translate text from ukrainian to english
-    set $tu firefox --new-tab "https://translate.google.com/?sl=uk&tl=en&text=$dmenu" && swaymsg "[app_id=Firefox] focus";
+    set $tu $browser --new-tab "https://translate.google.com/?sl=uk&tl=en&text=$dmenu" && swaymsg "[app_id=Firefox] focus";
     bindsym u mode "default"; exec $toggle_kb; exec $tu;
 
     # Search on github.com
-    set $git firefox --new-tab "https://github.com/search?q=$dmenu" && swaymsg "[app_id=Firefox] focus";
+    set $git $browser --new-tab "https://github.com/search?q=$dmenu" && swaymsg "[app_id=Firefox] focus";
     bindsym g mode "default"; exec $git
 
     # Weather
-    set $weather firefox --new-tab "https://www.ventusky.com/" && swaymsg "[app_id=Firefox] focus";
+    set $weather $browser --new-tab "https://www.ventusky.com/" && swaymsg "[app_id=Firefox] focus";
     bindsym w mode "default"; exec $weather
     
     # Alerts
-    set $alerts firefox --new-tab "https://alerts.in.ua/" && swaymsg "[app_id=Firefox] focus";
+    set $alerts $browser --new-tab "https://alerts.in.ua/" && swaymsg "[app_id=Firefox] focus";
     bindsym a mode "default"; exec $alerts
 
     # Return to default mode
@@ -224,8 +231,31 @@ mode "browser" {
 }
 bindsym $mod+s mode "browser"
 
+set $status $(sh -c $scripts/swaybar.sh)
+
 # Status Bar:
 bar {
     swaybar_command waybar
+
+#   position bottom
+#   font "Noto Sans Mono,11px"
+#   height 20
+#   modifier $mod
+#   workspace_min_width 20
+#   tray_output none
+#   separator_symbol |
+
+#   # Status command
+#   status_command while echo $status; do sleep 1; done
+
+#   colors {
+#       statusline $fg
+#       background $bg
+#       inactive_workspace $bg1 $bg $fg2
+#       active_workspace $blue $bg $fg0
+#       focused_workspace $blue $bg1 $fg0
+#       urgent_workspace $red $bg $fg0
+#       binding_mode $blue $bg1 $fg0
+#   }
 }
 
