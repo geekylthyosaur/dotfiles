@@ -153,8 +153,8 @@ for _, lsp in ipairs(servers) do
     },
     settings = {
       ["rust-analyzer"] = {
-          checkOnSave = { enable = false },
-          -- procMacro = { enable = true },
+          checkOnSave = { enable = true },
+          procMacro = { enable = true },
       }
     }
   } 

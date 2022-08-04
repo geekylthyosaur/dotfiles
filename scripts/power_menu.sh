@@ -1,6 +1,6 @@
 #!/bin/sh
 
-i=$(printf "Suspend\nLog Out\nReboot\nShutdown" | 
+i=$(printf "Suspend\nLog Out\nReload\nReboot\nShutdown" | 
     fuzzel --font="Noto Sans Mono: size=9" \
     --no-icons \
     --background-color=282828f0 \
@@ -12,9 +12,9 @@ i=$(printf "Suspend\nLog Out\nReboot\nShutdown" |
     --horizontal-pad=10 \
     --vertical-pad=10 \
     --inner-pad=10 \
-    --lines=4 \
+    --lines=5 \
     --dmenu \
-    --index \
+    --index
     ) 
 if [ "$i" -eq "0" ];
 then 
@@ -24,8 +24,11 @@ then
     exec swaymsg exit
 elif [ "$i" -eq "2" ];
 then 
-    exec doas reboot
+    exec swaymsg reload
 elif [ "$i" -eq "3" ];
 then 
-    exec doas shutdown -h n
+    exec doas reboot
+elif [ "$i" -eq "4" ];
+then 
+    exec doas shutdown -h now
 fi

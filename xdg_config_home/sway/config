@@ -99,6 +99,10 @@ for_window [app_id="floating"] floating enable
     # Power menu
     bindsym $mod+Shift+q exec $scripts/power_menu.sh
 
+    # Screenshot
+    bindsym Print exec grim "$HOME/media/pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"
+    bindsym Shift+Print exec grim -g "$(slurp -b '#282828bb' -c '#458588ff' -w 1)" "$HOME/media/pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"
+
     # Resize and move floating windows
     floating_modifier $mod normal
 
@@ -106,12 +110,6 @@ for_window [app_id="floating"] floating enable
     bindsym $mod+m layout stacking    
     bindsym $mod+t layout tabbed
     bindsym $mod+Escape layout toggle split
-
-    # Reload the configuration file
-    bindsym $mod+Shift+r reload
-
-    # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaymsg exit
 
     bindsym $mod+b exec $browser
 
