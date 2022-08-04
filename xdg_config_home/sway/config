@@ -102,6 +102,11 @@ for_window [app_id="floating"] floating enable
     # Resize and move floating windows
     floating_modifier $mod normal
 
+    # Switch the current container between different layout styles
+    bindsym $mod+m layout stacking    
+    bindsym $mod+t layout tabbed
+    bindsym $mod+Escape layout toggle split
+
     # Reload the configuration file
     bindsym $mod+Shift+r reload
 

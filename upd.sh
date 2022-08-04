@@ -16,3 +16,4 @@ cp -r $XDG_DATA_HOME/style.css ./xdg_data_home/
 cp -r /etc/greetd .
 
 cp -r $HOME/.mozilla/firefox/*/chrome/ ./firefox/
+cp -r $HOME/documents/scripts ./
