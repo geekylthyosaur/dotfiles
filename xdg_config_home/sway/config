@@ -1,6 +1,7 @@
 exec pipewire
 exec pipewire-pulse
 exec mako
+exec /usr/libexec/polkit-gnome-authentication-agent-1
 
 xwayland disable
 default_border pixel 1
@@ -46,6 +47,7 @@ set $browser firefox
 output * bg $random_wallpaper fill
 
 client.focused $blue $blue $blue
+default_floating_border pixel 1
 
 # Example configuration:
 # output HDMI-A-1 resolution 1920x1080 position 1920,0
