@@ -93,13 +93,13 @@ for_window [app_id="floating"] floating enable
     bindsym $mod+Shift+Return exec $term --class="floating"
 
     # Kill focused window
-    bindsym $mod+q kill
+    bindsym --to-code $mod+q kill
 
     # Start your launcher
-    bindsym $mod+d exec $menu --lines=1
+    bindsym --to-code $mod+d exec $menu --lines=1
 
     # Power menu
-    bindsym $mod+Shift+q exec $scripts/power_menu.sh
+    bindsym --to-code $mod+Shift+q exec $scripts/power_menu.sh
 
     # Screenshot
     bindsym Print exec grim "$HOME/media/pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"
@@ -109,11 +109,11 @@ for_window [app_id="floating"] floating enable
     floating_modifier $mod normal
 
     # Switch the current container between different layout styles
-    bindsym $mod+m layout stacking    
-    bindsym $mod+t layout tabbed
+    bindsym --to-code $mod+m layout stacking    
+    bindsym --to-code $mod+t layout tabbed
     bindsym $mod+Escape layout toggle split
 
-    bindsym $mod+b exec $browser
+    bindsym --to-code $mod+b exec $browser
 
 # Brightness controll
     bindsym --locked XF86MonBrightnessDown exec light -U 5
