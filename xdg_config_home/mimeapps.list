@@ -1,11 +1,5 @@
-
 [Default Applications]
-x-www-browser=firefox.desktop
-application/x-xdg-protocol-tg=telegramdesktop.desktop
-x-scheme-handler/tg=telegramdesktop.desktop
-text/html=firefox.desktop
-x-scheme-handler/http=firefox.desktop
-x-scheme-handler/https=firefox.desktop
-x-scheme-handler/about=firefox.desktop
-x-scheme-handler/unknown=firefox.desktop
-x-scheme-handler/discord-505520727521361941=discord-505520727521361941.desktop
+x-scheme-handler/tg=userapp-Telegram Desktop-HNH1Q1.desktop
+
+[Added Associations]
+x-scheme-handler/tg=userapp-Telegram Desktop-HNH1Q1.desktop;

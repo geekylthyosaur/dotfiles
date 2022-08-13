@@ -1,12 +1,20 @@
-exec pipewire
-exec pipewire-pulse
-exec /usr/libexec/polkit-gnome-authentication-agent-1
-exec picom
-exec xset r rate 180 60
+exec --no-startup-id xinput set-prop "TPPS/2 Elan TrackPoint" 315 1
+exec --no-startup-id xset r rate 180 60
+exec --no-startup-id xrandr --output eDP --set TearFree on
+exec --no-startup-id "setxkbmap -layout us,ua -option grp:alt_shift_toggle"
 
-default_border pixel 1
-hide_edge_borders smart
-focus_follows_mouse no
+exec_always --no-startup-id feh --no-fehbg --bg-scale $(find $HOME/media/pictures/wallpapers/ -type f | shuf -n 1)
+
+set $term alacritty
+set $left h
+set $down j
+set $up k
+set $right l
+set $mod Mod4
+set $player_prev playerctl previous
+set $player_pause_toggle playerctl play-pause
+set $player_next playerctl next
+set $refresh_i3status killall -SIGUSR1 i3status
 
 # Colors (see $XDG_DATA_HOME/style.css)
 set $bg #282828
@@ -26,167 +34,196 @@ set $aqua #689d6a
 set $orange #fe8019
 set $gray #a89984
 
-# Variables
-set $mod Mod4
-set $left h
-set $down j
-set $up k
-set $right l
-set $term alacritty
-set $player_prev playerctl previous
-set $player_pause_toggle playerctl play-pause
-set $player_next playerctl next
-set $scripts /home/dmytro/documents/scripts
-set $menu rofi -show drun
-set $random_wallpaper $($scripts/random_wallpaper.sh)
-set $browser firefox
-
-# Random wallpaper
-exec feh --no-fehbg --bg-scale $random_wallpaper
+default_border pixel 1
+hide_edge_borders smart
+focus_follows_mouse no
+floating_modifier $mod
 
 client.focused $blue $blue $blue
 default_floating_border pixel 1
 
-# Example configuration:
-# output HDMI-A-1 resolution 1920x1080 position 1920,0
-# You can get the names of your outputs by running: swaymsg -t get_outputs
-
-# Idle configuration
-
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
-
-### Key bindings
-# Basics:
-    # Start a terminal
-    bindsym $mod+Return exec $term
-
-    # Kill focused window
-    bindsym $mod+q kill
-
-    # Start your launcher
-    bindsym $mod+d exec $menu
-
-    # Switch the current container between different layout styles
-    bindsym $mod+m layout stacking    
-    bindsym $mod+t layout tabbed
-    bindsym $mod+Escape layout toggle split
-
-    bindsym $mod+b exec $browser
+for_window [class="floating"] floating enable
 
 # Brightness controll
-    bindsym XF86MonBrightnessDown exec light -U 5
-    bindsym XF86MonBrightnessUp exec light -A 5
+    bindsym XF86MonBrightnessDown exec light -U 5 && $refresh_i3status
+    bindsym XF86MonBrightnessUp exec light -A 5 && $refresh_i3status
 
 # Volume controll
-    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-    bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-    bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-    bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+    bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
+    bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+    bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 
 # Mic volume controll
-    bindsym Alt+XF86AudioRaiseVolume exec pactl set-source-volume @DEFAULT_SOURCE@ +5%
-    bindsym Alt+XF86AudioLowerVolume exec pactl set-source-volume @DEFAULT_SOURCE@ -5%
+    bindsym Alt+XF86AudioRaiseVolume exec pactl set-source-volume @DEFAULT_SOURCE@ +5% && $refresh_i3status
+    bindsym Alt+XF86AudioLowerVolume exec pactl set-source-volume @DEFAULT_SOURCE@ -5% && $refresh_i3status
 
 # Music player
     bindsym $mod+XF86AudioLowerVolume exec $player_prev
     bindsym $mod+XF86AudioMute exec $player_pause_toggle
     bindsym $mod+XF86AudioRaiseVolume exec $player_next
 
-# Moving around:
-    # Move your focus around
-    bindsym $mod+$left focus left
-    bindsym $mod+$down focus down
-    bindsym $mod+$up focus up
-    bindsym $mod+$right focus right
+    bindsym $mod+Shift+q exec /home/dmytro/documents/scripts/power_menu.sh
 
-    # Move the focused window with the same, but add Shift
-    bindsym $mod+Shift+$left move left
-    bindsym $mod+Shift+$down move down
-    bindsym $mod+Shift+$up move up
-    bindsym $mod+Shift+$right move right
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:monospace 8
 
-# Workspaces:
-    # Switch to workspace
-    bindsym $mod+1 workspace number 1
-    bindsym $mod+2 workspace number 2
-    bindsym $mod+3 workspace number 3
-    bindsym $mod+4 workspace number 4
-    bindsym $mod+5 workspace number 5
-    bindsym $mod+6 workspace number 6
-    bindsym $mod+7 workspace number 7
-    bindsym $mod+8 workspace number 8
-    bindsym $mod+9 workspace number 9
-    bindsym $mod+0 workspace number 10
-    # Move focused container to workspace
-    bindsym $mod+Shift+1 move container to workspace number 1
-    bindsym $mod+Shift+2 move container to workspace number 2
-    bindsym $mod+Shift+3 move container to workspace number 3
-    bindsym $mod+Shift+4 move container to workspace number 4
-    bindsym $mod+Shift+5 move container to workspace number 5
-    bindsym $mod+Shift+6 move container to workspace number 6
-    bindsym $mod+Shift+7 move container to workspace number 7
-    bindsym $mod+Shift+8 move container to workspace number 8
-    bindsym $mod+Shift+9 move container to workspace number 9
-    bindsym $mod+Shift+0 move container to workspace number 10
+# This font is widely installed, provides lots of unicode glyphs, right-to-left
+# text rendering and scalability on retina/hidpi displays (thanks to pango).
+#font pango:DejaVu Sans Mono 8
 
-# Layout stuff:
-    # Make the current focus fullscreen
-    bindsym $mod+f fullscreen
+# Start XDG autostart .desktop files using dex. See also
+# https://wiki.archlinux.org/index.php/XDG_Autostart
+exec --no-startup-id dex-autostart --autostart --environment i3
 
-    # Toggle the current focus between tiling and floating mode
-    bindsym $mod+w floating toggle
+# The combination of xss-lock, nm-applet and pactl is a popular choice, so
+# they are included here as an example. Modify as you see fit.
 
-    # Swap focus between the tiling area and the floating area
-    bindsym $mod+Tab focus mode_toggle
+# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
+# screen before suspend. Use loginctl lock-session to lock your screen.
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
-# Scratchpad:
-    # Move the currently focused window to the scratchpad
-    bindsym $mod+Shift+a move scratchpad
+# NetworkManager is the most popular way to manage wireless networks on Linux,
+# and nm-applet is a desktop environment-independent system tray GUI for it.
+exec --no-startup-id nm-applet
 
-    # Show the next scratchpad window or hide the focused scratchpad window.
-    # If there are multiple scratchpad windows, this command cycles through them.
-    bindsym $mod+a scratchpad show
+# Use Mouse+$mod to drag floating windows to their wanted position
 
-    # Floating modifier
-    floating_modifier $mod
+# start a terminal
+bindsym $mod+Return exec --no-startup-id $term
 
-    bindsym $mod+Shift+r reload
+# kill focused window
+bindsym $mod+q kill
 
-# Resizing containers:
+# start dmenu (a program launcher)
+bindsym $mod+d exec --no-startup-id "dmenu_run -nf '#ebdbb2' -nb '#282828' -sb '#ebdbb2' -sf '#282828' -fn 'NotoSansMono-10'"
+# A more modern dmenu replacement is rofi9
+# bindcode $mod+40 exec "rofi -modi drun,run -show drun"
+# There also is i3-dmenu-desktop which only displays applications shipping a
+# .desktop file. It is a wrapper around dmenu, so you need that installed.
+# bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
+
+# change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+m layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+Escape layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+w floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+Tab focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
 mode "resize" {
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
+        bindsym $left resize shrink width 1 px or 1 ppt
+        bindsym $down resize grow height 1 px or 1 ppt
+        bindsym $up resize shrink height 1 px or 1 ppt
+        bindsym $right resize grow width 1 px or 1 ppt
 
-    # Return to default mode
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
 }
+
 bindsym $mod+r mode "resize"
 
-# Status Bar:
+# class                 border  bground text    indicator child_border
+client.focused          #83CAFA #51A2DA #FFFFFF #83CAFA   #51A2DA
+client.focused_inactive #8C8C8C #4C4C4C #FFFFFF #4C4C4C   #8C8C8C
+client.unfocused        #4C4C4C #222222 #888888 #292D2E   #222222
+client.urgent           #EC69A0 #DB3279 #FFFFFF #DB3279   #DB3279
+client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
+
+client.background       #FFFFFF
+
 bar {
-#   position bottom
-#   font "Noto Sans Mono,11px"
-#   height 20
-#   modifier $mod
-#   workspace_min_width 20
-#   tray_output none
-#   separator_symbol |
+  colors {
+    background $bg
+    statusline $fg
+    separator  $blue
 
-#   # Status command
-#   status_command while echo $status; do sleep 1; done
-
-#   colors {
-#       statusline $fg
-#       background $bg
-#       inactive_workspace $bg1 $bg $fg2
-#       active_workspace $blue $bg $fg0
-#       focused_workspace $blue $bg1 $fg0
-#       urgent_workspace $red $bg $fg0
-#       binding_mode $blue $bg1 $fg0
-#   }
+    focused_workspace  $blue $bg1 $fg0
+    active_workspace   $blue $bg $fg0
+    inactive_workspace $bg1 $bg $fg2
+    urgent_workspace   $red $bg $fg0
+    binding_mode       $blue $bg1 $fg0
+  }
+  status_command i3status
 }
-
