@@ -1,3 +1,3 @@
 #!/bin/sh
 
-doas xbps-install -y sway
+doas xbps-install -y sway waybar

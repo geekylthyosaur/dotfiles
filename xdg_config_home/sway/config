@@ -225,7 +225,7 @@ mode "browser" {
     # Weather
     set $weather $browser --new-tab "https://www.ventusky.com/" && swaymsg "[app_id=Firefox] focus";
     bindsym w mode "default"; exec $weather
-    
+
     # Alerts
     set $alerts $browser --new-tab "https://alerts.in.ua/" && swaymsg "[app_id=Firefox] focus";
     bindsym a mode "default"; exec $alerts
