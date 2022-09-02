@@ -1,7 +1,6 @@
-exec pipewire
-exec pipewire-pulse
-exec mako
-exec /usr/libexec/polkit-gnome-authentication-agent-1
+exec --no-startup-id exec dbus-update-activation-environment DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec --no-startup-id pipewire
+exec --no-startup-id pipewire-pulse
 
 xwayland disable
 default_border pixel 1
