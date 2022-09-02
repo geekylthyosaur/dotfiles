@@ -10,4 +10,4 @@
 
 5. Execute [`get-sway.sh`](https://github.com/geekylthyosaur/dotfiles/blob/main/void-installer/get-sway.sh) and/or [`get-dwl.sh`](https://github.com/geekylthyosaur/dotfiles/blob/main/void-installer/get-dwl.sh)
 6. Put `\*-\*-launch.sh` into `~/.local/bin/` and `chmod +x` it
-7. Optionally execute [`set-env.sh`](https://github.com/geekylthyosaur/dotfiles/blob/main/void-installer/set-env.sh)
+7. Optionally execute [`set-env.sh`](https://github.com/geekylthyosaur/dotfiles/blob/main/void-installer/set-env.sh) and [`remove-unnecessary.sh`](https://github.com/geekylthyosaur/dotfiles/blob/main/void-installer/remove-unnecessary.sh)
