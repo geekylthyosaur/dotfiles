@@ -1,8 +1,3 @@
-echo "ignorepkg=sudo" | doas tee /etc/xbps.d/10-ignore.conf
-echo "ignorepkg=linux-firmware-broadcom" | doas tee -a /etc/xbps.d/10-ignore.conf
-echo "ignorepkg=linux-firmware-nvidia" | doas tee -a /etc/xbps.d/10-ignore.conf
-doas xbps-remove -Rf sudo linux-firmware-broadcom linux-firmware-nvidia
-
 echo "export XDG_CACHE_HOME=$HOME/.cache" | doas tee /etc/profile.d/env.sh
 echo "export XDG_CONFIG_HOME=$HOME/.config" | doas tee -a /etc/profile.d/env.sh
 echo "export XDG_DATA_HOME=$HOME/.local/share" | doas tee -a /etc/profile.d/env.sh
