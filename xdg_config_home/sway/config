@@ -37,13 +37,13 @@ set $term alacritty
 set $player_prev playerctl previous
 set $player_pause_toggle playerctl play-pause
 set $player_next playerctl next
-set $scripts /home/dmytro/documents/scripts
+set $scripts ~/.config/sway/
 set $menu fuzzel --font="Noto Sans Mono: size=9" --no-icons --background-color=282828f0 --text-color=ebdbb2ff --selection-color=ebdbb2ff --selection-text-color=282828ff --border-color=458588ff --border-radius=0 --horizontal-pad=10 --vertical-pad=10 --inner-pad=10 --width=50
 set $random_wallpaper $($scripts/random_wallpaper.sh)
 set $browser firefox
 
 # Random wallpaper
-output * bg $random_wallpaper fill
+# output * bg $random_wallpaper fill
 
 client.focused $blue $blue $blue
 default_floating_border pixel 1
