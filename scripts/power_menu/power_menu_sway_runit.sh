@@ -14,7 +14,8 @@ case "$(printf "Suspend\nReload\nLogout\nReboot\nShutdown" |
         --vertical-pad=10 \
         --inner-pad=10 \
         --width=50 \
-        --lines=5
+        --lines=5 \
+        --dmenu
     )" in
         Suspend) exec doas zzz;;
         Reload) exec swaymsg reload;;
