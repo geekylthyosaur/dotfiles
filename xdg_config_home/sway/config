@@ -242,6 +242,10 @@ mode "browser" {
     set $weather $browser --new-tab "https://www.ventusky.com/" && swaymsg "[app_id=Firefox] focus";
     bindsym w mode "default"; exec $weather
 
+    # Timetable
+    set $timetable $browser --new-tab "https://nulp.tk/#/%D0%9F%D0%97-22/2" && swaymsg "[app_id=Firefox] focus";
+    bindsym t mode "default"; exec $timetable
+
     # Alerts
     set $alerts $browser --new-tab "https://alerts.in.ua/" && swaymsg "[app_id=Firefox] focus";
     bindsym a mode "default"; exec $alerts
