@@ -1,6 +1,7 @@
 exec --no-startup-id exec dbus-update-activation-environment DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 exec --no-startup-id pipewire
 exec --no-startup-id pipewire-pulse
+exec --no-startup-id foot --server
 
 xwayland disable
 default_border pixel 1
@@ -8,6 +9,7 @@ smart_borders on
 hide_edge_borders smart
 focus_follows_mouse no
 seat seat0 hide_cursor 10000
+seat seat0 xcursor_theme Vimix-cursors 24
 
 # Colors (see $XDG_DATA_HOME/style.css)
 set $bg #282828
@@ -33,17 +35,31 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term alacritty
+set $term footclient
 set $player_prev playerctl previous
 set $player_pause_toggle playerctl play-pause
 set $player_next playerctl next
-set $scripts ~/.config/sway/
-set $menu fuzzel --font="Noto Sans Mono: size=9" --no-icons --background-color=282828f0 --text-color=ebdbb2ff --selection-color=ebdbb2ff --selection-text-color=282828ff --border-color=458588ff --border-radius=0 --horizontal-pad=10 --vertical-pad=10 --inner-pad=10 --width=50
+set $scripts ~/.config/sway
+set $menu fuzzel \
+    --font="Noto Sans Mono: size=9" \
+    --no-icons \
+    --background-color=282828f0 \
+    --text-color=ebdbb2ff \
+    --selection-color=ebdbb2ff \
+    --selection-text-color=282828ff \
+    --border-color=458588ff \
+    --border-radius=0 \
+    --horizontal-pad=10 \
+    --vertical-pad=10 \
+    --inner-pad=10 \
+    --terminal="footclient" \
+    --width=50
+
 set $random_wallpaper $($scripts/random_wallpaper.sh)
 set $browser firefox
 
 # Random wallpaper
-# output * bg $random_wallpaper fill
+output * bg $random_wallpaper fill
 
 client.focused $blue $blue $blue
 default_floating_border pixel 1
@@ -69,7 +85,7 @@ input "type:keyboard" {
     xkb_options grp:alt_shift_toggle
 }
 
-input "2:14:SynPS/2_Synaptics_TouchPad" {
+input "2:7:SynPS/2_Synaptics_TouchPad" {
     dwt enabled
     tap enabled
     natural_scroll enabled
@@ -89,7 +105,7 @@ for_window [app_id="floating"] floating enable
 # Basics:
     # Start a terminal
     bindsym $mod+Return exec $term
-    bindsym $mod+Shift+Return exec $term --class="floating"
+    bindsym $mod+Shift+Return exec $term --app-id="floating"
 
     # Kill focused window
     bindsym --to-code $mod+q kill
@@ -101,8 +117,8 @@ for_window [app_id="floating"] floating enable
     bindsym --to-code $mod+Shift+q exec $scripts/power_menu.sh
 
     # Screenshot
-    bindsym Print exec grim "$HOME/media/pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"
-    bindsym Shift+Print exec grim -g "$(slurp -b '#282828bb' -c '#458588ff' -w 1)" "$HOME/media/pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"
+    bindsym Print exec grim "$HOME/pix/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"
+    bindsym Shift+Print exec grim -g "$(slurp -b '#282828bb' -c '#458588ff' -w 1)" "$HOME/pix/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"
 
     # Resize and move floating windows
     floating_modifier $mod normal
@@ -235,31 +251,8 @@ mode "browser" {
 }
 bindsym $mod+s mode "browser"
 
-set $status $(sh -c $scripts/swaybar.sh)
-
 # Status Bar:
 bar {
     swaybar_command waybar
-
-#   position bottom
-#   font "Noto Sans Mono,11px"
-#   height 20
-#   modifier $mod
-#   workspace_min_width 20
-#   tray_output none
-#   separator_symbol |
-
-#   # Status command
-#   status_command while echo $status; do sleep 1; done
-
-#   colors {
-#       statusline $fg
-#       background $bg
-#       inactive_workspace $bg1 $bg $fg2
-#       active_workspace $blue $bg $fg0
-#       focused_workspace $blue $bg1 $fg0
-#       urgent_workspace $red $bg $fg0
-#       binding_mode $blue $bg1 $fg0
-#   }
 }
 

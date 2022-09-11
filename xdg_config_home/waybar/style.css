@@ -8,32 +8,9 @@
 
 window#waybar {
     background-color: @bg;
-    border-bottom: 0px solid rgba(100, 114, 125, 0.5);
     color: @fg;
     transition-property: background-color;
     transition-duration: .5s;
-}
-
-window#waybar.hidden {
-    opacity: 0.2;
-}
-
-/*
-window#waybar.empty {
-    background-color: transparent;
-}
-window#waybar.solo {
-    background-color: #FFFFFF;
-}
-*/
-
-window#waybar.termite {
-    background-color: #3F3F3F;
-}
-
-window#waybar.chromium {
-    background-color: #000000;
-    border: none;
 }
 
 #workspaces button {
@@ -67,20 +44,12 @@ window#waybar.chromium {
 
 #clock,
 #battery,
-#cpu,
-#memory,
-#disk,
-#temperature,
 #backlight,
 #network,
 #pulseaudio,
-#custom-media,
-#tray,
 #mode,
-#idle_inhibitor,
 #mpd {
     padding: 0 5px;
-    color: @fg;
 }
 
 #window,
@@ -98,144 +67,3 @@ window#waybar.chromium {
     margin-right: 0;
 }
 
-#clock {
-    background-color: @bg;
-    color: @fg
-}
-
-#battery {
-    background-color: @bg;
-    color: @fg;
-}
-
-#battery.charging, #battery.plugged {
-    background-color: @bg;
-    color: @fg;
-}
-
-@keyframes blink {
-    to {
-        background-color: #ffffff;
-        color: #000000;
-    }
-}
-
-#battery.critical:not(.charging) {
-    background-color: #f53c3c;
-    color: #ffffff;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-label:focus {
-    background-color: #000000;
-}
-
-#cpu {
-    background-color: #2ecc71;
-    color: #000000;
-}
-
-#memory {
-    background-color: #9b59b6;
-}
-
-#disk {
-    background-color: #964B00;
-}
-
-#backlight {
-    background-color: @bg;
-    color: @fg;
-}
-
-#network {
-    background-color: @bg;
-    color: @fg;
-}
-
-#network.disconnected {
-    background-color: @bg;
-    color: @fg1
-}
-
-#pulseaudio {
-    background-color: @bg;
-    color: @fg;
-}
-
-#pulseaudio.muted {
-    background-color: @bg;
-    color: @fg;
-}
-
-#custom-media {
-    background-color: @bg;
-    color: @fg;
-    min-width: 100px;
-}
-
-#custom-media.custom-spotify {
-    background-color: #66cc99;
-}
-
-#custom-media.custom-vlc {
-    background-color: #ffa000;
-}
-
-#temperature {
-    background-color: #f0932b;
-}
-
-#temperature.critical {
-    background-color: #eb4d4b;
-}
-
-#tray {
-    background-color: @bg;
-}
-
-#tray > .passive {
-    -gtk-icon-effect: dim;
-}
-
-#tray > .needs-attention {
-    -gtk-icon-effect: highlight;
-    background-color: @bg;
-}
-
-#idle_inhibitor {
-    background-color: #2d3436;
-}
-
-#idle_inhibitor.activated {
-    background-color: #ecf0f1;
-    color: #2d3436;
-}
-
-#language {
-    background: @bg;
-    color: @fg;
-    padding: 0 0px;
-    margin: 0 0px;
-    min-width: 16px;
-}
-
-#keyboard-state {
-    background: #97e1ad;
-    color: #000000;
-    padding: 0 0px;
-    margin: 0 0px;
-    min-width: 16px;
-}
-
-#keyboard-state > label {
-    padding: 0 5px;
-}
-
-#keyboard-state > label.locked {
-    background: rgba(0, 0, 0, 0.2);
-}
