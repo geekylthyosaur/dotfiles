@@ -41,6 +41,7 @@
         "format-disconnected": "!!!",
     },
     "pulseaudio": {
+        "on-click": "pavucontrol",
         "format": "{icon}{volume}% {format_source}",
         "format-muted": "SM",
         "format-source": "M:{volume}%",
