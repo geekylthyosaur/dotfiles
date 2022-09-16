@@ -134,8 +134,8 @@ for_window [app_id="pavucontrol"] floating enable
     bindsym --to-code $mod+b exec $browser
 
 # Brightness controll
-    bindsym --locked XF86MonBrightnessDown exec light -U 5
-    bindsym --locked XF86MonBrightnessUp exec light -A 5
+    bindsym --locked XF86MonBrightnessDown exec slight --path /sys/class/backlight/amdgpu_bl0/ -10
+    bindsym --locked XF86MonBrightnessUp exec slight --path /sys/class/backlight/amdgpu_bl0/ 10
 
 # Volume controll
     bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
