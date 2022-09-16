@@ -257,10 +257,25 @@ mode "browser" {
     set $alerts $browser --new-tab "https://alerts.in.ua/" && swaymsg "[app_id=Firefox] focus";
     bindsym a mode "default"; exec $alerts
 
+    bindsym r mode "rust"
+
     # Return to default mode
     bindsym Escape mode "default"
 }
 bindsym $mod+s mode "browser"
+
+mode "rust" {
+    # Rust std
+    set $rstd $browser --new-tab "https://doc.rust-lang.org/std/index.html?search=$dmenu" && swaymsg "[app_id=Firefox] focus";
+    bindsym s mode "default"; exec $rstd
+
+    # Rust crates
+    set $rcrates $browser --new-tab "https://docs.rs/releases/search?query=$dmenu" && swaymsg "[app_id=Firefox] focus";
+    bindsym c mode "default"; exec $rcrates
+
+    # Return to default mode
+    bindsym Escape mode "default"
+}
 
 # Status Bar:
 bar {
