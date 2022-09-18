@@ -17,7 +17,7 @@ case "$(printf "Suspend\nReload\nLogout\nReboot\nShutdown" |
         --lines=5 \
         --dmenu
     )" in
-        Suspend) exec doas zzz;;
+        Suspend) exec playerctl pause & doas zzz;;
         Reload) exec swaymsg reload;;
         Logout) exec swaymsg exit;;
         Reboot) exec doas reboot;;
