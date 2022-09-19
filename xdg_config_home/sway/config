@@ -136,6 +136,8 @@ for_window [app_id="pavucontrol"] floating enable
 # Brightness controll
     bindsym --locked XF86MonBrightnessDown exec slight --path /sys/class/backlight/amdgpu_bl0/ -10
     bindsym --locked XF86MonBrightnessUp exec slight --path /sys/class/backlight/amdgpu_bl0/ 10
+    bindsym --locked $alt+XF86MonBrightnessDown exec slight --path /sys/class/backlight/amdgpu_bl0/ -2
+    bindsym --locked $alt+XF86MonBrightnessUp exec slight --path /sys/class/backlight/amdgpu_bl0/ 2
 
 # Volume controll
     bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
