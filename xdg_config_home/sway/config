@@ -41,6 +41,7 @@ set $player_prev playerctl previous
 set $player_pause_toggle playerctl play-pause
 set $player_next playerctl next
 set $scripts ~/.config/sway
+set $kb "type:keyboard"
 set $menu fuzzel \
     --font="Noto Sans Mono: size=9" \
     --no-icons \
@@ -79,12 +80,12 @@ exec swayidle -w \
             resume 'swaymsg "output * dpms on"' \
             before-sleep 'swaylock -f -c 000000 -i $random_wallpaper'
 
-input "type:keyboard" {
+input $kb {
     repeat_delay 180
     repeat_rate 60
 
     xkb_layout us,ua
-    xkb_options grp:alt_shift_toggle
+    xkb_options grp:rctrl_toggle
 }
 
 input "2:7:SynPS/2_Synaptics_TouchPad" {
@@ -107,8 +108,8 @@ for_window [app_id="pavucontrol"] floating enable
 ### Key bindings
 # Basics:
     # Start a terminal
-    bindsym $mod+Return exec $term
-    bindsym $mod+Shift+Return exec $term --app-id="floating"
+    bindsym $mod+Return exec $term; input $kb xkb_switch_layout 0
+    bindsym $mod+Shift+Return exec $term --app-id="floating"; input $kb xkb_switch_layout 0
 
     # Kill focused window
     bindsym --to-code $mod+q kill
