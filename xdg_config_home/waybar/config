@@ -56,5 +56,10 @@
         "on-click-right": "playerctl next",
         "on-click-middle": "playerctl play-pause",
     },
+    "custom/memory": {
+        "exec": "free -m | sed -n -e '2{p;q}' | awk '{print $3}'",
+        "interval": 5,
+        "format": "RAM:{}MiB/64KiB"
+    },
 }
 
