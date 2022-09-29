@@ -105,6 +105,8 @@ input "2:10:TPPS/2_Elan_TrackPoint" {
 
 for_window [app_id="floating"] floating enable
 for_window [app_id="pavucontrol"] floating enable
+for_window [app_id="thunar"] floating enable
+for_window [app_id="Firefox" title="Firefox — Sharing Indicator"] kill
 
 ### Key bindings
 # Basics:
@@ -289,15 +291,15 @@ mode "open" {
     set $files thunar
     set $win doas virsh start win10 & virt-manager --connect qemu:///system --show-domain-console win10
 
-    bindsym --to-code a exec $browser
-    bindsym --to-code t exec $tg
-    bindsym --to-code c exec $chrome
-    bindsym --to-code v exec $vm
-    bindsym --to-code l exec $latex
-    bindsym --to-code o exec $libreoffce
-    bindsym --to-code q exec $qtcreator
-    bindsym --to-code f exec $files
-    bindsym --to-code w exec $win
+    bindsym --to-code a mode "default"; exec $browser; workspace number 1
+    bindsym --to-code t mode "default"; exec $tg; workspace number 9
+    bindsym --to-code c mode "default"; exec $chrome; workspace number 3
+    bindsym --to-code v mode "default"; exec $vm; workspace number 5
+    bindsym --to-code l mode "default"; exec $latex; workspace number 3
+    bindsym --to-code o mode "default"; exec $libreoffce; workspace number 3
+    bindsym --to-code q mode "default"; exec $qtcreator; workspace number 3
+    bindsym --to-code f mode "default"; exec $files
+    bindsym --to-code w mode "default"; exec $win; workspace number 5
 
     bindsym Escape mode "default"
 }
