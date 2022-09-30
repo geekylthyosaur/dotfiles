@@ -234,32 +234,20 @@ mode "browser" {
     set $toggle_kb swaymsg input "1:1:AT_Translated_Set_2_keyboard" xkb_switch_layout next
 
     # Search with with google
-    set $search $browser --new-tab "https://www.google.com/search?q=$dmenu" && swaymsg "[app_id=Firefox] focus";
+    set $search firefox --new-tab "https://www.google.com/search?q=$dmenu" && swaymsg "[app_id=Firefox] focus";
     bindsym --to-code s mode "default"; exec $search
 
     # Translate text from english to ukrainian
-    set $te $browser --new-tab "https://translate.google.com/?sl=en&tl=uk&text=$dmenu" && swaymsg "[app_id=Firefox] focus";
+    set $te firefox --new-tab "https://translate.google.com/?sl=en&tl=uk&text=$dmenu" && swaymsg "[app_id=Firefox] focus";
     bindsym --to-code e mode "default"; exec $te
 
     # Translate text from ukrainian to english
-    set $tu $browser --new-tab "https://translate.google.com/?sl=uk&tl=en&text=$dmenu" && swaymsg "[app_id=Firefox] focus";
+    set $tu firefox --new-tab "https://translate.google.com/?sl=uk&tl=en&text=$dmenu" && swaymsg "[app_id=Firefox] focus";
     bindsym --to-code u mode "default"; exec $toggle_kb; exec $tu;
 
     # Search on github.com
-    set $git $browser --new-tab "https://github.com/search?q=$dmenu" && swaymsg "[app_id=Firefox] focus";
+    set $git firefox --new-tab "https://github.com/search?q=$dmenu" && swaymsg "[app_id=Firefox] focus";
     bindsym --to-code g mode "default"; exec $git
-
-    # Weather
-    set $weather $browser --new-tab "https://www.ventusky.com/" && swaymsg "[app_id=Firefox] focus";
-    bindsym --to-code w mode "default"; exec $weather
-
-    # Timetable
-    set $timetable $browser --new-tab "https://nulp.tk/#/%D0%9F%D0%97-22/2" && swaymsg "[app_id=Firefox] focus";
-    bindsym --to-code t mode "default"; exec $timetable
-
-    # Alerts
-    set $alerts $browser --new-tab "https://alerts.in.ua/" && swaymsg "[app_id=Firefox] focus";
-    bindsym --to-code a mode "default"; exec $alerts
 
     bindsym --to-code r mode "rust"
 
@@ -270,11 +258,11 @@ bindsym --to-code  $mod+s mode "browser"
 
 mode "rust" {
     # Rust std
-    set $rstd $browser --new-tab "https://doc.rust-lang.org/std/index.html?search=$dmenu" && swaymsg "[app_id=Firefox] focus";
+    set $rstd firefox --new-tab "https://doc.rust-lang.org/std/index.html?search=$dmenu" && swaymsg "[app_id=Firefox] focus";
     bindsym --to-code s mode "default"; exec $rstd
 
     # Rust crates
-    set $rcrates $browser --new-tab "https://docs.rs/releases/search?query=$dmenu" && swaymsg "[app_id=Firefox] focus";
+    set $rcrates firefox --new-tab "https://docs.rs/releases/search?query=$dmenu" && swaymsg "[app_id=Firefox] focus";
     bindsym --to-code c mode "default"; exec $rcrates
 
     # Return to default mode
@@ -291,6 +279,11 @@ mode "open" {
     set $files thunar
     set $win doas virsh start win10 & virt-manager --connect qemu:///system --show-domain-console win10
 
+    set $gh firefox --new-tab "https://www.github.com/" && swaymsg "[app_id=Firefox] focus";
+    set $alerts firefox --new-tab "https://alerts.in.ua/" && swaymsg "[app_id=Firefox] focus";
+    set $weather firefox --new-tab "https://www.ventusky.com/" && swaymsg "[app_id=Firefox] focus";
+    set $timetable firefox --new-tab "https://nulp.tk/#/%D0%9F%D0%97-22/2" && swaymsg "[app_id=Firefox] focus";
+
     bindsym --to-code a mode "default"; exec $browser; workspace number 1
     bindsym --to-code t mode "default"; exec $tg; workspace number 9
     bindsym --to-code c mode "default"; exec $chrome; workspace number 3
@@ -300,6 +293,10 @@ mode "open" {
     bindsym --to-code q mode "default"; exec $qtcreator; workspace number 3
     bindsym --to-code f mode "default"; exec $files
     bindsym --to-code w mode "default"; exec $win; workspace number 5
+    bindsym --to-code g mode "default"; exec $gh
+    bindsym --to-code 1 mode "default"; exec $alerts
+    bindsym --to-code 2 mode "default"; exec $weather
+    bindsym --to-code 3 mode "default"; exec $timetable
 
     bindsym Escape mode "default"
 }
