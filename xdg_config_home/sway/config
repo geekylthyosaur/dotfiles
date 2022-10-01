@@ -284,15 +284,15 @@ mode "open" {
     set $weather firefox --new-tab "https://www.ventusky.com/" && swaymsg "[app_id=Firefox] focus";
     set $timetable firefox --new-tab "https://nulp.tk/#/%D0%9F%D0%97-22/2" && swaymsg "[app_id=Firefox] focus";
 
-    bindsym --to-code a mode "default"; exec $browser; workspace number 1
-    bindsym --to-code t mode "default"; exec $tg; workspace number 9
-    bindsym --to-code c mode "default"; exec $chrome; workspace number 3
-    bindsym --to-code v mode "default"; exec $vm; workspace number 5
-    bindsym --to-code l mode "default"; exec $latex; workspace number 3
-    bindsym --to-code o mode "default"; exec $libreoffce; workspace number 3
-    bindsym --to-code q mode "default"; exec $qtcreator; workspace number 3
+    bindsym --to-code a mode "default"; workspace number 1; exec $browser
+    bindsym --to-code t mode "default"; workspace number 9; exec $tg
+    bindsym --to-code c mode "default"; workspace number 3; exec $chrome
+    bindsym --to-code v mode "default"; workspace number 5; exec $vm
+    bindsym --to-code l mode "default"; workspace number 3; exec $latex
+    bindsym --to-code o mode "default"; workspace number 3; exec $libreoffce
+    bindsym --to-code q mode "default"; workspace number 3; exec $qtcreator
     bindsym --to-code f mode "default"; exec $files
-    bindsym --to-code w mode "default"; exec $win; workspace number 5
+    bindsym --to-code w mode "default"; workspace number 5; exec $win
     bindsym --to-code g mode "default"; exec $gh
     bindsym --to-code 1 mode "default"; exec $alerts
     bindsym --to-code 2 mode "default"; exec $weather
