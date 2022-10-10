@@ -300,7 +300,7 @@ mode "open" {
 
     bindsym Escape mode "default"
 }
-bindsym $mod+o mode "open"
+bindsym --to-code $mod+e mode "open"
 
 # Status Bar:
 bar {
