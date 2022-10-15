@@ -107,6 +107,7 @@ for_window [app_id="floating"] floating enable
 for_window [app_id="pavucontrol"] floating enable
 for_window [app_id="thunar"] floating enable
 for_window [app_id="Firefox" title="Firefox — Sharing Indicator"] kill
+for_window [app_id="swayimg"] fullscreen
 
 ### Key bindings
 # Basics:
