@@ -136,6 +136,8 @@ for_window [app_id="swayimg"] fullscreen
     bindsym --to-code $mod+t layout tabbed
     bindsym $mod+Escape layout toggle split
 
+    bindsym --locked XF86PowerOff exec doas zzz
+
 # Brightness controll
     bindsym --locked XF86MonBrightnessDown exec slight --path /sys/class/backlight/amdgpu_bl0/ -10
     bindsym --locked XF86MonBrightnessUp exec slight --path /sys/class/backlight/amdgpu_bl0/ 10
@@ -249,6 +251,8 @@ mode "browser" {
     # Search on github.com
     set $git firefox --new-tab "https://github.com/search?q=$dmenu" && swaymsg "[app_id=Firefox] focus";
     bindsym --to-code g mode "default"; exec $git
+
+    bindsym --to-code d mode "default"; exec wl-copy -o "site:reddit.com" && wl-paste
 
     bindsym --to-code r mode "rust"
 
