@@ -43,6 +43,8 @@ set $player_pause_toggle playerctl play-pause
 set $player_next playerctl next
 set $scripts ~/.config/sway
 set $kb "type:keyboard"
+set $touchpad "2:7:SynPS/2_Synaptics_TouchPad"
+set $trackpoint "2:10:TPPS/2_Elan_TrackPoint"
 set $menu fuzzel \
     --font="Noto Sans Mono: size=9" \
     --no-icons \
@@ -89,14 +91,14 @@ input $kb {
     xkb_options grp:alt_shift_toggle
 }
 
-input "2:7:SynPS/2_Synaptics_TouchPad" {
+input $touchpad {
     dwt enabled
     tap enabled
     natural_scroll enabled
     middle_emulation enabled
 }
 
-input "2:10:TPPS/2_Elan_TrackPoint" {
+input $trackpoint {
     left_handed enabled
 }
 
