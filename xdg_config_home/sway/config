@@ -3,14 +3,6 @@ exec --no-startup-id pipewire
 exec --no-startup-id pipewire-pulse
 exec --no-startup-id foot --server
 
-xwayland disable
-default_border pixel 1
-smart_borders on
-hide_edge_borders smart
-focus_follows_mouse no
-seat seat0 hide_cursor 10000
-seat seat0 xcursor_theme Vimix-cursors 24
-
 # Colors (see $XDG_DATA_HOME/style.css)
 set $bg #282828
 set $bg0 #1d2021
@@ -45,6 +37,8 @@ set $scripts ~/.config/sway
 set $kb "type:keyboard"
 set $touchpad "2:7:SynPS/2_Synaptics_TouchPad"
 set $trackpoint "2:10:TPPS/2_Elan_TrackPoint"
+set $border_width 2
+set $border_color $blue
 set $menu fuzzel \
     --font="Noto Sans Mono: size=9" \
     --no-icons \
@@ -53,6 +47,7 @@ set $menu fuzzel \
     --selection-color=ebdbb2ff \
     --selection-text-color=282828ff \
     --border-color=458588ff \
+    --border-width=$border_width \
     --border-radius=0 \
     --horizontal-pad=10 \
     --vertical-pad=10 \
@@ -62,12 +57,24 @@ set $menu fuzzel \
 
 set $random_wallpaper $($scripts/random_wallpaper.sh)
 
+xwayland disable
+smart_borders on
+hide_edge_borders smart
+focus_follows_mouse no
+client.focused $bg2 $bg $fg $blue $blue
+default_border pixel $border_width
+default_floating_border pixel $border_width
+seat seat0 hide_cursor 10000
+seat seat0 xcursor_theme Vimix-cursors 24
+
+for_window [app_id="floating"] floating enable
+for_window [app_id="pavucontrol"] floating enable
+for_window [app_id="thunar"] floating enable
+for_window [app_id="Firefox" title="Firefox — Sharing Indicator"] kill
+for_window [app_id="swayimg"] fullscreen
+
 # Random wallpaper
 output * bg $random_wallpaper fill
-
-client.focused $bg2 $bg $fg $blue $blue
-default_border pixel 1
-default_floating_border pixel 1
 
 # Example configuration:
 # output HDMI-A-1 resolution 1920x1080 position 1920,0
@@ -75,13 +82,14 @@ default_floating_border pixel 1
 
 # Idle configuration
 bindsym $mod+End exec swaylock -i $random_wallpaper
-
 exec swayidle -w \
             timeout 300 'swaylock -f -c 000000 -i $random_wallpaper' \
             timeout 600 'swaymsg "output * dpms off"' \
             resume 'swaymsg "output * dpms on"' \
             before-sleep 'swaylock -f -c 000000 -i $random_wallpaper'
 
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
 input $kb {
     repeat_delay 180
     repeat_rate 60
@@ -101,15 +109,6 @@ input $touchpad {
 input $trackpoint {
     left_handed enabled
 }
-
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
-
-for_window [app_id="floating"] floating enable
-for_window [app_id="pavucontrol"] floating enable
-for_window [app_id="thunar"] floating enable
-for_window [app_id="Firefox" title="Firefox — Sharing Indicator"] kill
-for_window [app_id="swayimg"] fullscreen
 
 ### Key bindings
 # Basics:
@@ -188,6 +187,7 @@ for_window [app_id="swayimg"] fullscreen
     bindsym $mod+0 workspace number 10
     bindsym $mod+BracketLeft workspace prev
     bindsym $mod+BracketRight workspace next
+
     # Move focused container to workspace
     bindsym $mod+Shift+1 move container to workspace number 1; workspace number 1
     bindsym $mod+Shift+2 move container to workspace number 2; workspace number 2
