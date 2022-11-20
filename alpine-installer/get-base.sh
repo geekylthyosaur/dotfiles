@@ -8,12 +8,12 @@ while true; do
     esac
 done
 
-
-doas apk add foot fuzzel neovim tmux htop \
-    grim playerctl light \
-    dbus polkit \
-    pipewire pipewire-alsa libpipewire0.2 \
-    xdg-desktop-portal xdg-desktop-portal-wlr v4l2loopback gstreamer1-pipewire slurp \
-    gsetting-desktop-schemas \
-    ttf-dejavu
+doas apk add foot fuzzel neovim tmux htop \ # Basic utilities
+    light \ # Screen brightness control
+    dbus \ # Required utilities
+    pipewire pipewire-alsa playerctl \ # Sound
+    slurp grim \ # Screenshots
+    xdg-desktop-portal xdg-desktop-portal-wlr v4l2loopback gstreamer1-pipewire libpipewire0.2 \ # Screen sharing
+    gsetting-desktop-schemas \ # Cursor theme
+    ttf-dejavu # Fonts
 

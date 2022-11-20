@@ -7,5 +7,5 @@ export XDG_SESSION_TYPE=wayland
 export XDG_SESSION_DESKTOP=sway
 export XDG_CURRENT_DESKTOP=sway
 
-exec dbus-run-session dwl
+exec dbus-run-session -- dwl
 

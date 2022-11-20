@@ -1,7 +1,7 @@
 exec --no-startup-id exec dbus-update-activation-environment DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 exec --no-startup-id pipewire
 exec --no-startup-id pipewire-pulse
-exec --no-startup-id foot --server
+# exec --no-startup-id foot --server
 
 # Colors (see $XDG_DATA_HOME/style.css)
 set $bg #282828
@@ -28,8 +28,10 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term footclient
+set $term alacritty
+# set $term footclient
 set $browser firefox
+set $player_pause playerctl pause
 set $player_prev playerctl previous
 set $player_pause_toggle playerctl play-pause
 set $player_next playerctl next
@@ -65,6 +67,7 @@ client.focused $bg2 $bg $fg $blue $blue
 client.unfocused $bg2 $bg1 $fg $blue $bg
 default_border pixel $border_width
 default_floating_border pixel $border_width
+floating_maximum_size 1300 x 700
 seat seat0 hide_cursor 10000
 seat seat0 xcursor_theme Vimix-cursors 24
 # gsettings set org.gnome.desktop.interface cursor-theme Vimix-cursors
@@ -115,7 +118,8 @@ input $trackpoint {
 # Basics:
     # Start a terminal
     bindsym $mod+Return exec $term; input $kb xkb_switch_layout 0
-    bindsym $mod+Shift+Return exec $term --app-id="floating"; input $kb xkb_switch_layout 0
+    # bindsym $mod+Shift+Return exec $term --app-id="floating"; input $kb xkb_switch_layout 0
+    bindsym $mod+Shift+Return exec $term --class="floating"; input $kb xkb_switch_layout 0
 
     # Kill focused window
     bindsym --to-code $mod+q kill
@@ -127,7 +131,8 @@ input $trackpoint {
     bindsym --to-code $mod+Shift+q exec $scripts/power_menu.sh
 
     # Screenshot
-    bindsym Print exec grim "$HOME/pix/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"
+    set $sreenshot_path "$HOME/pix/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"
+    bindsym Print exec grim  "$HOME/pix/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"
     bindsym Shift+Print exec grim -g "$(slurp -b '#282828bb' -c '#458588ff' -w 1)" "$HOME/pix/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"
 
     # Resize and move floating windows
@@ -136,8 +141,9 @@ input $trackpoint {
     # Switch the current container between different layout styles
     bindsym --to-code $mod+m layout stacking    
     bindsym --to-code $mod+t layout tabbed
-    bindsym $mod+Escape layout default
+    bindsym --to-code $mod+Escape layout splith
 
+    # Suspend on power button click
     bindsym --locked XF86PowerOff exec doas zzz
 
 # Brightness controll
