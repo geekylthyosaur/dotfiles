@@ -1,6 +1,6 @@
 #!/bin/sh
 
-doas apk add seatd
+doas apk add seatd seatd-launch
 
 doas rc-update seatd
 doas rc-service seatd start
