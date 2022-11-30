@@ -1,7 +1,9 @@
-exec --no-startup-id exec dbus-update-activation-environment DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+### Autostart
+# https://github.com/emersion/xdg-desktop-portal-wlr/wiki/%22It-doesn't-work%22-Troubleshooting-Checklist#issues-in-void-linux
+exec --no-startup-id dbus-update-activation-environment DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+# Pipewire
 exec --no-startup-id pipewire
 exec --no-startup-id pipewire-pulse
-# exec --no-startup-id foot --server
 
 # Colors (see $XDG_DATA_HOME/style.css)
 set $bg #282828
@@ -29,7 +31,6 @@ set $down j
 set $up k
 set $right l
 set $term alacritty
-# set $term footclient
 set $browser firefox
 set $player_pause playerctl pause
 set $player_prev playerctl previous
@@ -68,12 +69,19 @@ client.unfocused $bg2 $bg1 $fg $blue $bg
 default_border pixel $border_width
 default_floating_border pixel $border_width
 floating_maximum_size 1300 x 700
+
+### Cursor
+# Hide cursor after 10 seconds of inactivity
 seat seat0 hide_cursor 10000
+# Set cursor theme 
 seat seat0 xcursor_theme Vimix-cursors 24
+# Execute once for gtk applications
 # gsettings set org.gnome.desktop.interface cursor-theme Vimix-cursors
 
 for_window [app_id="floating"] floating enable
 for_window [app_id="pavucontrol"] floating enable
+for_window [app_id="telegram-desktop" title="Choose Files"] floating enable
+for_window [title="Monitor directory"] floating enable
 for_window [app_id="thunar"] floating enable
 for_window [app_id="Firefox" title="Firefox — Sharing Indicator"] kill
 for_window [app_id="swayimg"] fullscreen
@@ -118,13 +126,13 @@ input $trackpoint {
 # Basics:
     # Start a terminal
     bindsym $mod+Return exec $term; input $kb xkb_switch_layout 0
-    # bindsym $mod+Shift+Return exec $term --app-id="floating"; input $kb xkb_switch_layout 0
+    # Start floating terminal         or --app-id
     bindsym $mod+Shift+Return exec $term --class="floating"; input $kb xkb_switch_layout 0
 
     # Kill focused window
     bindsym --to-code $mod+q kill
 
-    # Start your launcher
+    # Start launcher
     bindsym --to-code $mod+d exec $menu --lines=1
 
     # Power menu
@@ -133,6 +141,7 @@ input $trackpoint {
     # Screenshot
     set $sreenshot_path "$HOME/pix/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"
     bindsym Print exec grim  "$HOME/pix/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"
+    # Selection screenshot
     bindsym Shift+Print exec grim -g "$(slurp -b '#282828bb' -c '#458588ff' -w 1)" "$HOME/pix/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"
 
     # Resize and move floating windows
@@ -260,8 +269,6 @@ mode "browser" {
     # Search on github.com
     set $git firefox --new-tab "https://github.com/search?q=$dmenu" && swaymsg "[app_id=Firefox] focus";
     bindsym --to-code g mode "default"; exec $git
-
-    bindsym --to-code d mode "default"; exec wl-copy -o "site:reddit.com" && wl-paste
 
     bindsym --to-code r mode "rust"
 
