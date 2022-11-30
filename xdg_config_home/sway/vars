@@ -1,0 +1,82 @@
+# Colors (see $XDG_DATA_HOME/style.css)
+set $bg #282828
+set $bg0 #1d2021
+set $bg1 #3c3836
+set $bg2 #504945
+set $fg #ebdbb2
+set $fg0 #fbf1c7
+set $fg1 #d5c4a1
+set $fg2 #bdae93
+set $red #cc241d
+set $green #98971a
+set $yellow #d79921
+set $blue #458588
+set $purple #b16286
+set $aqua #689d6a
+set $orange #fe8019
+set $gray #a89984
+
+# Variables
+set $mod Mod4
+set $alt Mod1
+set $left h
+set $down j
+set $up k
+set $right l
+set $term alacritty
+set $browser firefox
+set $player_pause playerctl pause
+set $player_prev playerctl previous
+set $player_pause_toggle playerctl play-pause
+set $player_next playerctl next
+set $scripts ~/.config/sway
+set $kb "type:keyboard"
+set $touchpad "2:7:SynPS/2_Synaptics_TouchPad"
+set $trackpoint "2:10:TPPS/2_Elan_TrackPoint"
+set $border_width 3
+set $border_color $blue
+set $menu fuzzel \
+    --font="Noto Sans Mono: size=9" \
+    --no-icons \
+    --background-color=282828f0 \
+    --text-color=ebdbb2ff \
+    --selection-color=ebdbb2ff \
+    --selection-text-color=282828ff \
+    --border-color=458588ff \
+    --border-width=$border_width \
+    --border-radius=0 \
+    --horizontal-pad=10 \
+    --vertical-pad=10 \
+    --inner-pad=10 \
+    --terminal=$term \
+    --width=50
+
+
+set $cursor_size 24
+set $cursor_theme Vimix-cursors
+
+set $random_wallpaper $($scripts/random_wallpaper.sh)
+
+set $start_terminal $term; input $kb xkb_switch_layout 0
+set $start_floating_terminal $term --class="floating"; input $kb xkb_switch_layout 0
+
+set $start_launcher $menu --lines=1
+set $start_power_menu $scripts/power_menu.sh
+
+set $fullscreen_screenshot_to_clipboard_and_file IMG=~/pix/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && grim $IMG && wl-copy < $IMG
+set $selection_screenshot_to_clipboard_and_file IMG=~/pix/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && grim -g "$(slurp -b '#282828bb' -c '#458588ff' -w 1)" $IMG && wl-copy < $IMG
+
+set $suspend doas zzz
+
+set $brightness_down slight --path /sys/class/backlight/amdgpu_bl0/ -10
+set $brightness_up slight --path /sys/class/backlight/amdgpu_bl0/ 10
+set $brightness_down_little slight --path /sys/class/backlight/amdgpu_bl0/ -1
+set $brightness_up_little slight --path /sys/class/backlight/amdgpu_bl0/ 1
+
+set $sink_volume_down pactl set-sink-volume @DEFAULT_SINK@ -5%
+set $sink_volume_up pactl set-sink-volume @DEFAULT_SINK@ +5%
+set $source_volume_down pactl set-source-volume @DEFAULT_SOURCE@ -5%
+set $source_volume_up pactl set-source-volume @DEFAULT_SOURCE@ +5%
+
+set $sink_mute pactl set-sink-mute @DEFAULT_SINK@ toggle
+set $source_mute pactl set-source-mute @DEFAULT_SOURCE@ toggle
