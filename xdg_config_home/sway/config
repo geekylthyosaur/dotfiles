@@ -6,6 +6,7 @@ exec --no-startup-id dbus-update-activation-environment DISPLAY I3SOCK SWAYSOCK 
 # Pipewire
 exec --no-startup-id pipewire
 exec --no-startup-id pipewire-pulse
+# exec --no-startup-id /usr/libexec/pipewire-launcher
 
 xwayland disable
 smart_borders on

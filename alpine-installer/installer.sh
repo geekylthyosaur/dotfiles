@@ -8,7 +8,7 @@ while true; do
     esac
 done
 
-su root -c "xbps-install -Sy opendoas git && echo 'permit nopass :wheel' > /etc/doas.conf"
+doas apk add git
 
 git clone https://github.com/geekylthyosaur/dotfiles.git
 cd ./dotfiles/alpine-installer/
@@ -43,14 +43,6 @@ while true; do
     read -p "Set some environment variables? [y/n] " option
     case $option in
         y ) sh set-env.sh; break;;
-        n ) break;;
-    esac
-done
-
-while true; do
-    read -p "Remove some unnecesary packages? [y/n] " option
-    case $option in
-        y ) sh remove-unnecessary.sh; break;;
         n ) break;;
     esac
 done
