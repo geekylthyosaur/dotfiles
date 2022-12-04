@@ -51,9 +51,12 @@ set $menu fuzzel \
     --terminal=$term \
     --width=50
 
+set $floating_max_width 1300
+set $floating_max_height 700
 
 set $cursor_size 24
 set $cursor_theme Vimix-cursors
+set $cursor_hide_timeout_ms 10000
 
 set $random_wallpaper $($scripts/random_wallpaper.sh)
 

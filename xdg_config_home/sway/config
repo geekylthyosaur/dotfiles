@@ -15,11 +15,11 @@ client.focused $bg2 $bg $fg $blue $blue
 client.unfocused $bg2 $bg1 $fg $blue $bg
 default_border pixel $border_width
 default_floating_border pixel $border_width
-floating_maximum_size 1300 x 700
+floating_maximum_size $floating_max_width x $floating_max_height
 
 ### Cursor
 # Hide cursor after 10 seconds of inactivity
-seat seat0 hide_cursor 10000
+seat seat0 hide_cursor $cursor_hide_timeout_ms
 # Set cursor theme 
 seat seat0 xcursor_theme $cursor_theme $cursor_size
 # Execute once for gtk applications
@@ -30,7 +30,6 @@ seat seat0 xcursor_theme $cursor_theme $cursor_size
 for_window [app_id="floating"] floating enable
 for_window [app_id="pavucontrol"] floating enable
 for_window [app_id="telegram-desktop" title="Choose Files"] floating enable
-for_window [title="Monitor directory"] floating enable
 for_window [app_id="thunar"] floating enable
 for_window [app_id="Firefox" title="Firefox — Sharing Indicator"] kill
 for_window [app_id="swayimg"] fullscreen
