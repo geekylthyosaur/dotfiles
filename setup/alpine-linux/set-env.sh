@@ -11,3 +11,6 @@ echo "export QT_QPA_PLATFORMTHEME=gtk3" | doas tee -a /etc/profile.d/env.sh
 
 echo "export PATH=\$HOME/.local/share/cargo/bin:\$PATH" | doas tee -a /etc/profile.d/env.sh
 echo "export PATH=\$HOME/.local/bin:\$PATH" | doas tee -a /etc/profile.d/env.sh
+
+echo "export HISTFILE=\$XDG_CACHE_HOME/shell_history" | doas tee -a /etc/profile.d/env.sh
+
