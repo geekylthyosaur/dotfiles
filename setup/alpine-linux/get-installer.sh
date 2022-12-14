@@ -1,3 +1,3 @@
 #!/bin/sh
 
-wget https://raw.githubusercontent.com/geekylthyosaur/dotfiles/main/alpine-installer/installer.sh
+wget https://raw.githubusercontent.com/geekylthyosaur/dotfiles/main/setup/alpine-linux/installer.sh

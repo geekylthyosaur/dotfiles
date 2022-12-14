@@ -11,7 +11,7 @@ done
 doas apk add git
 
 git clone https://github.com/geekylthyosaur/dotfiles.git
-cd ./dotfiles/alpine-installer/
+cd ./dotfiles/setup/alpine-linux/
 
 sh get-base.sh
 
@@ -46,3 +46,5 @@ while true; do
         n ) break;;
     esac
 done
+
+# TODO: reboot, create directories, copy configs, launch file

@@ -3,7 +3,7 @@
 su root -c "xbps-install -Sy opendoas git && echo 'permit nopass :wheel' > /etc/doas.conf"
 
 git clone https://github.com/geekylthyosaur/dotfiles.git
-cd ./dotfiles/void-installer/
+cd ./dotfiles/setup/void-linux/
 
 sh get-base.sh
 
