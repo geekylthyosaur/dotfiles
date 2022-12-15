@@ -3,7 +3,7 @@
 while true; do
     read -p "Install amd [1] or intel [2] graphics? " option
     case $option in
-        1 ) doas apk add mesa-dri-gallium mesa-dri-ati mesa-va-gallium; break;;
+        1 ) doas apk add mesa-dri-gallium mesa-va-gallium; break;;
         2 ) doas apk add mesa-dri-gallium libva-intel-driver; break;;
     esac
 done
