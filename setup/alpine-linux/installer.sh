@@ -8,43 +8,6 @@ while true; do
     esac
 done
 
-doas apk add git
-
-git clone https://github.com/geekylthyosaur/dotfiles.git
-cd ./dotfiles/setup/alpine-linux/
-
-sh get-base.sh
-
-while true; do
-    read -p "Install seatd [1] or elogind [2]? " option
-    case $option in
-        1 ) sh get-seatd.sh; break;;
-        2 ) sh get-elogind.sh; break;;
-    esac
-done
-
-while true; do
-    read -p "Install DWL? [y/n] " option
-    case $option in
-        y ) sh get-dwl.sh; break;;
-        n ) break;;
-    esac
-done
-
-while true; do
-    read -p "Install Sway? [y/n] " option
-    case $option in
-        y ) sh get-sway.sh; break;;
-        n ) break;;
-    esac
-done
-
-while true; do
-    read -p "Set some environment variables? [y/n] " option
-    case $option in
-        y ) sh set-env.sh; break;;
-        n ) break;;
-    esac
-done
-
-# TODO: reboot, create directories, copy configs, launch file
+sh "$HOME/dotfiles/setup/alpine-linux/get-base.sh"
+sh "$HOME/dotfiles/setup/alpine-linux/get-seatd.sh"
+sh "$HOME/dotfiles/setup/alpine-linux/set-env.sh"
