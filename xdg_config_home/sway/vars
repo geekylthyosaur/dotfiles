@@ -1,5 +1,6 @@
-# Colors (see $XDG_DATA_HOME/style.css)
-exec_always ./import_colors_from_css.sh
+set $scripts ~/.config/sway
+
+exec --no-startup-id $scripts/import_colors_from_css.sh
 include ./colors
 
 # Variables
@@ -11,14 +12,19 @@ set $up k
 set $right l
 set $term alacritty
 set $browser firefox
+
+# Audio player commands
 set $player_pause playerctl pause
 set $player_prev playerctl previous
 set $player_pause_toggle playerctl play-pause
 set $player_next playerctl next
-set $scripts ~/.config/sway
+
+# Input devices
 set $kb "type:keyboard"
 set $touchpad "2:7:SynPS/2_Synaptics_TouchPad"
 set $trackpoint "2:10:TPPS/2_Elan_TrackPoint"
+
+# Look and feel
 set $border_width 3
 set $border_color $blue
 set $menu fuzzel \
@@ -40,32 +46,40 @@ set $menu fuzzel \
 set $floating_max_width 1300
 set $floating_max_height 700
 
+# Cursor
 set $cursor_size 24
 set $cursor_theme Vimix-cursors
 set $cursor_hide_timeout_ms 10000
 
+# Wallpapers
 set $random_wallpaper $($scripts/random_wallpaper.sh)
 
+# Terminal
 set $start_terminal $term; input $kb xkb_switch_layout 0
 set $start_floating_terminal $term --class="floating"; input $kb xkb_switch_layout 0
 
+# Launchers
 set $start_launcher $menu --lines=1
 set $start_power_menu $scripts/power_menu.sh
 
+# Screenshots
 set $fullscreen_screenshot_to_clipboard_and_file IMG=~/pix/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && grim $IMG && wl-copy < $IMG
 set $selection_screenshot_to_clipboard_and_file IMG=~/pix/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && grim -g "$(slurp -b '#282828bb' -c '#458588ff' -w 1)" $IMG && wl-copy < $IMG
 
 set $suspend doas zzz
 
-set $brightness_down slight --path /sys/class/backlight/amdgpu_bl0/ -10
-set $brightness_up slight --path /sys/class/backlight/amdgpu_bl0/ 10
-set $brightness_down_little slight --path /sys/class/backlight/amdgpu_bl0/ -1
-set $brightness_up_little slight --path /sys/class/backlight/amdgpu_bl0/ 1
+# Brightness control
+set $brightness_down light -U 10
+set $brightness_up light -A 10
+set $brightness_down_little light -U 1
+set $brightness_up_little light -A 1
 
+# Volume control
 set $sink_volume_down pactl set-sink-volume @DEFAULT_SINK@ -5%
 set $sink_volume_up pactl set-sink-volume @DEFAULT_SINK@ +5%
+set $sink_mute pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# Mic control
 set $source_volume_down pactl set-source-volume @DEFAULT_SOURCE@ -5%
 set $source_volume_up pactl set-source-volume @DEFAULT_SOURCE@ +5%
-
-set $sink_mute pactl set-sink-mute @DEFAULT_SINK@ toggle
 set $source_mute pactl set-source-mute @DEFAULT_SOURCE@ toggle
