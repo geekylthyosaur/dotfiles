@@ -1,18 +1,18 @@
 font:
   normal:
-    family: DeJaVu Sans Mono 
+    family: Source Code Pro
     style: Regular
 
   bold:
-    family: DeJaVu Sans Mono 
+    family: Source Code Pro
     style: Bold
 
   italic:
-    family: DeJaVu Sans Mono 
+    family: Source Code Pro
     style: Italic
 
   bold_italic:
-    family: DeJaVu Sans Mono 
+    family: Source Code Pro
     style: Bold Italic
 
   size: 10

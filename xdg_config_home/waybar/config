@@ -3,7 +3,7 @@
     "height": 24,
     "spacing": 4,
     "modules-left": ["sway/workspaces", "sway/mode"],
-    "modules-center": ["clock"],
+    "modules-center": ["custom/clock"],
     "modules-right": ["sway/language", "pulseaudio", "backlight", "network", "battery"],
     "sway/workspaces": {
         "disable-scroll-wraparound": true,
@@ -24,9 +24,10 @@
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
-    "clock": {
+    "custom/clock": {
     	"interval": 1,
-    	"format": "{:%A, %H:%M:%S, %B %d}",
+	"exec": "date +'%A, %H:%M:%S, %B %d'",
+    	"format": "{}",
     },
     "backlight": {
         "format": "BL:{percent}%",

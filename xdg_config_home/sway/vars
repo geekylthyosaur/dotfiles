@@ -11,6 +11,7 @@ set $down j
 set $up k
 set $right l
 set $term alacritty
+set $fterm alacritty --class floating
 set $browser firefox
 
 # Audio player commands
@@ -28,7 +29,7 @@ set $trackpoint "2:10:TPPS/2_Elan_TrackPoint"
 set $border_width 3
 set $border_color $blue
 set $menu fuzzel \
-    --font="Noto Sans Mono: size=9" \
+    --font="DeJaVu Sans Mono: size=9" \
     --no-icons \
     --background-color=282828f0 \
     --text-color=ebdbb2ff \
@@ -40,7 +41,7 @@ set $menu fuzzel \
     --horizontal-pad=10 \
     --vertical-pad=10 \
     --inner-pad=10 \
-    --terminal=$term \
+    --terminal="alacritty -e" \
     --width=50
 
 set $floating_max_width 1300
@@ -48,7 +49,7 @@ set $floating_max_height 700
 
 # Cursor
 set $cursor_size 24
-set $cursor_theme Vimix-cursors
+set $cursor_theme capitaine-cursors
 set $cursor_hide_timeout_ms 10000
 
 # Wallpapers
@@ -56,7 +57,7 @@ set $random_wallpaper $($scripts/random_wallpaper.sh)
 
 # Terminal
 set $start_terminal $term; input $kb xkb_switch_layout 0
-set $start_floating_terminal $term --class="floating"; input $kb xkb_switch_layout 0
+set $start_floating_terminal $fterm; input $kb xkb_switch_layout 0
 
 # Launchers
 set $start_launcher $menu --lines=1

@@ -4,9 +4,7 @@ include ./vars
 # https://github.com/emersion/xdg-desktop-portal-wlr/wiki/%22It-doesn't-work%22-Troubleshooting-Checklist#issues-in-void-linux
 exec --no-startup-id dbus-update-activation-environment DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 # Pipewire
-# exec --no-startup-id /usr/libexec/pipewire-launcher
-exec --no-startup-id pipewire
-exec --no-startup-id pipewire-pulse
+exec --no-startup-id /usr/libexec/pipewire-launcher
 
 xwayland disable
 smart_borders on
