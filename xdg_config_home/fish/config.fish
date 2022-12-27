@@ -8,6 +8,7 @@ set -x RUSTUP_HOME $XDG_DATA_HOME/rustup
 
 set -x QT_QPA_PLATFORMTHEME gtk3
 
+set -x INPUTRC $XDG_CONFIG_HOME/readline/inputrc
 set -x HISTFILE $XDG_DATA_HOME/shell_history
 
 if status is-interactive

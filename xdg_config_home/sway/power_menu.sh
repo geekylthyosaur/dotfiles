@@ -16,13 +16,13 @@ case "$(printf "Suspend\nReload\nLogout\nReboot\nShutdown" |
         --inner-pad=10 \
         --width=50 \
         --lines=5 \
-	--width=30 \
+	--width=50 \
         --dmenu
     )" in
-        Suspend) exec playerctl pause & doas /usr/sbin/zzz;;
+        Suspend) exec playerctl pause & doas zzz;;
         Reload) exec swaymsg reload;;
         Logout) exec swaymsg exit;;
-        Reboot) exec doas /sbin/reboot;;
-        Shutdown) exec doas /sbin/halt;;
+        Reboot) exec doas reboot;;
+        Shutdown) exec doas shutdown -h now;;
 esac
 

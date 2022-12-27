@@ -28,28 +28,14 @@ set $trackpoint "2:10:TPPS/2_Elan_TrackPoint"
 # Look and feel
 set $border_width 3
 set $border_color $blue
-set $menu fuzzel \
-    --font="DeJaVu Sans Mono: size=9" \
-    --no-icons \
-    --background-color=282828f0 \
-    --text-color=ebdbb2ff \
-    --selection-color=ebdbb2ff \
-    --selection-text-color=282828ff \
-    --border-color=458588ff \
-    --border-width=$border_width \
-    --border-radius=0 \
-    --horizontal-pad=10 \
-    --vertical-pad=10 \
-    --inner-pad=10 \
-    --terminal="alacritty -e" \
-    --width=50
+set $menu fuzzel --font=DeJaVuSansMono:size=9 --no-icons --background-color=282828f0 --text-color=ebdbb2ff --selection-color=ebdbb2ff --selection-text-color=282828ff --border-color=458588ff --border-width=$border_width --border-radius=0 --horizontal-pad=10 --vertical-pad=10 --inner-pad=10 --width=50
 
 set $floating_max_width 1300
 set $floating_max_height 700
 
 # Cursor
 set $cursor_size 24
-set $cursor_theme capitaine-cursors
+set $cursor_theme Vimix-cursors
 set $cursor_hide_timeout_ms 10000
 
 # Wallpapers
@@ -64,16 +50,16 @@ set $start_launcher $menu --lines=1
 set $start_power_menu $scripts/power_menu.sh
 
 # Screenshots
-set $fullscreen_screenshot_to_clipboard_and_file IMG=~/pix/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && grim $IMG && wl-copy < $IMG
-set $selection_screenshot_to_clipboard_and_file IMG=~/pix/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && grim -g "$(slurp -b '#282828bb' -c '#458588ff' -w 1)" $IMG && wl-copy < $IMG
+set $fullscreen_screenshot_to_clipboard_and_file IMG=~/media/pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && grim $IMG && wl-copy < $IMG
+set $selection_screenshot_to_clipboard_and_file IMG=~/media/pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && grim -g "$(slurp -b '#282828bb' -c '#458588ff' -w 1)" $IMG && wl-copy < $IMG
 
 set $suspend doas zzz
 
 # Brightness control
-set $brightness_down light -U 10
-set $brightness_up light -A 10
-set $brightness_down_little light -U 1
-set $brightness_up_little light -A 1
+set $brightness_down brillo -U 5 -u 300000
+set $brightness_up brillo -A 5 -u 300000
+set $brightness_down_little brillo -U 1 -u 300000
+set $brightness_up_little brillo -A 1 -u 300000
 
 # Volume control
 set $sink_volume_down pactl set-sink-volume @DEFAULT_SINK@ -5%
