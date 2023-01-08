@@ -192,19 +192,19 @@ mode "browser" {
     set $toggle_kb swaymsg input "1:1:AT_Translated_Set_2_keyboard" xkb_switch_layout next
 
     # Search with with google
-    set $search $scripts/firefox_search.sh "$dmenu" "https://www.google.com/search?client=firefox-b-d&q="
+    set $search $scripts/firefox_search.sh "$dmenu --prompt google:" "https://www.google.com/search?client=firefox-b-d&q="
     bindsym --to-code s mode "default"; exec $search
 
     # Translate text from english to ukrainian
-    set $te $scripts/firefox_search.sh "$dmenu" "https://translate.google.com/?sl=en&tl=uk&text="
+    set $te $scripts/firefox_search.sh "$dmenu --prompt en->uk:" "https://translate.google.com/?sl=en&tl=uk&text="
     bindsym --to-code e mode "default"; exec $te
 
     # Translate text from ukrainian to english
-    set $tu $scripts/firefox_search.sh "$dmenu" "https://translate.google.com/?sl=uk&tl=en&text="
+    set $tu $scripts/firefox_search.sh "$dmenu --prompt uk->en:" "https://translate.google.com/?sl=uk&tl=en&text="
     bindsym --to-code u mode "default"; exec $toggle_kb; exec $tu;
 
     # Search on github.com
-    set $git $scripts/firefox_search.sh "$dmenu" "https://github.com/search?q="
+    set $git $scripts/firefox_search.sh "$dmenu --prompt github:" "https://github.com/search?q="
     bindsym --to-code g mode "default"; exec $git
 
     bindsym --to-code r mode "rust"
@@ -216,11 +216,11 @@ bindsym --to-code  $mod+s mode "browser"
 
 mode "rust" {
     # Rust std
-    set $rstd $scripts/firefox_search.sh "$dmenu" "https://doc.rust-lang.org/std/index.html?search="
+    set $rstd $scripts/firefox_search.sh "$dmenu --prompt std:" "https://doc.rust-lang.org/std/index.html?search="
     bindsym --to-code s mode "default"; exec $rstd
 
     # Rust crates
-    set $rcrates $scripts/firefox_search.sh "$dmenu" "https://docs.rs/releases/search?query="
+    set $rcrates $scripts/firefox_search.sh "$dmenu --prompt crate:" "https://docs.rs/releases/search?query="
     bindsym --to-code c mode "default"; exec $rcrates
 
     # Return to default mode

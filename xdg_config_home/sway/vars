@@ -56,10 +56,10 @@ set $selection_screenshot_to_clipboard_and_file IMG=~/media/pictures/screenshots
 set $suspend doas zzz
 
 # Brightness control
-set $brightness_down brillo -U 5 -u 300000
-set $brightness_up brillo -A 5 -u 300000
-set $brightness_down_little brillo -U 1 -u 300000
-set $brightness_up_little brillo -A 1 -u 300000
+set $brightness_down slight -10% -e
+set $brightness_up slight +10% -e
+set $brightness_down_little slight -1
+set $brightness_up_little slight +1
 
 # Volume control
 set $sink_volume_down pactl set-sink-volume @DEFAULT_SINK@ -5%
