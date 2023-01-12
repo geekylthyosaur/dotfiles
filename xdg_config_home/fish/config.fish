@@ -15,4 +15,22 @@ if status is-interactive
     set fish_greeting
 
     fish_add_path ~/.local/bin ~/.local/share/cargo/bin ~/.local/share/rustup/toolchains/*/bin /sbin /usr/sbin
+    
+    alias install="doas xbps-install"
+    alias update="doas xbps-install -S"
+    alias upgrade="doas xbps-install -Su"
+    alias remove="doas xbps-remove -Rf"
+    alias search="doas xbps-query -Rs"
+    
+    alias c="cargo"
+    alias cr="cargo run"
+    alias crr="cargo run --release"
+    alias cb="cargo build"
+    alias cbr="cargo build --release"
+    alias cc="cargo check"
+    alias cl="cargo clippy"
+    alias ct="cargo test"
+    alias cf="cargo fmt"
+
+    alias todo="grep -rni todo src"
 end
