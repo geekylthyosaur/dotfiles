@@ -1,5 +1,25 @@
 [Default Applications]
-x-scheme-handler/tg=userapp-Telegram Desktop-HNH1Q1.desktop
+x-scheme-handler/tg=org.telegram.desktop.desktop
+x-scheme-handler/http=userapp-Firefox-BLKQX1.desktop
+x-scheme-handler/https=userapp-Firefox-BLKQX1.desktop
+x-scheme-handler/chrome=userapp-Firefox-BLKQX1.desktop
+text/html=userapp-Firefox-BLKQX1.desktop
+application/x-extension-htm=userapp-Firefox-BLKQX1.desktop
+application/x-extension-html=userapp-Firefox-BLKQX1.desktop
+application/x-extension-shtml=userapp-Firefox-BLKQX1.desktop
+application/xhtml+xml=userapp-Firefox-BLKQX1.desktop
+application/x-extension-xhtml=userapp-Firefox-BLKQX1.desktop
+application/x-extension-xht=userapp-Firefox-BLKQX1.desktop
 
 [Added Associations]
-x-scheme-handler/tg=userapp-Telegram Desktop-HNH1Q1.desktop;
+x-scheme-handler/tg=userapp-Telegram Desktop-9V5GX1.desktop;org.telegram.desktop.desktop;
+x-scheme-handler/http=userapp-Firefox-BLKQX1.desktop;
+x-scheme-handler/https=userapp-Firefox-BLKQX1.desktop;
+x-scheme-handler/chrome=userapp-Firefox-BLKQX1.desktop;
+text/html=userapp-Firefox-BLKQX1.desktop;
+application/x-extension-htm=userapp-Firefox-BLKQX1.desktop;
+application/x-extension-html=userapp-Firefox-BLKQX1.desktop;
+application/x-extension-shtml=userapp-Firefox-BLKQX1.desktop;
+application/xhtml+xml=userapp-Firefox-BLKQX1.desktop;
+application/x-extension-xhtml=userapp-Firefox-BLKQX1.desktop;
+application/x-extension-xht=userapp-Firefox-BLKQX1.desktop;
