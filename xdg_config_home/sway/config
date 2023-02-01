@@ -5,6 +5,8 @@ include ./vars
 exec --no-startup-id dbus-update-activation-environment DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 # Pipewire
 exec --no-startup-id pipewire
+# Polkit
+exec --no-startup-id /usr/libexec/polkit-gnome-authentication-agent-1
 
 # xwayland disable
 smart_borders on
@@ -220,7 +222,7 @@ mode "rust" {
     bindsym --to-code s mode "default"; exec $rstd
 
     # Rust crates
-    set $rcrates $scripts/firefox_search.sh "$dmenu --prompt crate:" "https://docs.rs/releases/search?query="
+    set $rcrates $scripts/firefox_search.sh "$dmenu --prompt crate:" "https://docs.rs/"
     bindsym --to-code c mode "default"; exec $rcrates
 
     # Return to default mode
