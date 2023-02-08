@@ -11,7 +11,6 @@ exec --no-startup-id /usr/libexec/polkit-gnome-authentication-agent-1
 # xwayland disable
 smart_borders on
 hide_edge_borders smart
-focus_follows_mouse no
 client.focused $bg2 $bg $fg $blue $blue
 client.unfocused $bg2 $bg1 $fg $blue $bg
 default_border pixel $border_width
@@ -38,10 +37,19 @@ for_window {
 }
 
 # Random wallpaper
-output * bg $random_wallpaper fill
+output * {
+    bg $random_wallpaper fill
+}
 
 # Example configuration:
-# output HDMI-A-1 resolution 1920x1080 position 1920,0
+output eDP-1 {
+    resolution 1366x768 
+    position 0,0
+}
+output HDMI-A-1 {
+    resolution 1920x1080 position 1366,-312
+    # transform 270
+}
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
 # Idle configuration
