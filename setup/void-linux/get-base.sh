@@ -15,6 +15,7 @@ doas xbps-install -y dbus
 doas xbps-install -y pipewire wireplumber pipewire-pulse pipewire-alsa playerctl
 doas xbps-install -y pulseaudio-utils
 doas xbps-install -y slurp grim
+doas xbps-install -y net-tools xtools
 doas xbps-install -y xdg-user-dirs xdg-desktop-portal xdg-desktop-portal-wlr
 doas xbps-install -y gsettings-desktop-schemas
 doas xbps-install -y ttf-dejavu
