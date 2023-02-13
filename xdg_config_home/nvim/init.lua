@@ -201,6 +201,7 @@ vim.opt.shiftwidth = 4
 
 local map = vim.api.nvim_set_keymap
 
-map('n', '<C-h>', 'gT', {noremap = true, silent = false})
-map('n', '<C-l>', 'gt', {noremap = true, silent = false})
+map('n', '<C-h>', 'gT', { noremap = true, silent = false })
+map('n', '<C-l>', 'gt', { noremap = true, silent = false })
 
+map('n', '<C-t>', ':tabnew ', { noremap = true, silent = false })
