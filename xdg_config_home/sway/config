@@ -32,6 +32,7 @@ for_window {
     [app_id="pavucontrol"] floating enable
     [app_id="telegram-desktop" title="Choose Files"] floating enable
     [app_id="thunar"] floating enable
+    [app_id="Firefox" title="Firefox — Sharing Indicator"] floating enable
     [app_id="Firefox" title="Firefox — Sharing Indicator"] kill
     [app_id="swayimg"] fullscreen
 }
