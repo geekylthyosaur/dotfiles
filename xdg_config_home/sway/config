@@ -15,7 +15,7 @@ client.focused $bg2 $bg $fg $blue $blue
 client.unfocused $bg2 $bg1 $fg $blue $bg
 default_border pixel $border_width
 default_floating_border pixel $border_width
-floating_maximum_size $floating_max_width x $floating_max_height
+# floating_maximum_size $floating_max_width x $floating_max_height
 
 ### Cursor
 # Hide cursor after 10 seconds of inactivity
