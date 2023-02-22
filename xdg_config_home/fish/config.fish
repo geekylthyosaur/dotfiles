@@ -10,11 +10,15 @@ set -x QT_QPA_PLATFORMTHEME gtk3
 
 set -x INPUTRC $XDG_CONFIG_HOME/readline/inputrc
 set -x HISTFILE $XDG_DATA_HOME/shell_history
+set -x PSQL_HISTORY $XDG_STATE_HOME/psql_history
+set -x PYTHONPYCACHEPREFIX $XDG_CACHE_HOME/python
+set -x SQLITE_HISTORY $XDG_STATE_HOME/sqlite_history
+set -x DOCKER_CONFIG $XDG_CONFIG_HOME/docker
 
 if status is-interactive
     set fish_greeting
 
-    fish_add_path ~/.local/bin ~/.local/share/cargo/bin ~/.local/share/rustup/toolchains/*/bin /sbin /usr/sbin
+    fish_add_path ~/.local/bin ~/.local/share/cargo/bin ~/.local/share/rustup/toolchains/*/bin /sbin /usr/sbin /usr/lib/psql*/bin/
     
     alias install="doas xbps-install"
     alias update="doas xbps-install -S"
