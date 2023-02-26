@@ -271,6 +271,11 @@ mode "open" {
 }
 bindsym --to-code $mod+e mode "open"
 
+mode "tmux" {
+    bindsym Escape mode "default"
+}
+bindsym --to-code $mod+o mode "tmux"; exec swayidle -w timeout 1 'swaymsg mode "default"'
+
 # Status Bar:
 bar {
     swaybar_command waybar
