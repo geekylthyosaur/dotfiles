@@ -3,8 +3,8 @@
     "height": 24,
     "spacing": 4,
     "modules-left": ["sway/workspaces", "sway/mode"],
-    "modules-center": ["custom/clock"],
-    "modules-right": ["sway/language", "pulseaudio", "backlight", "network", "battery"],
+    "modules-center": ["clock"],
+    "modules-right": ["sway/language", "custom/download", "custom/upload", "pulseaudio", "backlight", "network", "battery"],
     "sway/workspaces": {
         "disable-scroll-wraparound": true,
         "format": "{icon}",
@@ -24,10 +24,9 @@
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
-    "custom/clock": {
+    "clock": {
     	"interval": 1,
-	"exec": "date +'%A, %H:%M:%S, %B %d'",
-    	"format": "{}",
+    	"format": "{:%A, %H:%M:%S, %B %d}",
     },
     "backlight": {
         "format": "BL:{percent}%",
@@ -61,6 +60,16 @@
         "exec": "free -m | sed -n -e '2{p;q}' | awk '{print $3}'",
         "interval": 5,
         "format": "RAM:{}MiB/64KiB"
+    },
+    "custom/download": {
+        "exec": "ifconfig | grep -A 6 wlp3s0 | grep 'RX packets' | sed 's/.*(\\(.*\\))/\\1/' | sed 's/ //g'",
+        "interval": 30,
+        "format": "D:{}",
+    },
+    "custom/upload": {
+        "exec": "ifconfig | grep -A 6 wlp3s0 | grep 'TX packets' | sed 's/.*(\\(.*\\))/\\1/' | sed 's/ //g'",
+        "interval": 30,
+        "format": "U:{}",
     },
 }
 

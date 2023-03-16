@@ -42,6 +42,9 @@ window#waybar {
     border-bottom: 3px solid @bg1;
 }
 
+#custom-download,
+#custom-upload,
+#language,
 #clock,
 #battery,
 #backlight,

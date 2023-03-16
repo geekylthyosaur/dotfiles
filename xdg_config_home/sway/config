@@ -11,6 +11,7 @@ exec --no-startup-id /usr/libexec/polkit-gnome-authentication-agent-1
 # xwayland disable
 smart_borders on
 hide_edge_borders smart
+# focus_follows_mouse no
 client.focused $bg2 $bg $fg $blue $blue
 client.unfocused $bg2 $bg1 $fg $blue $bg
 default_border pixel $border_width
@@ -90,7 +91,6 @@ input $trackpoint {
     bindsym --to-code $mod+Shift+q          exec $start_power_menu
     bindsym           Print                 exec $fullscreen_screenshot_to_clipboard_and_file
     bindsym           Shift+Print           exec $selection_screenshot_to_clipboard_and_file
-    bindsym  --locked XF86PowerOff          exec $suspend
 
     # Kill focused window
     bindsym --to-code $mod+q kill

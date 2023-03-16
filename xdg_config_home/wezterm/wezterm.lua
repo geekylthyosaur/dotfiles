@@ -1,0 +1,35 @@
+local wezterm = require 'wezterm'
+local act = wezterm.action
+return {
+    color_scheme = "Gruvbox dark, hard (base16)",
+    font = wezterm.font "DeJaVu Sans Mono",
+    disable_default_key_bindings = true,
+    text_background_opacity = 0.3,
+    window_background_opacity = 0.9,
+
+    keys = {
+        { key = 'l', mods = 'ALT', action = act.ActivateTabRelative(1) },
+        { key = 'h', mods = 'ALT', action = act.ActivateTabRelative(-1) },
+        { key = 'f', mods = 'ALT', action = act.ToggleFullScreen },
+        { key = 'j', mods = 'ALT|CTRL', action = act.SplitVertical{ domain =  'CurrentPaneDomain' } },
+        { key = 'k', mods = 'ALT|CTRL', action = act.SplitVertical{ domain =  'CurrentPaneDomain' } },
+        { key = 'l', mods = 'ALT|CTRL', action = act.SplitHorizontal{ domain =  'CurrentPaneDomain' } },
+        { key = 'h', mods = 'ALT|CTRL', action = act.SplitHorizontal{ domain =  'CurrentPaneDomain' } },
+        { key = '\\', mods = 'ALT', action = act.SpawnTab 'CurrentPaneDomain' },
+        { key = 'q', mods = 'ALT', action = act.CloseCurrentTab{ confirm = true } },
+        { key = '1', mods = 'ALT', action = act.ActivateTab(0) },
+        { key = '2', mods = 'ALT', action = act.ActivateTab(1) },
+        { key = '3', mods = 'ALT', action = act.ActivateTab(2) },
+        { key = '4', mods = 'ALT', action = act.ActivateTab(3) },
+        { key = '5', mods = 'ALT', action = act.ActivateTab(4) },
+        { key = '6', mods = 'ALT', action = act.ActivateTab(5) },
+        { key = '7', mods = 'ALT', action = act.ActivateTab(6) },
+        { key = '8', mods = 'ALT', action = act.ActivateTab(7) },
+        { key = '9', mods = 'ALT', action = act.ActivateTab(8) },
+        { key = '0', mods = 'ALT', action = act.ActivateTab(9) },
+        { key = '+', mods = 'CTRL', action = act.IncreaseFontSize },
+        { key = '-', mods = 'CTRL', action = act.DecreaseFontSize },
+        { key = 'C', mods = 'SHIFT|CTRL', action = act.CopyTo 'Clipboard' },
+        { key = 'v', mods = 'SHIFT|CTRL', action = act.PasteFrom 'Clipboard' },
+    },
+}
