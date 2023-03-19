@@ -1,14 +1,14 @@
-### Rust
-set -x CARGO_HOME $XDG_DATA_HOME/cargo
-set -x RUSTUP_HOME $XDG_DATA_HOME/rustup
-
-set -x QT_QPA_PLATFORMTHEME gtk3
-
 ### XDG base
 set -x XDG_CACHE_HOME $HOME/.cache
 set -x XDG_CONFIG_HOME $HOME/.config
 set -x XDG_DATA_HOME $HOME/.local/share
 set -x XDG_STATE_HOME $HOME/.local/state
+
+### Rust
+set -x CARGO_HOME $XDG_DATA_HOME/cargo
+set -x RUSTUP_HOME $XDG_DATA_HOME/rustup
+
+set -x QT_QPA_PLATFORMTHEME gtk3
 
 set -x INPUTRC $XDG_CONFIG_HOME/readline/inputrc
 
@@ -26,13 +26,21 @@ set -x TEXMFCONFIG $XDG_CONFIG_HOME/texlive/texmf-config
 if status is-interactive
     set fish_greeting
 
-    fish_add_path ~/.local/bin ~/.local/share/cargo/bin ~/.local/share/rustup/toolchains/*/bin /sbin /usr/sbin /usr/lib/psql*/bin/
+    fish_add_path ~/.local/bin
+    fish_add_path ~/.local/share/cargo/bin 
+    fish_add_path ~/.local/share/rustup/toolchains/*/bin
+    fish_add_path /sbin
+    fish_add_path /usr/sbin
+    # fish_add_path /usr/lib/psql*/bin/
+
+    alias dev="toolbox enter dev"
     
-    alias install="doas xbps-install"
-    alias update="doas xbps-install -S"
-    alias upgrade="doas xbps-install -Su"
-    alias remove="doas xbps-remove -Rf"
-    alias search="doas xbps-query -Rs"
+    alias doas="sudo"
+    alias install="sudo dnf install"
+    alias update="sudo dnf update"
+    alias upgrade="sudo dnf upgrade"
+    alias remove="sudo dnf uninstall"
+    alias search="sudo dnf search"
     
     alias c="cargo"
     alias cr="cargo run"
@@ -43,6 +51,6 @@ if status is-interactive
     alias cl="cargo clippy"
     alias ct="cargo test"
     alias cf="cargo fmt"
-
-    alias todo="grep -rni todo src"
 end
+
+function fish_greeting; end
