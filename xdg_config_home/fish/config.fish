@@ -4,9 +4,16 @@ set -x XDG_CONFIG_HOME $HOME/.config
 set -x XDG_DATA_HOME $HOME/.local/share
 set -x XDG_STATE_HOME $HOME/.local/state
 
-### Rust
+# Rust
 set -x CARGO_HOME $XDG_DATA_HOME/cargo
 set -x RUSTUP_HOME $XDG_DATA_HOME/rustup
+
+# Node
+set -x NPM_CONFIG_USERCONFIG $XDG_CONFIG_HOME/npm/npmrc
+set -x NODE_REPL_HISTORY $XDG_DATA_HOME/node_repl_history
+
+# Java
+# set -x _JAVA_OPTIONS -Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java
 
 set -x QT_QPA_PLATFORMTHEME gtk3
 
@@ -29,6 +36,7 @@ if status is-interactive
     fish_add_path ~/.local/bin
     fish_add_path ~/.local/share/cargo/bin 
     fish_add_path ~/.local/share/rustup/toolchains/*/bin
+    fish_add_path ~/.local/share/npm/bin
     fish_add_path /sbin
     fish_add_path /usr/sbin
     # fish_add_path /usr/lib/psql*/bin/
@@ -39,7 +47,7 @@ if status is-interactive
     alias install="sudo dnf install"
     alias update="sudo dnf update"
     alias upgrade="sudo dnf upgrade"
-    alias remove="sudo dnf uninstall"
+    alias remove="sudo dnf remove"
     alias search="sudo dnf search"
     
     alias c="cargo"
