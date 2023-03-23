@@ -1,5 +1,9 @@
 #!/bin/sh
 
+### Usage
+# $1 - command that will ask user for input
+# $2 - URL that ends with query parameter where user input will be added
+
 echo $1
 text=$($1)
 echo $text
