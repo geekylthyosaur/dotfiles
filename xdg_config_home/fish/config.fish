@@ -23,8 +23,6 @@ set -x INPUTRC $XDG_CONFIG_HOME/readline/inputrc
 set -x SQLITE_HISTORY $XDG_STATE_HOME/sqlite_history
 set -x HISTFILE $XDG_DATA_HOME/shell_history
 set -x PSQL_HISTORY $XDG_STATE_HOME/psql_history
-# Docker
-set -x DOCKER_CONFIG $XDG_CONFIG_HOME/docker
 # TeX live
 set -x TEXMFHOME $XDG_DATA_HOME/texmf
 set -x TEXMFVAR $XDG_CACHE_HOME/texlive/texmf-var
@@ -35,13 +33,14 @@ if status is-interactive
 
     fish_add_path ~/.local/bin
     fish_add_path ~/.local/share/cargo/bin 
-    fish_add_path ~/.local/share/rustup/toolchains/*/bin
+#    fish_add_path ~/.local/share/rustup/toolchains/*/bin
     fish_add_path ~/.local/share/npm/bin
     fish_add_path /sbin
     fish_add_path /usr/sbin
     # fish_add_path /usr/lib/psql*/bin/
 
     alias dev="toolbox enter dev"
+    alias tex="toolbox enter tex"
     
     alias doas="sudo"
     alias install="sudo dnf install"
@@ -62,3 +61,4 @@ if status is-interactive
 end
 
 function fish_greeting; end
+function fish_right_prompt; end

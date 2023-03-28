@@ -69,6 +69,7 @@ end
 
 vim.cmd([[ colorscheme gruvbox ]])
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "Error", { bg = "none" })
 
 -- Set completeopt to have a better completion experience
 -- :help completeopt
@@ -134,10 +135,6 @@ local opts = {
       -- to enable rust-analyzer settings visit:
       -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
       ["rust-analyzer"] = {
-        -- enable clippy on save
-        checkOnSave = {
-          command = "clippy",
-        },
       },
     },
   },
@@ -183,21 +180,27 @@ cmp.setup({
 -- this removes the jitter when warnings/errors flow in
 vim.wo.signcolumn = "yes"
 
+local o = vim.opt
+local g = vim.g
+
+g.mapleader = "<Space>"
+
 -- " Set updatetime for CursorHold
 -- " 300ms of no cursor movement to trigger CursorHold
 -- set updatetime=300
-vim.opt.updatetime = 100
-vim.opt.termguicolors = false
-vim.opt.wrap = false
-vim.opt.swapfile = false
-vim.opt.scrolloff = 11
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.hlsearch = false
-vim.opt.guicursor = ""
-vim.opt.tabstop = 4
-vim.opt.expandtab = true
-vim.opt.shiftwidth = 4
+o.updatetime = 100
+o.termguicolors = false
+o.wrap = false
+o.swapfile = false
+o.scrolloff = 11
+o.number = true
+o.relativenumber = true
+o.hlsearch = false
+o.guicursor = ""
+o.tabstop = 4
+o.expandtab = true
+o.shiftwidth = 4
+o.clipboard = "unnamedplus"
 
 local map = vim.api.nvim_set_keymap
 
