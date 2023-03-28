@@ -11,7 +11,7 @@ done
 doas xbps-install -y firefox chromium
 doas xbps-install -y alacritty fuzzel neovim tmux htop
 doas xbps-install -y light
-doas xbps-install -y dbus
+doas xbps-install -y polkit
 doas xbps-install -y pipewire wireplumber pipewire-pulse pipewire-alsa playerctl
 doas xbps-install -y pulseaudio-utils
 doas xbps-install -y slurp grim
