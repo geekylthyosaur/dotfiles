@@ -7,15 +7,19 @@
 }
 
 window#waybar {
-    background-color: @bg;
+    background-color: transparent;
     color: @fg;
     transition-property: background-color;
     transition-duration: .5s;
 }
 
+#workspaces {
+    background-color: @bg;
+    border: 3px solid @blue;
+}
+
 #workspaces button {
     padding: 0 4px;
-    background-color: transparent;
     color: @fg;
     box-shadow: inset 0 -3px transparent;
     border: none;
@@ -23,7 +27,7 @@ window#waybar {
 }
 
 #workspaces button:hover {
-    background: @bg;
+    background: @bg0;
     box-shadow: inherit;
     text-shadow: inherit;
 }
@@ -50,14 +54,10 @@ window#waybar {
 #backlight,
 #network,
 #pulseaudio,
-#mode,
-#mpd {
+#mode {
+    background-color: @bg;
+    border: 3px solid @blue;
     padding: 0 5px;
-}
-
-#window,
-#workspaces {
-    margin: 0 0px;
 }
 
 /* If workspaces is the leftmost module, omit left margin */

@@ -7,17 +7,21 @@ include ./config.d/vars
     exec --no-startup-id pipewire
 # Polkit
     exec --no-startup-id /usr/libexec/polkit-gnome-authentication-agent-1
+# Switch language individually for each window
+    exec --no-startup-id swaykbdd
 
 ### Options
     # xwayland disable
     smart_borders on
-    hide_edge_borders smart
+    hide_edge_borders smart_no_gaps
     # focus_follows_mouse no
     client.focused $bg2 $bg $fg $blue $blue
-    client.unfocused $bg2 $bg1 $fg $blue $bg
+    client.unfocused $bg2 $bg1 $fg $blue $aqua
     default_border pixel $border_width
     default_floating_border pixel $border_width
-    # floating_maximum_size $floating_max_width x $floating_max_height
+    floating_maximum_size $floating_max_width x $floating_max_height
+    floating_minimum_size $floating_min_width x $floating_min_height
+    gaps inner 5
 
 ### Cursor
 # Hide cursor after 10 seconds of inactivity
@@ -51,9 +55,9 @@ include ./config.d/vars
     }
 
 # Random wallpaper
-    output * {
-        bg $random_wallpaper fill
-    }
+output * {
+    bg $random_wallpaper fill
+}
 
 ### Idle configuration
     bindsym $mod+End exec swaylock -i $random_wallpaper
@@ -205,19 +209,19 @@ mode "browser" {
     set $toggle_kb swaymsg input "1:1:AT_Translated_Set_2_keyboard" xkb_switch_layout next
 
     # Search with with google
-    set $search $scripts/firefox_search.sh "$dmenu --prompt google:" "https://www.google.com/search?client=firefox-b-d&q="
+    set $search $scripts/firefox_search "$dmenu --prompt google:" "https://www.google.com/search?client=firefox-b-d&q="
     bindsym --to-code s mode "default"; exec $search
 
     # Translate text from english to ukrainian
-    set $te $scripts/firefox_search.sh "$dmenu --prompt en->uk:" "https://translate.google.com/?sl=en&tl=uk&text="
+    set $te $scripts/firefox_search "$dmenu --prompt en->uk:" "https://translate.google.com/?sl=en&tl=uk&text="
     bindsym --to-code e mode "default"; exec $te
 
     # Translate text from ukrainian to english
-    set $tu $scripts/firefox_search.sh "$dmenu --prompt uk->en:" "https://translate.google.com/?sl=uk&tl=en&text="
+    set $tu $scripts/firefox_search "$dmenu --prompt uk->en:" "https://translate.google.com/?sl=uk&tl=en&text="
     bindsym --to-code u mode "default"; exec $toggle_kb; exec $tu;
 
     # Search on github.com
-    set $git $scripts/firefox_search.sh "$dmenu --prompt github:" "https://github.com/search?q="
+    set $git $scripts/firefox_search "$dmenu --prompt github:" "https://github.com/search?q="
     bindsym --to-code g mode "default"; exec $git
 
     bindsym --to-code r mode "rust"
@@ -230,11 +234,11 @@ bindsym --to-code  $mod+s mode "browser"
 ### Quick search for Rust documentation
 mode "rust" {
     # Rust std
-    set $rstd $scripts/firefox_search.sh "$dmenu --prompt std:" "https://doc.rust-lang.org/std/index.html?search="
+    set $rstd $scripts/firefox_search "$dmenu --prompt std:" "https://doc.rust-lang.org/std/index.html?search="
     bindsym --to-code s mode "default"; exec $rstd
 
     # Rust crates
-    set $rcrates $scripts/firefox_search.sh "$dmenu --prompt crate:" "https://docs.rs/"
+    set $rcrates $scripts/firefox_search "$dmenu --prompt crate:" "https://docs.rs/"
     bindsym --to-code c mode "default"; exec $rcrates
 
     # Return to default mode

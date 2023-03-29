@@ -39,10 +39,6 @@ if status is-interactive
     fish_add_path /usr/sbin
     # fish_add_path /usr/lib/psql*/bin/
 
-    alias dev="toolbox enter dev"
-    alias tex="toolbox enter tex"
-    
-    alias doas="sudo"
     alias install="sudo dnf install"
     alias update="sudo dnf update"
     alias upgrade="sudo dnf upgrade"

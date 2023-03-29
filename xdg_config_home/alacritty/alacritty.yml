@@ -1,51 +1,54 @@
 font:
   normal:
-    family: DeJaVu Sans Mono
-    style: Regular
+    family: Source Code Pro
+    style: Semibold
 
   bold:
-    family: DeJaVu Sans Mono
+    family: Source Code Pro
     style: Bold
 
   italic:
-    family: DeJaVu Sans Mono
+    family: Source Code Pro
     style: Italic
 
   bold_italic:
-    family: DeJaVu Sans Mono
+    family:  Source Code Pro
     style: Bold Italic
 
   size: 10
 
 colors:
-  primary:
-    background: '0x282828'
-    foreground: '0xebdbb2'
-
-  normal:
-    black:   '0x282828'
-    red:     '0xcc241d'
-    green:   '0x98971a'
-    yellow:  '0xd79921'
-    blue:    '0x458588'
-    magenta: '0xb16286'
-    cyan:    '0x689d6a'
-    white:   '0xfbf1c7'
-
   bright:
-    black:   '0x928374'
-    red:     '0xfb4934'
-    green:   '0xb8bb26'
-    yellow:  '0xfabd2f'
-    blue:    '0x83a598'
-    magenta: '0xd3869b'
-    cyan:    '0x8ec07c'
-    white:   '0xfbf1c7'
-
+    black: '#4d4d4d'
+    blue: '#6ca4f8'
+    cyan: '#2b7489'
+    green: '#56d364'
+    magenta: '#db61a2'
+    red: '#f78166'
+    white: '#ffffff'
+    yellow: '#e3b341'
+  cursor:
+    cursor: '#c9d1d9'
+    text: '#101216'
+  normal:
+    black: '#000000'
+    blue: '#6ca4f8'
+    cyan: '#2b7489'
+    green: '#56d364'
+    magenta: '#db61a2'
+    red: '#f78166'
+    white: '#ffffff'
+    yellow: '#e3b341'
+  primary:
+    background: '#101216'
+    foreground: '#8b949e'
+  selection:
+    background: '#3b5070'
+    text: '#ffffff'
 window:
   opacity:
     0.9
   padding:
-   x: 10
-   y: 10
+    x: 10
+    y: 10
 
