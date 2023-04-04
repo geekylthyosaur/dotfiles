@@ -202,6 +202,13 @@ o.expandtab = true
 o.shiftwidth = 4
 o.clipboard = "unnamedplus"
 
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = {"html", "javascript", "css", "php"},
+	callback = function()
+		vim.opt_local.shiftwidth = 2
+		vim.opt_local.tabstop = 2
+	end
+})
 local map = vim.api.nvim_set_keymap
 
 map('n', '<C-h>', 'gT', { noremap = true, silent = false })

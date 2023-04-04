@@ -33,17 +33,16 @@ if status is-interactive
 
     fish_add_path ~/.local/bin
     fish_add_path ~/.local/share/cargo/bin 
-#    fish_add_path ~/.local/share/rustup/toolchains/*/bin
     fish_add_path ~/.local/share/npm/bin
     fish_add_path /sbin
     fish_add_path /usr/sbin
-    # fish_add_path /usr/lib/psql*/bin/
+    fish_add_path /usr/lib/psql*/bin/
 
-    alias install="sudo dnf install"
-    alias update="sudo dnf update"
-    alias upgrade="sudo dnf upgrade"
-    alias remove="sudo dnf remove"
-    alias search="sudo dnf search"
+    alias install="doas xbps-install"
+    alias update="doas xbps-install -S"
+    alias upgrade="doas xbps-install -Su"
+    alias remove="doas xbps-remove -Rf"
+    alias search="doas xbps-query -Rs"
     
     alias c="cargo"
     alias cr="cargo run"
@@ -54,6 +53,8 @@ if status is-interactive
     alias cl="cargo clippy"
     alias ct="cargo test"
     alias cf="cargo fmt"
+
+    alias tree="tree --dirsfirst"
 end
 
 function fish_greeting; end
