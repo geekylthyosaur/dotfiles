@@ -7,7 +7,7 @@
     "margin-right": 5,
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["clock"],
-    "modules-right": ["sway/language", "custom/download", "custom/upload", "pulseaudio", "backlight", "network", "battery"],
+    "modules-right": ["sway/language", "custom/download", "custom/fan", "pulseaudio", "backlight", "network", "battery"],
     "sway/workspaces": {
         "disable-scroll-wraparound": true,
         "smooth-scrolling-threshold": 3,
@@ -51,7 +51,8 @@
         "format-source": "M:{volume}%",
         "format-source-muted": "MM",
         "format-icons": {
-            "headphone": "S:",
+            "headphone": "H:",
+            "speaker": "S:",
         },
     },
     "custom/playerctl": {
@@ -74,6 +75,11 @@
         "exec": "ifconfig | grep -A 6 wlp3s0 | grep 'TX packets' | sed 's/.*(\\(.*\\))/\\1/' | sed 's/ //g'",
         "interval": 30,
         "format": "U:{}",
+    },
+    "custom/fan": {
+        "exec": "cat /proc/acpi/ibm/fan | grep speed | awk '{print $2}'",
+        "interval": 10,
+        "format": "F:{}",
     },
 }
 
