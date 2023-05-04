@@ -203,7 +203,7 @@ o.shiftwidth = 4
 o.clipboard = "unnamedplus"
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = {"html", "javascript", "css", "php"},
+	pattern = {"html", "javascript", "css", "vue"},
 	callback = function()
 		vim.opt_local.shiftwidth = 2
 		vim.opt_local.tabstop = 2
