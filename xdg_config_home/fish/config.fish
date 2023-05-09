@@ -36,7 +36,7 @@ if status is-interactive
     fish_add_path ~/.local/share/npm/bin
     fish_add_path /sbin
     fish_add_path /usr/sbin
-    fish_add_path /usr/lib/psql*/bin/
+#    fish_add_path /usr/lib/psql*/bin/
     fish_add_path ~/.config/composer/vendor/bin/
 
     alias install="doas xbps-install"
