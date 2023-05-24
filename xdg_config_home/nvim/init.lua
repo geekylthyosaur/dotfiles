@@ -1,15 +1,9 @@
--- This is an example on how rust-analyzer can be configured using rust-tools
---
--- Prerequisites:
--- - neovim >= 0.8
--- - rust-analyzer: https://rust-analyzer.github.io/manual.html#rust-analyzer-language-server-binary
-
 local ensure_packer = function()
   local fn = vim.fn
-  local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
   if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-    vim.cmd([[packadd packer.nvim]])
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd [[packadd packer.nvim]]
     return true
   end
   return false
@@ -17,14 +11,11 @@ end
 
 local packer_bootstrap = ensure_packer()
 
-require("packer").init({
-  autoremove = true,
-})
-require("packer").startup(function(use)
-  -- Packer can manage itself
-  use("wbthomason/packer.nvim")
+require('packer').startup(function(use)
+  use 'wbthomason/packer.nvim'
+
   -- Collection of common configurations for the Nvim LSP client
-  use("neovim/nvim-lspconfig")
+  use 'neovim/nvim-lspconfig'
   -- Visualize lsp progress
   use({
     "j-hui/fidget.nvim",
@@ -32,7 +23,6 @@ require("packer").startup(function(use)
       require("fidget").setup()
     end
   })
-
   -- Autocompletion framework
   use("hrsh7th/nvim-cmp")
   use({
@@ -46,7 +36,6 @@ require("packer").startup(function(use)
     after = { "hrsh7th/nvim-cmp" },
     requires = { "hrsh7th/nvim-cmp" },
   })
-  -- See hrsh7th other plugins for more great completion sources!
   -- Snippet engine
   use('hrsh7th/vim-vsnip')
   -- Adds extra functionality over rust analyzer
@@ -56,44 +45,18 @@ require("packer").startup(function(use)
   use("nvim-lua/popup.nvim")
   use("nvim-lua/plenary.nvim")
   use("nvim-telescope/telescope.nvim")
-
-  -- Some color scheme other then default
-  use("morhetz/gruvbox")
 end)
 
--- the first run will install packer and our plugins
 if packer_bootstrap then
-  require("packer").sync()
+  require('packer').sync()
   return
 end
-
-vim.cmd([[ colorscheme gruvbox ]])
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-vim.api.nvim_set_hl(0, "Error", { bg = "none" })
-
--- Set completeopt to have a better completion experience
--- :help completeopt
--- menuone: popup even when there's only one match
--- noinsert: Do not insert text until a selection is made
--- noselect: Do not auto-select, nvim-cmp plugin will handle this for us.
-vim.o.completeopt = "menuone,noinsert,noselect"
-
--- Avoid showing extra messages when using completion
-vim.opt.shortmess = vim.opt.shortmess + "c"
 
 local function on_attach(client, buffer)
     local keymap_opts = { buffer = buffer }
     -- Code navigation and shortcuts
-    vim.keymap.set("n", "<c-]>", vim.lsp.buf.definition, keymap_opts)
     vim.keymap.set("n", "K", vim.lsp.buf.hover, keymap_opts)
-    vim.keymap.set("n", "gD", vim.lsp.buf.implementation, keymap_opts)
     vim.keymap.set("n", "<c-k>", vim.lsp.buf.signature_help, keymap_opts)
-    vim.keymap.set("n", "1gD", vim.lsp.buf.type_definition, keymap_opts)
-    vim.keymap.set("n", "gr", vim.lsp.buf.references, keymap_opts)
-    vim.keymap.set("n", "g0", vim.lsp.buf.document_symbol, keymap_opts)
-    vim.keymap.set("n", "gW", vim.lsp.buf.workspace_symbol, keymap_opts)
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, keymap_opts)
-    vim.keymap.set("n", "ga", vim.lsp.buf.code_action, keymap_opts)
 
     -- Show diagnostic popup on cursor hover
     local diag_float_grp = vim.api.nvim_create_augroup("DiagnosticFloat", { clear = true })
@@ -103,15 +66,8 @@ local function on_attach(client, buffer)
       end,
       group = diag_float_grp,
     })
-
-    -- Goto previous/next diagnostic warning/error
-    vim.keymap.set("n", "g[", vim.diagnostic.goto_prev, keymap_opts)
-    vim.keymap.set("n", "g]", vim.diagnostic.goto_next, keymap_opts)
 end
 
--- Configure LSP through rust-tools.nvim plugin.
--- rust-tools will configure and enable certain LSP features for us.
--- See https://github.com/simrat39/rust-tools.nvim#configuration
 local opts = {
   tools = {
     runnables = {
@@ -140,7 +96,8 @@ local opts = {
   },
 }
 
-require("rust-tools").setup(opts)
+local rt = require("rust-tools")
+rt.setup(opts)
 
 -- Setup Completion
 -- See https://github.com/hrsh7th/nvim-cmp#basic-configuration
@@ -152,9 +109,6 @@ cmp.setup({
     end,
   },
   mapping = {
-    ["<C-p>"] = cmp.mapping.select_prev_item(),
-    ["<C-n>"] = cmp.mapping.select_next_item(),
-    -- Add tab support
     ["<C-k>"] = cmp.mapping.select_prev_item(),
     ["<C-j>"] = cmp.mapping.select_next_item(),
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
@@ -176,42 +130,41 @@ cmp.setup({
   },
 })
 
--- have a fixed column for the diagnostics to appear in
--- this removes the jitter when warnings/errors flow in
-vim.wo.signcolumn = "yes"
+-- menuone: popup even when there's only one match
+-- noinsert: Do not insert text until a selection is made
+-- noselect: Do not auto-select, nvim-cmp plugin will handle this for us.
+vim.o.completeopt = "menuone,noinsert,noselect"
 
 local o = vim.opt
-local g = vim.g
 
-g.mapleader = "<Space>"
-
--- " Set updatetime for CursorHold
--- " 300ms of no cursor movement to trigger CursorHold
--- set updatetime=300
 o.updatetime = 100
 o.termguicolors = false
 o.wrap = false
 o.swapfile = false
 o.scrolloff = 11
+
 o.number = true
 o.relativenumber = true
+
 o.hlsearch = false
 o.guicursor = ""
 o.tabstop = 4
 o.expandtab = true
 o.shiftwidth = 4
+
 o.clipboard = "unnamedplus"
 
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = {"html", "javascript", "ts", "css", "vue", "yml", "yaml"},
-	callback = function()
-		vim.opt_local.shiftwidth = 2
-		vim.opt_local.tabstop = 2
-	end
+local a = vim.api
+
+a.nvim_set_hl(0, "Normal", { bg = "none" })
+a.nvim_set_hl(0, "Error", { bg = "none" })
+
+a.nvim_create_autocmd("FileType", {
+  pattern = {"html", "javascript", "ts", "css", "vue", "yml", "yaml", "lua"},
+  callback = function()
+    local ol = vim.opt_local
+    ol.shiftwidth = 2
+    ol.tabstop = 2
+  end
 })
-local map = vim.api.nvim_set_keymap
 
-map('n', '<C-h>', 'gT', { noremap = true, silent = false })
-map('n', '<C-l>', 'gt', { noremap = true, silent = false })
-
-map('n', '<C-t>', ':tabnew ', { noremap = true, silent = false })
