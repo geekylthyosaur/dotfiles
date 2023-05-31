@@ -58,7 +58,7 @@ require("packer").startup(function(use)
   use("nvim-telescope/telescope.nvim")
 
   -- Some color scheme other then default
-  use("morhetz/gruvbox")
+  -- use("morhetz/gruvbox")
 end)
 
 -- the first run will install packer and our plugins
@@ -67,7 +67,7 @@ if packer_bootstrap then
   return
 end
 
-vim.cmd([[ colorscheme gruvbox ]])
+-- vim.cmd([[ colorscheme gruvbox ]])
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "Error", { bg = "none" })
 
@@ -213,5 +213,6 @@ local map = vim.api.nvim_set_keymap
 
 map('n', '<C-h>', 'gT', { noremap = true, silent = false })
 map('n', '<C-l>', 'gt', { noremap = true, silent = false })
-
+vim.api.nvim_set_keymap('n', 'q:', '<Nop>', { noremap = true })
+vim.api.nvim_set_keymap('n', 'Q', '<Nop>', { noremap = true })
 map('n', '<C-t>', ':tabnew ', { noremap = true, silent = false })
