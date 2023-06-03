@@ -42,6 +42,7 @@ xbps-install -y mesa-ati-dri \
 
 ln -s /etc/sv/dbus /var/service/
 ln -s /etc/sv/seatd /var/service/
+ln -s /etc/sv/greetd /var/service/
 ln -s /etc/sv/iwd /var/service/
 ln -s /etc/sv/bluetoothd /var/service/
 
@@ -63,4 +64,3 @@ echo "blacklist pcspkr" > /etc/modprobe.d/blacklist.conf
 # TODO:
 # * TRIM,
 # * ignore packages
-# * set faster mirror
