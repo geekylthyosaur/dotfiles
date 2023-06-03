@@ -1,26 +1,30 @@
 #!/bin/sh
 
-set -eo pipefall
+set -e
 
-if [[ $EUID -ne 0 ]]; then
+if [ "$(id -u)" -ne 0 ]; then
     echo "Error: This script must be run as root."
     exit 1
 fi
 
-if [[ -z "$USERNAME" ]]; then
+if [ -z "$USERNAME" ]; then
     echo "Error: USERNAME is not set."
     exit 1
 fi
 
-if [[ -z "$USERLOGIN" ]]; then
+if [ -z "$USERLOGIN" ]; then
     echo "Error: USERLOGIN is not set."
     exit 1
 fi
 
-if [[ -z "$USERPASSWORD" ]]; then
+if [ -z "$USERPASSWORD" ]; then
     echo "Error: USERPASSWORD is not set."
     exit 1
 fi
+
+mkdir -p /etc/xbps.d
+cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
+sed -i 's|https://repo-default.voidlinux.org|https://repo-fastly.voidlinux.org|g' /etc/xbps.d/*-repository-*.conf
 
 xbps-install -y mesa-ati-dri \
     sway swaybg swaylock swayidle swaykbdd wl-clipboard Waybar fuzzel \
@@ -46,8 +50,7 @@ ln -s /etc/sv/libvirtd /var/service
 
 ln -s /etc/sv/tlp /var/service
 
-useradd -m -G "wheel,floppy,audio,input,video,cdrom,optical,kvm,xbuilder,libvirt" \ 
-    -c "$USERNAME" "$USERLOGIN"
+useradd -m -G "wheel,floppy,audio,input,video,cdrom,optical,kvm,xbuilder,libvirt" -c "$USERNAME" "$USERLOGIN"
 
 echo "$USERLOGIN:$USERPASSWORD" | chpasswd -c SHA512
 
