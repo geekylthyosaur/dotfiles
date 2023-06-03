@@ -1,5 +1,10 @@
 #!/bin/sh
 
+if [[ $EUID -ne 0 ]]; then
+  echo "This script must be run with as root."
+  exit 1
+fi
+
 while true; do
     read -p "Install amd [1], intel [2] or nvidia [3] graphics? " option
     case $option in
