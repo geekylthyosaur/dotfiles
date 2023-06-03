@@ -28,7 +28,7 @@ sed -i 's|https://repo-default.voidlinux.org|https://repo-fastly.voidlinux.org|g
 
 xbps-install -y mesa-ati-dri \
     sway swaybg swaylock swayidle swaykbdd wl-clipboard Waybar fuzzel \
-    greetd \
+    seatd greetd \
     firefox telegram-desktop \
     qemu bridge-utils libvirt virt-manager \
     fish-shell alacritty tmux htop neofetch opendoas \
@@ -41,6 +41,7 @@ xbps-install -y mesa-ati-dri \
     dejavu-fonts-ttf
 
 ln -s /etc/sv/dbus /var/service/
+ln -s /etc/sv/seatd /var/service/
 ln -s /etc/sv/iwd /var/service/
 ln -s /etc/sv/bluetoothd /var/service/
 
@@ -50,7 +51,7 @@ ln -s /etc/sv/libvirtd /var/service
 
 ln -s /etc/sv/tlp /var/service
 
-useradd -m -G "wheel,floppy,audio,input,video,cdrom,optical,kvm,xbuilder,libvirt" -c "$USERNAME" "$USERLOGIN"
+useradd -m -G "wheel,floppy,audio,input,video,cdrom,optical,kvm,xbuilder,libvirt,_seatd" -c "$USERNAME" "$USERLOGIN"
 
 echo "$USERLOGIN:$USERPASSWORD" | chpasswd -c SHA512
 
