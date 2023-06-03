@@ -26,7 +26,7 @@ mkdir -p /etc/xbps.d
 cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
 sed -i 's|https://repo-default.voidlinux.org|https://repo-fastly.voidlinux.org|g' /etc/xbps.d/*-repository-*.conf
 
-xbps-install -y mesa-ati-dri \
+xbps-install -Sy mesa-ati-dri \
     sway swaybg swaylock swayidle swaykbdd wl-clipboard Waybar fuzzel \
     seatd greetd \
     firefox telegram-desktop \
