@@ -1,4 +1,6 @@
-#!/bin/sh -e
+#!/bin/sh
+
+set -eo pipefall
 
 if [[ $EUID -ne 0 ]]; then
     echo "Error: This script must be run as root."
@@ -21,17 +23,18 @@ if [[ -z "$USERPASSWORD" ]]; then
 fi
 
 xbps-install -y mesa-ati-dri \
-    sway swaybg swaylock swaylockd swayidle swaykbdd wl-clipboard Waybar fuzzel \
+    sway swaybg swaylock swayidle swaykbdd wl-clipboard Waybar fuzzel \
+    greetd \
     firefox telegram-desktop \
-    qemu qemu-bridge-utils libvirt virt-manager \
-    fish alacritty tmux htop neofetch opendoas \
+    qemu bridge-utils libvirt virt-manager \
+    fish-shell alacritty tmux htop neofetch opendoas \
     tlp light iwd iwgtk openresolv bluez blueman \
     pipewire wireplumber alsa-pipewire libspa-bluetooth pulseaudio-utils playerctl \
     slurp grim \
     net-tools xtools smartmontools \
     xdg-user-dirs xdg-desktop-portal-wlr \
     gsettings-desktop-schemas \
-    ttf-dejavu
+    dejavu-fonts-ttf
 
 ln -s /etc/sv/dbus /var/service/
 ln -s /etc/sv/iwd /var/service/
@@ -56,3 +59,4 @@ echo "blacklist pcspkr" > /etc/modprobe.d/blacklist.conf
 # TODO:
 # * TRIM,
 # * ignore packages
+# * set faster mirror
