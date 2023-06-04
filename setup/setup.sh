@@ -7,20 +7,10 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-if [ -z "$USERNAME" ]; then
-    echo "Error: USERNAME is not set."
+ping -c 1 1.1.1.1 > /dev/null 2>&1 || {
+    echo "Error: No internet connection."
     exit 1
-fi
-
-if [ -z "$USERLOGIN" ]; then
-    echo "Error: USERLOGIN is not set."
-    exit 1
-fi
-
-if [ -z "$USERPASSWORD" ]; then
-    echo "Error: USERPASSWORD is not set."
-    exit 1
-fi
+}
 
 mkdir -p /etc/xbps.d
 cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
@@ -51,6 +41,11 @@ ln -s /etc/sv/virtlogd /var/service
 ln -s /etc/sv/libvirtd /var/service
 
 ln -s /etc/sv/tlp /var/service
+
+read -p "Enter user name: " USERNAME
+read -p "Enter user login: " USERLOGIN
+read -s -p "Enter user password: " USERPASSWORD
+echo
 
 useradd -m -G "wheel,floppy,audio,input,video,cdrom,optical,kvm,xbuilder,libvirt,_seatd" -c "$USERNAME" "$USERLOGIN"
 
