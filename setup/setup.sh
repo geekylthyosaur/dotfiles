@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
@@ -21,7 +21,7 @@ xbps-install -Sy mesa-ati-dri \
     seatd greetd \
     firefox telegram-desktop \
     qemu bridge-utils libvirt virt-manager \
-    fish-shell alacritty tmux htop neofetch opendoas \
+    fish-shell alacritty tmux htop neofetch opendoas git \
     tlp light iwd iwgtk openresolv bluez blueman \
     pipewire wireplumber alsa-pipewire libspa-bluetooth pulseaudio-utils playerctl \
     slurp grim \
@@ -30,20 +30,9 @@ xbps-install -Sy mesa-ati-dri \
     gsettings-desktop-schemas \
     dejavu-fonts-ttf
 
-ln -s /etc/sv/dbus /var/service/
-ln -s /etc/sv/seatd /var/service/
-ln -s /etc/sv/greetd /var/service/
-ln -s /etc/sv/iwd /var/service/
-ln -s /etc/sv/bluetoothd /var/service/
-
-ln -s /etc/sv/virtlockd /var/service
-ln -s /etc/sv/virtlogd /var/service
-ln -s /etc/sv/libvirtd /var/service
-
-ln -s /etc/sv/tlp /var/service
-
 read -p "Enter user name: " USERNAME
 read -p "Enter user login: " USERLOGIN
+# TODO: dash not support read -s
 read -s -p "Enter user password: " USERPASSWORD
 echo
 
@@ -55,6 +44,20 @@ echo "light -O" >> /etc/rc.local
 echo "light -I" >> /etc/rc.shutdown
 echo "permit nopass :wheel" > /etc/doas.conf
 echo "blacklist pcspkr" > /etc/modprobe.d/blacklist.conf
+
+ln -s /etc/sv/dbus /var/service/
+ln -s /etc/sv/seatd /var/service/
+ln -s /etc/sv/iwd /var/service/
+ln -s /etc/sv/bluetoothd /var/service/
+
+ln -s /etc/sv/virtlockd /var/service
+ln -s /etc/sv/virtlogd /var/service
+ln -s /etc/sv/libvirtd /var/service
+
+ln -s /etc/sv/tlp /var/service
+
+ln -s /etc/sv/greetd /var/service/
+sv stop greetd
 
 # TODO:
 # * TRIM,
