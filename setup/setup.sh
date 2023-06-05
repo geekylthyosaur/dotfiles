@@ -21,14 +21,16 @@ xbps-install -Sy mesa-ati-dri \
     seatd greetd \
     firefox telegram-desktop \
     qemu bridge-utils libvirt virt-manager \
-    fish-shell alacritty tmux htop neofetch opendoas git \
+    texstudio texlive texlive-langcyrillic \
+    fish-shell alacritty neovim tmux htop neofetch opendoas git\
+    podman podman-compose \
     tlp light iwd iwgtk openresolv bluez blueman \
     pipewire wireplumber alsa-pipewire libspa-bluetooth pulseaudio-utils playerctl \
     slurp grim \
     net-tools xtools smartmontools \
     xdg-user-dirs xdg-desktop-portal-wlr \
     gsettings-desktop-schemas \
-    dejavu-fonts-ttf
+    dejavu-fonts-ttf breeze-obsidian-cursor-theme
 
 read -p "Enter user name: " USERNAME
 read -p "Enter user login: " USERLOGIN

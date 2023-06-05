@@ -29,8 +29,10 @@ include ./config.d/vars
 # Set cursor theme 
     seat seat0 xcursor_theme $cursor_theme $cursor_size
 # Execute once for gtk applications
-    # gsettings set org.gnome.desktop.interface cursor-theme $cursor_theme
-    # gsettings set org.gnome.desktop.interface cursor-size $cursor_size
+    exec_always {
+        gsettings set org.gnome.desktop.interface cursor-theme $cursor_theme
+        gsettings set org.gnome.desktop.interface cursor-size $cursor_size
+    }
 
 ### Window rules
     for_window {
@@ -56,7 +58,7 @@ include ./config.d/vars
 
 # Random wallpaper
 output * {
-    bg $random_wallpaper fill
+    bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 }
 
 ### Idle configuration

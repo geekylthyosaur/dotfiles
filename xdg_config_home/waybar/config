@@ -43,6 +43,8 @@
         "format-ethernet": "E",
         "tooltip-format": "{ifname} via {gwaddr}",
         "format-disconnected": "!!!",
+        "on-click": "iwgtk",
+        "on-click-right": "blueman-manager",
     },
     "pulseaudio": {
         "on-click": "pavucontrol",
