@@ -1,9 +1,12 @@
-theme = "gruvbox"
+theme = "base16_default"
 
 [editor]
 scrolloff = 11
 line-number = "relative"
 mouse = false
+middle-click-paste = false
+scroll-lines = 1
+completion-trigger-len = 1
 
 [editor.cursor-shape]
 insert = "block"
@@ -13,3 +16,19 @@ select = "block"
 [editor.file-picker]
 hidden = false
 
+[editor.statusline]
+left = ["mode", "spinner"]
+center = ["file-name"]
+right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+separator = "│"
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+[editor.indent-guides]
+render = true
+character = "▏" # "┆", "┊", "⸽" "╎"
+skip-levels = 1
+
+[keys.select]
+y = ":clipboard-yank"

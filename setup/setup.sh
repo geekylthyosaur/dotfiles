@@ -42,8 +42,8 @@ useradd -m -G "wheel,floppy,audio,input,video,cdrom,optical,kvm,xbuilder,libvirt
 
 echo "$USERLOGIN:$USERPASSWORD" | chpasswd -c SHA512
 
-echo "light -O" >> /etc/rc.local
-echo "light -I" >> /etc/rc.shutdown
+echo "light -I" >> /etc/rc.local
+echo "light -O" >> /etc/rc.shutdown
 echo "permit nopass :wheel" > /etc/doas.conf
 echo "blacklist pcspkr" > /etc/modprobe.d/blacklist.conf
 
