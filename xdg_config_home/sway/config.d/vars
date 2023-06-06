@@ -1,7 +1,7 @@
 set $scripts ~/.config/sway/scripts
 
 # exec --no-startup-id $scripts/import_colors_from_css
-include ./style
+include ./colors
 
 ### Variables
     set $mod        Mod4
@@ -27,7 +27,8 @@ include ./style
     set $trackpoint "2:10:TPPS/2_Elan_TrackPoint"
 
 ### Look and feel
-    set $border_width 3
+    set $border_width 4
+    set $floating_border_width 4
     set $border_color $blue
     set $menu fuzzel --font=DeJaVuSansMono:size=9 --no-icons --background-color=282828f0 --text-color=ebdbb2ff --selection-color=ebdbb2ff --selection-text-color=282828ff --border-color=458588ff --border-width=$border_width --border-radius=0 --horizontal-pad=10 --vertical-pad=10 --inner-pad=10 --width=50
     set $floating_max_width 1300
@@ -37,7 +38,7 @@ include ./style
 
 ### Cursor
     set $cursor_size            24
-    set $cursor_theme           Breeze_Snow
+    set $cursor_theme           Breeze_Obsidian
     set $cursor_hide_timeout_ms 10000
 
 ### Wallpapers
@@ -49,11 +50,11 @@ include ./style
 
 ### Launchers
     set $start_launcher     $menu --lines=1
-    set $start_power_menu   $scripts/power_menu
+    set $start_power_menu   wlogout
 
 ### Screenshots
-    set $fullscreen_screenshot_to_clipboard_and_file    IMG=~/media/pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && grim $IMG && wl-copy < $IMG
-    set $selection_screenshot_to_clipboard_and_file     IMG=~/media/pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && grim -g "$(slurp -b '#282828bb' -c '#458588ff' -w 1)" $IMG && wl-copy < $IMG
+    set $fullscreen_screenshot_to_clipboard_and_file    IMG=~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && grim $IMG && wl-copy < $IMG
+    set $selection_screenshot_to_clipboard_and_file     IMG=~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && grim -g "$(slurp -b '#282828bb' -c '#458588ff' -w 1)" $IMG && wl-copy < $IMG
 
 ### Power commands
     set $suspend    doas zzz

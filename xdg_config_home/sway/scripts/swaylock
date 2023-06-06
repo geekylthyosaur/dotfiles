@@ -1,0 +1,13 @@
+#!/bin/sh
+
+screenshot_file="/tmp/screenshot.png"
+grim "$screenshot_file"
+
+blurred_file="/tmp/blurred.png"
+ffmpeg -i "$screenshot_file" -vf "gblur=sigma=40" "$blurred_file"
+rm "$screenshot_file" 
+
+swaylock -f -i $blurred_file
+
+rm "$blurred_file"
+

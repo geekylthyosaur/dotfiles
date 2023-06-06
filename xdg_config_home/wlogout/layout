@@ -1,0 +1,36 @@
+{
+    "label" : "suspend",
+    "action" : "doas zzz",
+    "text" : "Suspend",
+    "keybind" : "q"
+}
+{
+    "label" : "lock",
+    "action" : "swaylock",
+    "text" : "Lock",
+    "keybind" : "a"
+}
+{
+    "label" : "reload",
+    "action" : "swaymsg reload",
+    "text" : "Reload",
+    "keybind" : "w"
+}
+{
+    "label" : "reboot",
+    "action" : "doas reboot",
+    "text" : "Reboot",
+    "keybind" : "s"
+}
+{
+    "label" : "logout",
+    "action" : "swaymsg exit",
+    "text" : "Logout",
+    "keybind" : "e"
+}
+{
+    "label" : "shutdown",
+    "action" : "doas poweroff",
+    "text" : "Shutdown",
+    "keybind" : "d"
+}

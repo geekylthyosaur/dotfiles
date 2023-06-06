@@ -17,7 +17,7 @@ cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
 sed -i 's|https://repo-default.voidlinux.org|https://repo-fastly.voidlinux.org|g' /etc/xbps.d/*-repository-*.conf
 
 xbps-install -Sy mesa-ati-dri \
-    sway swaybg swaylock swayidle swaykbdd wl-clipboard Waybar fuzzel \
+    sway swaybg swaylock swayidle swaykbdd wl-clipboard Waybar fuzzel wlogout \
     seatd greetd \
     firefox telegram-desktop \
     qemu bridge-utils libvirt virt-manager \
@@ -26,8 +26,8 @@ xbps-install -Sy mesa-ati-dri \
     podman podman-compose \
     tlp light iwd iwgtk openresolv bluez blueman \
     pipewire wireplumber alsa-pipewire libspa-bluetooth pulseaudio-utils playerctl \
-    slurp grim \
-    net-tools xtools smartmontools \
+    slurp grim ffmpeg \
+    net-tools xtools smartmontools zip unzip \
     xdg-user-dirs xdg-desktop-portal-wlr \
     gsettings-desktop-schemas \
     dejavu-fonts-ttf breeze-obsidian-cursor-theme
@@ -59,7 +59,6 @@ ln -s /etc/sv/libvirtd /var/service
 ln -s /etc/sv/tlp /var/service
 
 ln -s /etc/sv/greetd /var/service/
-sv stop greetd
 
 # TODO:
 # * TRIM,

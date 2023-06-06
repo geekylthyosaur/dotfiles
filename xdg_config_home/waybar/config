@@ -5,7 +5,7 @@
     "margin-bottom": 5,
     "margin-left": 5,
     "margin-right": 5,
-    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-left": ["sway/workspaces", "sway/scratchpad", "sway/mode"],
     "modules-center": ["clock"],
     "modules-right": ["sway/language", "custom/download", "custom/fan", "pulseaudio", "backlight", "network", "battery"],
     "sway/workspaces": {
@@ -25,12 +25,19 @@
             "10": "J",
         },
     },
+    "sway/scratchpad": {
+        "format": "{icon} {count}",
+        "show-empty": false,
+        "format-icons": ["", "S"],
+        "tooltip": true,
+        "tooltip-format": "{app}: {title}"
+    },
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>",
     },
     "clock": {
-    	"interval": 1,
-    	"format": "{:%A, %H:%M:%S, %B %d}",
+    	"interval": 5,
+    	"format": "{:%A, %H:%M, %B %d}",
     },
     "backlight": {
         "format": "BL:{percent}%",
@@ -52,6 +59,8 @@
         "format-muted": "SM",
         "format-source": "M:{volume}%",
         "format-source-muted": "MM",
+        "format-bluetooth": "B:{volume}% {format_source}",
+        "format-bluetooth-muted": "BM {format_source}",
         "format-icons": {
             "headphone": "H:",
             "speaker": "S:",

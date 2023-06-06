@@ -21,37 +21,40 @@ font:
 
   size: 10
 
+scrolling:
+  multiplier: 1
+
 colors:
   bright:
-    black: '#4d4d4d'
-    blue: '#6ca4f8'
-    cyan: '#2b7489'
-    green: '#56d364'
-    magenta: '#db61a2'
-    red: '#f78166'
+    black: '#ffffff'
+    blue: '#0000ff'
+    cyan: '#00ffff'
+    green: '#00ff00'
+    magenta: '#ff00ff'
+    red: '#ff0000'
     white: '#ffffff'
-    yellow: '#e3b341'
+    yellow: '#ffff00'
   cursor:
-    cursor: '#c9d1d9'
-    text: '#101216'
+    cursor: '#ffffff'
+    text: '#000000'
   normal:
     black: '#000000'
-    blue: '#6ca4f8'
-    cyan: '#2b7489'
-    green: '#56d364'
-    magenta: '#db61a2'
-    red: '#f78166'
+    blue: '#0099ff'
+    cyan: '#00ffff'
+    green: '#00ff00'
+    magenta: '#ff00ff'
+    red: '#ff0000'
     white: '#ffffff'
-    yellow: '#e3b341'
+    yellow: '#ffff00'
   primary:
-    background: '#101216'
-    foreground: '#8b949e'
+    background: '#000000'
+    foreground: '#ffffff'
   selection:
-    background: '#3b5070'
-    text: '#ffffff'
+    background: '#ffffff'
+    text: '#000000'
 window:
   opacity:
-    0.9
+    0.75
   padding:
     x: 10
     y: 10
