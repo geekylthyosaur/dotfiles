@@ -30,7 +30,7 @@ include ./colors
     set $border_width 4
     set $floating_border_width 4
     set $border_color $blue
-    set $menu fuzzel --font=DeJaVuSansMono:size=9 --no-icons --background-color=282828f0 --text-color=ebdbb2ff --selection-color=ebdbb2ff --selection-text-color=282828ff --border-color=458588ff --border-width=$border_width --border-radius=0 --horizontal-pad=10 --vertical-pad=10 --inner-pad=10 --width=50
+    set $menu fuzzel --font=DeJaVuSansMono:size=9 --no-icons --background-color=00000033 --text-color=ffffffff --selection-color=ffffffff --selection-text-color=000000ff --border-color=ffffffff --border-width=$border_width --border-radius=5 --horizontal-pad=10 --vertical-pad=10 --inner-pad=10 --width=50
     set $floating_max_width 1300
     set $floating_max_height 700
     set $floating_min_width 50
