@@ -16,9 +16,11 @@ mkdir -p /etc/xbps.d
 cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
 sed -i 's|https://repo-default.voidlinux.org|https://repo-fastly.voidlinux.org|g' /etc/xbps.d/*-repository-*.conf
 
+xbps-install -Suy xbps
+
 xbps-install -Sy mesa-ati-dri \
     sway swaybg swaylock swayidle swaykbdd wl-clipboard Waybar fuzzel wlogout \
-    seatd greetd \
+    elogind greetd \
     firefox telegram-desktop \
     qemu bridge-utils libvirt virt-manager \
     texstudio texlive texlive-langcyrillic \
@@ -30,15 +32,22 @@ xbps-install -Sy mesa-ati-dri \
     net-tools xtools smartmontools zip unzip \
     xdg-user-dirs xdg-desktop-portal-wlr \
     gsettings-desktop-schemas \
-    dejavu-fonts-ttf breeze-obsidian-cursor-theme
+    dejavu-fonts-ttf noto-fonts-ttf font-liberation-ttf breeze-obsidian-cursor-theme
+
+# TODO: ignore
+# * linux-firmware-*
+# * acpid
+# * wpa-supplicant
+echo "ignorepkg=sudo" > /etc/xbps.d/10-ignore.conf
+xbps-remove sudo
 
 read -p "Enter user name: " USERNAME
 read -p "Enter user login: " USERLOGIN
-# TODO: dash not support read -s
+# FIXME: dash not support read -s
 read -s -p "Enter user password: " USERPASSWORD
 echo
 
-useradd -m -G "wheel,floppy,audio,input,video,cdrom,optical,kvm,xbuilder,libvirt,_seatd" -c "$USERNAME" "$USERLOGIN"
+useradd -m -G "wheel,floppy,audio,input,video,cdrom,optical,kvm,xbuilder,libvirt" -c "$USERNAME" "$USERLOGIN"
 
 echo "$USERLOGIN:$USERPASSWORD" | chpasswd -c SHA512
 
@@ -48,7 +57,6 @@ echo "permit nopass :wheel" > /etc/doas.conf
 echo "blacklist pcspkr" > /etc/modprobe.d/blacklist.conf
 
 ln -s /etc/sv/dbus /var/service/
-ln -s /etc/sv/seatd /var/service/
 ln -s /etc/sv/iwd /var/service/
 ln -s /etc/sv/bluetoothd /var/service/
 
@@ -64,4 +72,3 @@ curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install 
 
 # TODO:
 # * TRIM,
-# * ignore packages
