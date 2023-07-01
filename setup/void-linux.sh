@@ -60,6 +60,8 @@ ln -s /etc/sv/tlp /var/service
 
 ln -s /etc/sv/greetd /var/service/
 
+curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+
 # TODO:
 # * TRIM,
 # * ignore packages
