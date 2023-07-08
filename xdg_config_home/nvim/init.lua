@@ -57,6 +57,8 @@ require("packer").startup(function(use)
   use("nvim-lua/plenary.nvim")
   use("nvim-telescope/telescope.nvim")
 
+  -- Show diagnostics on top right
+  use {'Mofiqul/trld.nvim'}
   -- Some color scheme other then default
   -- use("morhetz/gruvbox")
 end)
@@ -80,7 +82,9 @@ vim.o.completeopt = "menuone,noinsert,noselect"
 
 -- Avoid showing extra messages when using completion
 vim.opt.shortmess = vim.opt.shortmess + "c"
-
+vim.diagnostic.config({ 
+    virtual_text = false, 
+})
 local function on_attach(client, buffer)
     local keymap_opts = { buffer = buffer }
     -- Code navigation and shortcuts
@@ -95,23 +99,11 @@ local function on_attach(client, buffer)
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, keymap_opts)
     vim.keymap.set("n", "ga", vim.lsp.buf.code_action, keymap_opts)
 
-    -- Show diagnostic popup on cursor hover
-    local diag_float_grp = vim.api.nvim_create_augroup("DiagnosticFloat", { clear = true })
-    vim.api.nvim_create_autocmd("CursorHold", {
-      callback = function()
-        vim.diagnostic.open_float(nil, { focusable = false })
-      end,
-      group = diag_float_grp,
-    })
-
     -- Goto previous/next diagnostic warning/error
     vim.keymap.set("n", "g[", vim.diagnostic.goto_prev, keymap_opts)
     vim.keymap.set("n", "g]", vim.diagnostic.goto_next, keymap_opts)
 end
 
--- Configure LSP through rust-tools.nvim plugin.
--- rust-tools will configure and enable certain LSP features for us.
--- See https://github.com/simrat39/rust-tools.nvim#configuration
 local opts = {
   tools = {
     runnables = {
@@ -130,6 +122,7 @@ local opts = {
   -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
   server = {
     -- on_attach is a callback called when the language server attachs to the buffer
+    cmd = { "ra-multiplex" },
     on_attach = on_attach,
     settings = {
       -- to enable rust-analyzer settings visit:
@@ -139,7 +132,6 @@ local opts = {
     },
   },
 }
-
 require("rust-tools").setup(opts)
 
 -- Setup Completion
@@ -152,9 +144,6 @@ cmp.setup({
     end,
   },
   mapping = {
-    ["<C-p>"] = cmp.mapping.select_prev_item(),
-    ["<C-n>"] = cmp.mapping.select_next_item(),
-    -- Add tab support
     ["<C-k>"] = cmp.mapping.select_prev_item(),
     ["<C-j>"] = cmp.mapping.select_next_item(),
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
@@ -175,6 +164,39 @@ cmp.setup({
     { name = "buffer" },
   },
 })
+
+require('trld').setup {
+  -- where to render the diagnostics. 'top' | 'bottom'
+  position = 'top',
+
+  -- if this plugin should execute it's builtin auto commands
+  auto_cmds = true,
+
+  -- diagnostics highlight group names
+  highlights = {
+    error = "DiagnosticFloatingError",
+    warn =  "DiagnosticFloatingWarn",
+    info =  "DiagnosticFloatingInfo",
+    hint =  "DiagnosticFloatingHint",
+  },
+
+  formatter = function(diag)
+    local u = require 'trld.utils'
+    local diag_lines = {}
+
+    for line in diag.message:gmatch("[^\n]+") do
+      line = line:gsub('[ \t]+%f[\r\n%z]', '')
+      table.insert(diag_lines, line)
+    end
+
+    local lines = {}
+    for _, diag_line in ipairs(diag_lines) do
+      table.insert(lines, { { diag_line .. ' ', u.get_hl_by_serverity(diag.severity) } })
+    end
+
+    return lines
+  end,
+}
 
 -- have a fixed column for the diagnostics to appear in
 -- this removes the jitter when warnings/errors flow in
