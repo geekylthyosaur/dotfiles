@@ -70,8 +70,13 @@ if packer_bootstrap then
 end
 
 -- vim.cmd([[ colorscheme gruvbox ]])
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-vim.api.nvim_set_hl(0, "Error", { bg = "none" })
+vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'Error', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'NormalFloat', { ctermbg = 'darkgray' })
+vim.api.nvim_set_hl(0, 'Pmenu', { ctermbg = 'darkgray' })
+vim.api.nvim_set_hl(0, 'PmenuSel', { ctermbg = 'black' })
+vim.api.nvim_set_hl(0, 'PmenuSbar', { ctermbg = 'black' })
+vim.api.nvim_set_hl(0, 'PmenuThumb', { ctermbg = 'black' })
 
 -- Set completeopt to have a better completion experience
 -- :help completeopt
@@ -238,3 +243,4 @@ map('n', '<C-l>', 'gt', { noremap = true, silent = false })
 vim.api.nvim_set_keymap('n', 'q:', '<Nop>', { noremap = true })
 vim.api.nvim_set_keymap('n', 'Q', '<Nop>', { noremap = true })
 map('n', '<C-t>', ':tabnew ', { noremap = true, silent = false })
+
