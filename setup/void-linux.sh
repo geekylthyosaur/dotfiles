@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 set -e
 
@@ -22,8 +22,6 @@ xbps-install -Sy mesa-ati-dri \
     sway swaybg swaylock swayidle swaykbdd wl-clipboard Waybar fuzzel wlogout \
     elogind greetd \
     firefox telegram-desktop \
-    qemu bridge-utils libvirt virt-manager \
-    texstudio texlive texlive-langcyrillic \
     fish-shell alacritty neovim tmux htop neofetch opendoas git\
     podman podman-compose \
     tlp light iwd iwgtk openresolv bluez blueman \
@@ -34,22 +32,15 @@ xbps-install -Sy mesa-ati-dri \
     gsettings-desktop-schemas \
     dejavu-fonts-ttf noto-fonts-ttf font-liberation-ttf breeze-obsidian-cursor-theme
 
+xbps-install -Sy qemu bridge-utils libvirt virt-manager
+xbps-install -Sy texstudio texlive texlive-langcyrillic
+
 # TODO: ignore
 # * linux-firmware-*
 # * acpid
 # * wpa-supplicant
 echo "ignorepkg=sudo" > /etc/xbps.d/10-ignore.conf
-xbps-remove sudo
-
-read -p "Enter user name: " USERNAME
-read -p "Enter user login: " USERLOGIN
-# FIXME: dash not support read -s
-read -s -p "Enter user password: " USERPASSWORD
-echo
-
-useradd -m -G "wheel,floppy,audio,input,video,cdrom,optical,kvm,xbuilder,libvirt" -c "$USERNAME" "$USERLOGIN"
-
-echo "$USERLOGIN:$USERPASSWORD" | chpasswd -c SHA512
+xbps-remove -y sudo
 
 echo "light -I" >> /etc/rc.local
 echo "light -O" >> /etc/rc.shutdown
