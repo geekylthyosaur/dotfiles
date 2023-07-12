@@ -121,4 +121,4 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 
-export VIMINIT="$XDG_CONFIG_HOME/vim/vimrc"
+export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
