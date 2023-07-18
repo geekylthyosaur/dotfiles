@@ -5,9 +5,14 @@ set nocompatible
 set autoindent
 set expandtab
 set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set smartindent
+set smarttab
 set ignorecase
 set autowrite
 set nonumber
+set norelativenumber
 set ruler
 set ruf=%30(%=%#LineNr#%.50F\ [%{strlen(&ft)?&ft:'none'}]\ %l:%c\ %p%%%)
 set showmode
@@ -15,10 +20,6 @@ set showmode
 set t_vb=
 
 let mapleader=" "
-set softtabstop=4
-set shiftwidth=4
-set smartindent
-set smarttab
 
 if v:version >= 800
   set nofixendofline
@@ -29,7 +30,6 @@ endif
 
 match IncSearch '\s\+$'
 set textwidth=72
-set norelativenumber
 set spc=
 
 set scrolloff=7
@@ -51,5 +51,7 @@ endif
 set ttyfast
 
 set clipboard=unnamedplus
+
+nnoremap <Esc> :nohlsearch<CR>
 
 if !has('nvim') | set viminfofile=$XDG_STATE_HOME/vim/viminfo | endif
