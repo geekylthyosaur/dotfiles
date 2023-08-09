@@ -1,9 +1,3 @@
--- This is an example on how rust-analyzer can be configured using rust-tools
---
--- Prerequisites:
--- - neovim >= 0.8
--- - rust-analyzer: https://rust-analyzer.github.io/manual.html#rust-analyzer-language-server-binary
-
 local ensure_packer = function()
   local fn = vim.fn
   local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
@@ -203,44 +197,5 @@ require('trld').setup {
   end,
 }
 
--- have a fixed column for the diagnostics to appear in
--- this removes the jitter when warnings/errors flow in
-vim.wo.signcolumn = "yes"
-
-local o = vim.opt
-local g = vim.g
-
-g.mapleader = "<Space>"
-
--- " Set updatetime for CursorHold
--- " 300ms of no cursor movement to trigger CursorHold
--- set updatetime=300
-o.updatetime = 100
-o.termguicolors = false
-o.wrap = false
-o.swapfile = false
-o.scrolloff = 11
-o.number = true
-o.relativenumber = true
-o.hlsearch = false
-o.guicursor = ""
-o.tabstop = 4
-o.expandtab = true
-o.shiftwidth = 4
-o.clipboard = "unnamedplus"
-
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = {"html", "javascript", "js", "ts", "css", "vue", "yml", "yaml"},
-	callback = function()
-		vim.opt_local.shiftwidth = 2
-		vim.opt_local.tabstop = 2
-	end
-})
-local map = vim.api.nvim_set_keymap
-
-map('n', '<C-h>', 'gT', { noremap = true, silent = false })
-map('n', '<C-l>', 'gt', { noremap = true, silent = false })
-vim.api.nvim_set_keymap('n', 'q:', '<Nop>', { noremap = true })
-vim.api.nvim_set_keymap('n', 'Q', '<Nop>', { noremap = true })
-map('n', '<C-t>', ':tabnew ', { noremap = true, silent = false })
-
+local nolua_vim = vim.fn.stdpath('config') .. '/nolua.vim'
+vim.cmd(':so ' .. nolua_vim)
