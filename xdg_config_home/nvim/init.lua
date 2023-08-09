@@ -63,15 +63,6 @@ if packer_bootstrap then
   return
 end
 
--- vim.cmd([[ colorscheme gruvbox ]])
-vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-vim.api.nvim_set_hl(0, 'Error', { bg = 'none' })
-vim.api.nvim_set_hl(0, 'NormalFloat', { ctermbg = 'darkgray' })
-vim.api.nvim_set_hl(0, 'Pmenu', { ctermbg = 'darkgray' })
-vim.api.nvim_set_hl(0, 'PmenuSel', { ctermbg = 'black' })
-vim.api.nvim_set_hl(0, 'PmenuSbar', { ctermbg = 'black' })
-vim.api.nvim_set_hl(0, 'PmenuThumb', { ctermbg = 'black' })
-
 -- Set completeopt to have a better completion experience
 -- :help completeopt
 -- menuone: popup even when there's only one match
@@ -86,21 +77,8 @@ vim.diagnostic.config({
 })
 local function on_attach(client, buffer)
     local keymap_opts = { buffer = buffer }
-    -- Code navigation and shortcuts
-    vim.keymap.set("n", "<c-]>", vim.lsp.buf.definition, keymap_opts)
     vim.keymap.set("n", "K", vim.lsp.buf.hover, keymap_opts)
-    vim.keymap.set("n", "gD", vim.lsp.buf.implementation, keymap_opts)
     vim.keymap.set("n", "<c-k>", vim.lsp.buf.signature_help, keymap_opts)
-    vim.keymap.set("n", "1gD", vim.lsp.buf.type_definition, keymap_opts)
-    vim.keymap.set("n", "gr", vim.lsp.buf.references, keymap_opts)
-    vim.keymap.set("n", "g0", vim.lsp.buf.document_symbol, keymap_opts)
-    vim.keymap.set("n", "gW", vim.lsp.buf.workspace_symbol, keymap_opts)
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, keymap_opts)
-    vim.keymap.set("n", "ga", vim.lsp.buf.code_action, keymap_opts)
-
-    -- Goto previous/next diagnostic warning/error
-    vim.keymap.set("n", "g[", vim.diagnostic.goto_prev, keymap_opts)
-    vim.keymap.set("n", "g]", vim.diagnostic.goto_next, keymap_opts)
 end
 
 local opts = {
@@ -116,16 +94,10 @@ local opts = {
     },
   },
 
-  -- all the opts to send to nvim-lspconfig
-  -- these override the defaults set by rust-tools.nvim
-  -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
   server = {
-    -- on_attach is a callback called when the language server attachs to the buffer
-    cmd = { "ra-multiplex" },
+    -- cmd = { "ra-multiplex" },
     on_attach = on_attach,
     settings = {
-      -- to enable rust-analyzer settings visit:
-      -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
       ["rust-analyzer"] = {
       },
     },
@@ -133,8 +105,6 @@ local opts = {
 }
 require("rust-tools").setup(opts)
 
--- Setup Completion
--- See https://github.com/hrsh7th/nvim-cmp#basic-configuration
 local cmp = require("cmp")
 cmp.setup({
   snippet = {
