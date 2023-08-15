@@ -169,3 +169,5 @@ require('trld').setup {
 
 local nolua_vim = vim.fn.stdpath('config') .. '/nolua.vim'
 vim.cmd(':so ' .. nolua_vim)
+
+vim.opt.updatetime = 300

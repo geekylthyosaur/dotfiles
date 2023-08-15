@@ -1,3 +1,6 @@
+set encoding=utf-8
+set nocompatible
+
 " Disable arrows
 noremap <Up> <Nop>
 noremap <Down> <Nop>
@@ -8,10 +11,8 @@ noremap q: <Nop>
 " Disable entering the ex mode
 noremap Q <Nop>
 " Remove hightlights after search
+" FIXME
 nnoremap <Esc> :nohlsearch<CR>
-
-set encoding=utf-8
-set nocompatible
 
 syntax enable
 filetype plugin indent on
@@ -26,6 +27,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 " Tab is 2 spaces for filetypes
+" FIXME
 autocmd FileType vim,go,lua,javascript,yaml,json,html,css,scss setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 set nonumber
@@ -36,6 +38,7 @@ set signcolumn=yes
 set ruler
 set rulerformat=%30(%=%##%.50F\ [%{strlen(&ft)?&ft:'none'}]\ %l:%c\ %p%%%)
 set laststatus=0
+set noshowcmd
 
 " Use system's clipboard (vim --version | grep '+clipboard')
 if has('clipboard')
