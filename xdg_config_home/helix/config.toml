@@ -1,4 +1,4 @@
-theme = "base16_default"
+theme = "github_dark"
 
 [editor]
 scrolloff = 11
@@ -27,7 +27,7 @@ mode.select = "SELECT"
 
 [editor.indent-guides]
 render = true
-character = "▏" # "┆", "┊", "⸽" "╎"
+character = "┊" # "▏" "┆", "┊", "⸽" "╎"
 skip-levels = 1
 
 [keys.select]
