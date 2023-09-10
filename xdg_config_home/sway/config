@@ -110,11 +110,13 @@ include ./config.d/vars
         natural_scroll enabled
         middle_emulation enabled
         pointer_accel 0.35
+	accel_profile adaptive
     }
 
     input $trackpoint {
         left_handed enabled
         pointer_accel 0.35
+	accel_profile adaptive
     }
 
 ### Key bindings
@@ -163,6 +165,8 @@ bindsym --to-code --no-repeat {
     $mod+0 workspace number 10
     $mod+BracketLeft workspace prev
     $mod+BracketRight workspace next
+    bindgesture swipe:right workspace prev
+    bindgesture swipe:left workspace next
 
     # Move focused container to workspace
     $mod+Shift+1 move container to workspace number 1; workspace number 1
