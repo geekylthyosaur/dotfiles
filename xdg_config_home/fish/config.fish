@@ -36,24 +36,33 @@ if status is-interactive
     fish_add_path ~/.local/share/npm/bin
     fish_add_path /sbin
     fish_add_path /usr/sbin
-#    fish_add_path /usr/lib/psql*/bin/
     fish_add_path ~/.config/composer/vendor/bin/
 
-    alias install="doas xbps-install"
-    alias update="doas xbps-install -S"
-    alias upgrade="doas xbps-install -Su"
-    alias remove="doas xbps-remove -Rf"
-    alias search="doas xbps-query -Rs"
-    
-    alias c="cargo"
-    alias cr="cargo run"
-    alias crr="cargo run --release"
-    alias cb="cargo build"
-    alias cbr="cargo build --release"
-    alias cc="cargo check"
-    alias cl="cargo clippy"
-    alias ct="cargo test"
-    alias cf="cargo fmt"
+    if command -v "dnf" &> /dev/null
+        alias install="sudo dnf install"
+        alias update="sudo dnf update"
+        alias upgrade="sudo dnf update"
+        alias remove="sudo dnf remove"
+        alias search="sudo dnf search"
+    else if command -v "xbps-install" &> /dev/null
+        alias install="doas xbps-install"
+        alias update="doas xbps-install -S"
+        alias upgrade="doas xbps-install -Su"
+        alias remove="doas xbps-remove -Rf"
+        alias search="doas xbps-query -Rs"
+    end
+
+    if command -v "cargo" &> /dev/null
+        alias c="cargo"
+        alias cr="cargo run"
+        alias crr="cargo run --release"
+        alias cb="cargo build"
+        alias cbr="cargo build --release"
+        alias cc="cargo check"
+        alias cl="cargo clippy"
+        alias ct="cargo test"
+        alias cf="cargo fmt"
+    end
 
     alias tree="tree --dirsfirst"
 end
