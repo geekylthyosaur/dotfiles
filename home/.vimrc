@@ -66,12 +66,7 @@ set nowrap sidescroll=1 listchars=space:.,trail:*,nbsp:*,extends:>,precedes:<,ta
 set guicursor=
 
 " Remove .viminfo from $HOME
-if !has('nvim')
-  if !empty($XDG_STATE_HOME)
-    call mkdir($XDG_STATE_HOME."/vim/", 'p')
-    set viminfofile=$XDG_STATE_HOME/vim/viminfo
-  endif
-endif
+" set viminfofile = '/tmp/.viminfo'
 
 " Colors
 set background=dark

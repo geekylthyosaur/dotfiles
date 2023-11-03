@@ -31,6 +31,3 @@ mode.select = "SELECT"
 render = true
 character = "┊" # "▏" "┆", "┊", "⸽" "╎"
 skip-levels = 1
-
-[keys.select]
-y = ":clipboard-yank"
