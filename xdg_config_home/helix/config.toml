@@ -31,3 +31,6 @@ mode.select = "SELECT"
 render = true
 character = "┊" # "▏" "┆", "┊", "⸽" "╎"
 skip-levels = 1
+
+[editor.whitespace.render]
+tab = "all"
