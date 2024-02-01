@@ -1,18 +1,12 @@
 set encoding=utf-8
 set nocompatible
 
-" Disable arrows
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
 " Disable history menu
 noremap q: <Nop>
 " Disable entering the ex mode
 noremap Q <Nop>
 " Remove hightlights after search
-" FIXME
-nnoremap <Esc> :nohlsearch<CR>
+nnoremap <Esc> :if v:hlsearch<CR>:nohlsearch<CR>:endif<CR><CR>
 
 syntax enable
 filetype plugin indent on
@@ -36,13 +30,13 @@ set signcolumn=yes
 
 " Status line
 set ruler
-set rulerformat=%30(%=%##%.50F\ [%{strlen(&ft)?&ft:'none'}]\ %l:%c\ %p%%%)
+set rulerformat=%79(%=%##%.99F\ [%{strlen(&ft)?&ft:'none'}]\ %l:%c\ %p%%%)
 set laststatus=0
 set noshowcmd
 
-" Use system's clipboard (vim --version | grep '+clipboard')
+" Yank to system clipboard (`vim --version | grep '+clipboard'`)
 if has('clipboard')
-  set clipboard=unnamedplus
+  vnoremap Y "+y
 else
   " TODO
 endif
@@ -58,9 +52,9 @@ set nowritebackup
 
 " Highlight search results
 set hlsearch
-" Highlight characters (:set list to enable)
-set nolist
-set nowrap sidescroll=1 listchars=space:.,trail:*,nbsp:*,extends:>,precedes:<,tab:\|>
+" Highlight characters
+set list
+set nowrap sidescroll=1 nowrap sidescroll=1 listchars=tab:\→\ ,trail:*,precedes:<,extends:>,
 
 " Block cursor
 set guicursor=
@@ -72,8 +66,3 @@ if !has('nvim')
     set viminfofile=$XDG_STATE_HOME/vim/viminfo
   endif
 endif
-
-" Colors
-set background=dark
-
-highlight SignColumn ctermbg=236

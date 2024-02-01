@@ -3,6 +3,3 @@
 	name = geekylthyosaur
 [init]
 	defaultBranch = main
-[safe]
-	directory = /app
-	directory = app

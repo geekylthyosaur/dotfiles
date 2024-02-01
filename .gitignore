@@ -1,5 +1,2 @@
-# Python binaries
-*/__pycache__
-# Neovim plugins
-*/nvim/plugged
+*/nvim/plugin
 
