@@ -1,51 +1,46 @@
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-    vim.cmd([[packadd packer.nvim]])
-    return true
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+local colorscheme = {
+  "projekt0n/github-nvim-theme",
+  lazy = false,
+  priority = 1000,
+  config = function()
+    vim.cmd("colorscheme github_dark_colorblind")
   end
-  return false
-end
+}
 
-local packer_bootstrap = ensure_packer()
-
-require("packer").init({
-  -- Remove disabled or unused plugins without prompting the user
-  autoremove = true,
-})
-require("packer").startup(function(use)
-  -- Packer can manage itself
-  use("wbthomason/packer.nvim")
-
-  -- Theme
-  use {
-    "projekt0n/github-nvim-theme",
-    config = function()
-      vim.cmd("colorscheme github_dark_default")
-    end
+local whichkey = {
+  "folke/which-key.nvim",
+  event = "VeryLazy",
+  init = function()
+    vim.o.timeoutlen = 0
+  end,
+  opts = {
+    window = {
+      border = "single",
+      margin = { 1, 1, 1, 0.8 },
+      padding = { 0, 0, 0, 0 },
+    },
+    show_help = false,
+    show_keys = false,
   }
+}
 
-  -- Git
-  use {
-    "airblade/vim-gitgutter",
-    config = function()
-      vim.g.gitgutter_sign_added = "▍"
-      vim.g.gitgutter_sign_modified = "▍"
-      vim.g.gitgutter_sign_removed = "▔"
-      vim.g.gitgutter_sign_removed_first_line = "▔"
-      vim.g.gitgutter_sign_removed_above_and_below = "▔"
-      vim.g.gitgutter_sign_modified_removed = "▍"
-    end
-  }
-end)
+local plugins = { colorscheme, whichkey }
+local opts = {}
 
--- The first run will install packer and plugins
-if packer_bootstrap then
-  require("packer").sync()
-  return
-end
+require("lazy").setup(plugins, opts)
 
 local nolua_vim = vim.fn.stdpath("config") .. "/nolua.vim"
 vim.cmd(":so " .. nolua_vim)

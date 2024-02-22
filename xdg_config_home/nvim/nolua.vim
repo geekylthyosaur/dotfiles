@@ -1,6 +1,26 @@
 set encoding=utf-8
 set nocompatible
 
+" <Leader> is <Space>
+map <Space> <Leader>
+
+nnoremap <Leader>= :tabnew<CR>
+nnoremap <Leader>\ :tabnew<CR>
+nnoremap <Leader>q :tabclose<CR>
+nnoremap <Leader>- :tabclose<CR>
+nnoremap <Leader>] :tabnext<CR>
+nnoremap <Leader>[ :tabprevious<CR>
+nnoremap <Leader>} :tabmove +1<CR>
+nnoremap <Leader>{ :tabmove -1<CR>
+
+" Focus new panel after split
+nnoremap <C-w>s :split<CR><C-w>j
+nnoremap <C-w>v :vsplit<CR><C-w>l
+
+" Shift using single keypress
+nnoremap > >>
+nnoremap < <<
+
 " Disable history menu
 noremap q: <Nop>
 " Disable entering the ex mode
@@ -34,7 +54,7 @@ set rulerformat=%79(%=%##%.99F\ [%{strlen(&ft)?&ft:'none'}]\ %l:%c\ %p%%%)
 set laststatus=0
 set noshowcmd
 
-" Yank to system clipboard (`vim --version | grep '+clipboard'`)
+" Yank to system clipboard (`vim --version | grep "+clipboard"`)
 if has('clipboard')
   vnoremap Y "+y
 else
@@ -60,9 +80,9 @@ set nowrap sidescroll=1 nowrap sidescroll=1 listchars=tab:\→\ ,trail:*,precede
 set guicursor=
 
 " Remove .viminfo from $HOME
-if !has('nvim')
+if !has("nvim")
   if !empty($XDG_STATE_HOME)
-    call mkdir($XDG_STATE_HOME."/vim/", 'p')
+    call mkdir($XDG_STATE_HOME."/vim/", "p")
     set viminfofile=$XDG_STATE_HOME/vim/viminfo
   endif
 endif

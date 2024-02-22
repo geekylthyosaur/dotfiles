@@ -32,11 +32,12 @@ if status is-interactive
     set fish_greeting
 
     fish_add_path ~/.local/bin
-    fish_add_path ~/.local/share/cargo/bin 
+    # fish_add_path ~/.local/share/cargo/bin 
     fish_add_path ~/.local/share/npm/bin
     fish_add_path /sbin
     fish_add_path /usr/sbin
     fish_add_path ~/.config/composer/vendor/bin/
+    fish_add_path /home/dmytro/.local/share/solana/install/active_release/bin
 
     if command -v "dnf" &> /dev/null
         alias install="sudo dnf install"
