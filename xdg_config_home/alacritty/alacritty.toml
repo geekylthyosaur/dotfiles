@@ -1,0 +1,32 @@
+import = ["~/.config/alacritty/dark-theme.toml",]
+shell = { program = "/bin/fish", args = ["--interactive"] }
+
+[font]
+size = 10
+
+[font.bold]
+family = "DeJaVu Sans Mono"
+style = "Bold"
+
+[font.bold_italic]
+family = "DeJaVu Sans Mono"
+style = "Bold Italic"
+
+[font.italic]
+family = "DeJaVu Sans Mono"
+style = "Italic"
+
+[font.normal]
+family = "DeJaVu Sans Mono"
+style = "Semibold"
+
+[scrolling]
+multiplier = 1
+
+[window]
+opacity = 1.0
+decorations = "None"
+
+[window.padding]
+x = 10
+y = 10

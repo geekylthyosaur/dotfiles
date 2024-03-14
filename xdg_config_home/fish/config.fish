@@ -32,7 +32,6 @@ if status is-interactive
     set fish_greeting
 
     fish_add_path ~/.local/bin
-    # fish_add_path ~/.local/share/cargo/bin 
     fish_add_path ~/.local/share/npm/bin
     fish_add_path /sbin
     fish_add_path /usr/sbin
