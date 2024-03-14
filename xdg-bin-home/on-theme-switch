@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -eu -o pipefail
+
+if [[ "$1" == "default" ]]; then
+  . $HOME/.local/bin/on-light-theme
+elif [[ "$1" == "prefer-dark" ]]; then
+  . $HOME/.local/bin/on-dark-theme
+fi
+
