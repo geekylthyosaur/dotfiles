@@ -1,1 +1,1 @@
-../xdg_config_home/nvim/nolua.vim
+../xdg-config-home/nvim/nolua.vim

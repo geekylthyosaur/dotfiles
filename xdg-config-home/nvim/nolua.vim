@@ -13,6 +13,8 @@ nnoremap <Leader>[ :tabprevious<CR>
 nnoremap <Leader>} :tabmove +1<CR>
 nnoremap <Leader>{ :tabmove -1<CR>
 
+nnoremap <Leader>f :edit 
+
 " Focus new panel after split
 nnoremap <C-w>s :split<CR><C-w>j
 nnoremap <C-w>v :vsplit<CR><C-w>l
@@ -26,7 +28,7 @@ noremap q: <Nop>
 " Disable entering the ex mode
 noremap Q <Nop>
 " Remove hightlights after search
-nnoremap <Esc> :if v:hlsearch<CR>:nohlsearch<CR>:endif<CR><CR>
+nnoremap <Leader>h :nohlsearch<CR>
 
 syntax enable
 filetype plugin indent on
@@ -74,15 +76,7 @@ set nowritebackup
 set hlsearch
 " Highlight characters
 set list
-set nowrap sidescroll=1 nowrap sidescroll=1 listchars=tab:\→\ ,trail:*,precedes:<,extends:>,
+set nowrap sidescroll=1 nowrap sidescroll=1 listchars=tab:\→\ ,trail:_,precedes:<,extends:>,
 
 " Block cursor
 set guicursor=
-
-" Remove .viminfo from $HOME
-if !has("nvim")
-  if !empty($XDG_STATE_HOME)
-    call mkdir($XDG_STATE_HOME."/vim/", "p")
-    set viminfofile=$XDG_STATE_HOME/vim/viminfo
-  endif
-endif
