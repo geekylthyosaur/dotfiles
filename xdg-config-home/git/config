@@ -3,3 +3,5 @@
 	name = geekylthyosaur
 [init]
 	defaultBranch = main
+[core]
+	editor = hx
