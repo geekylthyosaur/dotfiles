@@ -25,7 +25,7 @@ nnoremap < <<
 
 " Disable history menu
 noremap q: <Nop>
-" Disable entering the ex mode
+" Disable ex mode
 noremap Q <Nop>
 " Remove hightlights after search
 nnoremap <Leader>h :nohlsearch<CR>
