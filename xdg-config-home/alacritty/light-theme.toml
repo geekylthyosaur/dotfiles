@@ -15,12 +15,12 @@ text = "#ffffff"
 [colors.normal]
 black = "#000000"
 blue = "#5c5cff"
-cyan = "#00ffff"
+cyan = "#00aaaa"
 green = "#00ff00"
 magenta = "#ff00ff"
 red = "#ff0000"
 white = "#ffffff"
-yellow = "#ffff00"
+yellow = "#aaaa00"
 
 [colors.primary]
 background = "#ffffff"
