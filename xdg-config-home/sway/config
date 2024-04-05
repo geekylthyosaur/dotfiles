@@ -95,6 +95,7 @@
         /usr/libexec/lxqt-policykit-agent
         /usr/libexec/sway-systemd/wait-sni-ready && systemctl --user start sway-xdg-autostart.target
         /usr/bin/xdg-user-dirs-update
+        /bin/bash -c 'gsettings monitor org.gnome.desktop.interface color-scheme | xargs -L1 sh -c "source ~/.local/bin/on-theme-switch"'
     }
 
     # Execute after each reload

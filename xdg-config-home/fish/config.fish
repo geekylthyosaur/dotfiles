@@ -15,6 +15,18 @@ if status is-interactive
     fish_add_path /sbin
     fish_add_path /usr/sbin
 
+    if command -v "cargo" &> /dev/null
+        alias c="cargo"
+        alias cr="cargo run"
+        alias crr="cargo run --release"
+        alias cb="cargo build"
+        alias cbr="cargo build --release"
+        alias cc="cargo check"
+        alias cl="cargo clippy"
+        alias ct="cargo test"
+        alias cf="cargo fmt"
+    end
+
     alias dnf=dnf5
 
     alias tree="tree --dirsfirst"
