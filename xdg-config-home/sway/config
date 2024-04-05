@@ -1,314 +1,298 @@
-include ./config.d/vars
+### Variables
 
-### Autostart
-    exec --no-startup-id {
-    # https://github.com/emersion/xdg-desktop-portal-wlr/wiki/%22It-doesn't-work%22-Troubleshooting-Checklist#issues-in-void-linux
-        dbus-update-activation-environment DISPLAY I3SOCK SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-    # Pipewire & Wireplumber & pipewire-pulse through /etc/pipewire/pipewire.conf
-        pipewire
-    # Polkit
-    #   /usr/libexec/polkit-gnome-authentication-agent-1
-    # Switch language individually for each window
-        swaykbdd
+    # Keys
+    set {
+        $mod        Mod4
+        $alt        Mod1
+        $left       h
+        $right      l
+        $up         k
+        $down       j
     }
 
-### Options
-    xwayland enable
-    smart_borders on
-    hide_edge_borders smart_no_gaps
-    focus_follows_mouse yes
-    focus_on_window_activation focus
-    floating_modifier $mod normal
-# Borders
-    client.focused $fg $bg $fg $fg $fg
-    client.unfocused $bg2 $bg1 $fg $blue $aqua
-    default_border pixel $border_width
-    default_floating_border pixel $floating_border_width
-# Floating window size
-    floating_maximum_size $floating_max_width x $floating_max_height
-    floating_minimum_size $floating_min_width x $floating_min_height
-# Gaps
-    gaps inner 5
-    gaps outer 0
-### Swayfx
-    corner_radius 5
-# Blur
-    blur enable
-    blur_xray disable
-    blur_passes 1
-    blur_radius 5
-    layer_effects "launcher" blur enable
-# Shadows
-    shadows enable
-    shadows_on_csd enable
-    shadow_blur_radius 10
-    shadow_color $fg
-    layer_effects "launcher" shadow enable
+    # Input devices
+    # You can get the names of your inputs by running: `swaymsg -t get_inputs`
+    set {
+        $keyboard   "type:keyboard"
+        $touchpad   "2:7:SynPS/2_Synaptics_TouchPad"
+        $trackpoint "2:10:TPPS/2_Elan_TrackPoint"
+    }
 
-### Cursor
-# Hide cursor after 10 seconds of inactivity
-    seat seat0 hide_cursor $cursor_hide_timeout_ms
-# Set cursor theme 
-    seat seat0 xcursor_theme $cursor_theme $cursor_size
-# Execute once for gtk applications
+    # Wallpapers
+    set {
+        $wallpaper /usr/share/backgrounds/default.png
+    }
+
+### Commands
+
+    # Terminal
+    set {
+        $term                       alacritty
+        $fterm                      alacritty --class floating
+        $start_terminal             $term; input $keyboard xkb_switch_layout 0
+        $start_floating_terminal    $fterm; input $keyboard xkb_switch_layout 0
+    }
+
+    # Menu commands 
+    set {
+        $rofi_cmd rofi -terminal '$term'
+        $menu $rofi_cmd -show combi -combi-modes drun#run -modes combi
+    }
+
+    # Audio player commands
+    set {
+        $player_pause           playerctl pause
+        $player_prev            playerctl previous
+        $player_pause_toggle    playerctl play-pause
+        $player_next            playerctl next
+    }
+
+    # Screenshots commands
+    set {
+        $fullscreen_screenshot_to_clipboard_and_file    IMG=~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && grim $IMG && wl-copy < $IMG
+        $selection_screenshot_to_clipboard_and_file     IMG=~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && grim -g "$(slurp -b '#282828bb' -c '#458588ff' -w 1)" $IMG && wl-copy < $IMG
+    }
+
+    # Brightness control commands
+    set {
+        $brightness_notification  command -v notify-send >/dev/null && \
+            VALUE=$(light) && VALUE=${VALUE%%.*} && \
+            notify-send -e -h string:x-canonical-private-synchronous:brightness \
+                -h "int:value:$VALUE" -t 800 "Brightness: ${VALUE}%"
+
+        $brightness_down        light -U 5 && $brightness_notification
+        $brightness_up          light -A 5 && $brightness_notification
+        $brightness_down_little light -U 1 && $brightness_notification
+        $brightness_up_little   light -A 1 && $brightness_notification
+    }
+
+    # Volume control commands
+    set {
+        $sink_volume_down   pactl set-sink-volume @DEFAULT_SINK@ -5%
+        $sink_volume_up     pactl set-sink-volume @DEFAULT_SINK@ +5%
+        $sink_mute          pactl set-sink-mute @DEFAULT_SINK@ toggle
+    }
+
+    # Mic control commands
+    set {
+        $source_volume_down pactl set-source-volume @DEFAULT_SOURCE@ -5%
+        $source_volume_up   pactl set-source-volume @DEFAULT_SOURCE@ +5%
+        $source_mute        pactl set-source-mute @DEFAULT_SOURCE@ toggle
+    }
+
+### Autostart
+
+    # Execute once
+    exec --no-startup-id {
+        /usr/libexec/sway-systemd/assign-cgroups.py
+        /usr/libexec/sway-systemd/session.sh
+        /usr/libexec/lxqt-policykit-agent
+        /usr/libexec/sway-systemd/wait-sni-ready && systemctl --user start sway-xdg-autostart.target
+        /usr/bin/xdg-user-dirs-update
+    }
+
+    # Execute after each reload
     exec_always {
         gsettings set org.gnome.desktop.interface cursor-theme $cursor_theme
         gsettings set org.gnome.desktop.interface cursor-size $cursor_size
     }
 
-### Window rules
-    for_window {
-        [app_id="floating"] floating enable
-        [app_id="pavucontrol"] floating enable
-        [app_id="telegram-desktop" title="Choose Files"] floating enable
-        [app_id="thunar"] floating enable
-        [app_id="Firefox" title="Firefox — Sharing Indicator"] floating enable
-        [app_id="Firefox" title="Firefox — Sharing Indicator"] kill
-        [app_id="swayimg"] fullscreen
-        [app_id="blueman-applet"] kill
-        [app_id="blueman-manager"] floating enable
-        [app_id="org.twosheds.iwgtk"] floating enable
+### Idle configuration
+
+    exec LT=300 ST=600 LT=${LT:-300} ST=${ST:-60} && \
+        swayidle -w \
+            timeout $LT 'swaylock -f' \
+            timeout $((LT + ST)) 'swaymsg "output * power off"' \
+                          resume 'swaymsg "output * power on"'  \
+            timeout $ST 'pgrep -xu "$USER" swaylock >/dev/null && swaymsg "output * power off"' \
+                 resume 'pgrep -xu "$USER" swaylock >/dev/null && swaymsg "output * power on"'  \
+            before-sleep 'swaylock -f' \
+            lock 'swaylock -f' \
+            unlock 'pkill -xu "$USER" -SIGUSR1 swaylock'
+
+### Input configuration
+
+    # Keyboard
+    input $keyboard {
+        repeat_delay    180
+        repeat_rate     60
+        xkb_layout      us,ua
+        xkb_options     grp:alt_shift_toggle
+    }
+
+    # Touchpad
+    input $touchpad {
+        dwt                 disable
+        tap                 enabled
+        natural_scroll      enabled
+        middle_emulation    enabled
+        pointer_accel       0.35
+        accel_profile       adaptive
+    }
+
+    # Trackpoint
+    input $trackpoint {
+        left_handed     enabled
+        pointer_accel   0.35
+        accel_profile   adaptive
     }
 
 ### Output configuration
 # You can get the names of your outputs by running: swaymsg -t get_outputs
+
     output eDP-1 {
-        resolution 1366x768 
-        position 0,288
+        resolution  1366x768
+        position    0,288
     }
+
     output HDMI-A-1 {
         resolution 1920x1080 position 1366,0
         # transform 270
     }
 
-# Wallpaper
     output * {
-        # bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-        bg $random_wallpaper fill
+        bg $wallpaper fill
     }
 
-### Idle configuration
-    bindsym $mod+End exec $scripts/swaylock
-    exec swayidle -w \
-                timeout 300 '$scripts/swaylock' \
-                timeout 600 'swaymsg "output * dpms off"' \
-                resume 'swaymsg "output * dpms on"' \
-                before-sleep '$scripts/swaylock'
+### Window rules
 
-### Input configuration
-    input $kb {
-        repeat_delay 180
-        repeat_rate 60
+    for_window {
+        [class="Chromium-browser"]  mark Browser
+        [class="Brave-browser"]     mark Browser
+        [class="firefox"]           mark Browser
+        [app_id="Chromium-browser"] mark Browser
+        [app_id="brave-browser"]    mark Browser
+        [app_id="firefox"]          mark Browser
 
-        xkb_layout us,ua
-        xkb_options grp:alt_shift_toggle
+        [con_mark="Browser"] inhibit_idle fullscreen
+
+        [app_id="floating"] floating enable
+
+        [app_id="firefox" title="Firefox — Sharing Indicator"] {
+            floating enable
+            kill
+        }
+
+        [app_id="pavucontrol"] {
+            floating enable
+            move position center
+        }
+
+        [app_id="pavucontrol-qt"] {
+            floating enable
+            move position center
+        }
+
+        [app_id="lxqt-policykit-agent"] {
+            floating enable
+            move position center
+        }
     }
 
-    input $touchpad {
-        dwt disable
-        tap enabled
-        natural_scroll enabled
-        middle_emulation enabled
-        pointer_accel 0.35
-	accel_profile adaptive
-    }
+### General
 
-    input $trackpoint {
-        left_handed enabled
-        pointer_accel 0.35
-	accel_profile adaptive
-    }
-
+    xwayland                    enable
+    smart_borders               on
+    hide_edge_borders           smart_no_gaps
+    focus_follows_mouse         yes
+    focus_on_window_activation  focus
+    floating_modifier           $mod normal
+   
 ### Key bindings
-bindsym --to-code --no-repeat {
+
     # Basics
-    $mod+Return           exec $start_terminal
-    $mod+Shift+Return     exec $start_floating_terminal
-    $mod+d                exec $start_launcher
-    $mod+Shift+q          exec $start_power_menu
-    # Screenshots
-    Print                 exec $fullscreen_screenshot_to_clipboard_and_file
-    Shift+Print           exec $selection_screenshot_to_clipboard_and_file
+    bindsym --to-code --no-repeat {
+        $mod+Return         exec $start_terminal
+        $mod+Shift+Return   exec $start_floating_terminal
 
-    # Kill focused window
-    $mod+q kill
+        $mod+q kill
+        $mod+d exec $menu
 
-    # Switch the current container between different layout styles
-    $mod+m layout stacking    
-    $mod+t layout tabbed
-    $mod+Escape layout splith
+        $mod+Shift+r reload
+        $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
-    # Moving around
-    # Move your focus around
-    $mod+$left focus left
-    $mod+$down focus down
-    $mod+$up focus up
-    $mod+$right focus right
+        $mod+w              floating toggle
+        $mod+Tab            focus mode_toggle
+        $mod+f              fullscreen
+        $mod+m              layout stacking
+        $mod+t              layout tabbed
+        $mod+Escape         layout splith
+        $mod+Shift+a        move scratchpad
+        $mod+a              scratchpad show
 
-    # Move the focused window with the same, but add Shift
-    $mod+Shift+$left move left
-    $mod+Shift+$down move down
-    $mod+Shift+$up move up
-    $mod+Shift+$right move right
+        $mod+$left          focus left
+        $mod+$right         focus right
+        $mod+$up            focus up
+        $mod+$down          focus down
 
-    # Workspaces
-    # Switch to workspace
-    $mod+1 workspace number 1
-    $mod+2 workspace number 2
-    $mod+3 workspace number 3
-    $mod+4 workspace number 4
-    $mod+5 workspace number 5
-    $mod+6 workspace number 6
-    $mod+7 workspace number 7
-    $mod+8 workspace number 8
-    $mod+9 workspace number 9
-    $mod+0 workspace number 10
-    $mod+BracketLeft workspace prev
-    $mod+BracketRight workspace next
-    bindgesture swipe:right workspace prev
-    bindgesture swipe:left workspace next
+        $mod+Shift+$left    move left
+        $mod+Shift+$right   move right
+        $mod+Shift+$up      move up
+        $mod+Shift+$down    move down
 
-    # Move focused container to workspace
-    $mod+Shift+1 move container to workspace number 1; workspace number 1
-    $mod+Shift+2 move container to workspace number 2; workspace number 2
-    $mod+Shift+3 move container to workspace number 3; workspace number 3
-    $mod+Shift+4 move container to workspace number 4; workspace number 4
-    $mod+Shift+5 move container to workspace number 5; workspace number 5
-    $mod+Shift+6 move container to workspace number 6; workspace number 6
-    $mod+Shift+7 move container to workspace number 7; workspace number 7
-    $mod+Shift+8 move container to workspace number 8; workspace number 8
-    $mod+Shift+9 move container to workspace number 9; workspace number 9
-    $mod+Shift+0 move container to workspace number 10; workspace number 10
-    $mod+BraceLeft move container to workspace prev; workspace prev
-    $mod+BraceRight move container to workspace next; workspace next
+        $mod+1 workspace number 1
+        $mod+2 workspace number 2
+        $mod+3 workspace number 3
+        $mod+4 workspace number 4
+        $mod+5 workspace number 5
+        $mod+6 workspace number 6
+        $mod+7 workspace number 7
+        $mod+8 workspace number 8
+        $mod+9 workspace number 9
+        $mod+0 workspace number 10
+        $mod+BracketLeft workspace prev
+        $mod+BracketRight workspace next
 
-    # Layout stuff
-    # Make the current focus fullscreen
-    $mod+f fullscreen
-
-    # Toggle the currently focused window between tiling and floating mode
-    $mod+w floating toggle
-
-    # Swap the currently focused window between the tiling area and the floating area
-    $mod+Tab focus mode_toggle
-
-    # Scratchpad
-    # Move the currently focused window to the scratchpad
-    $mod+Shift+a move scratchpad
-
-    # Show the next scratchpad window or hide the focused scratchpad window.
-    # If there are multiple scratchpad windows, this command cycles through them.
-    $mod+a scratchpad show
-}
-
-### Lock screen keybinds
-bindsym --to-code --locked {
-    # Brightness controll
-    XF86MonBrightnessDown exec $brightness_down
-    XF86MonBrightnessUp exec $brightness_up
-    $alt+XF86MonBrightnessDown exec $brightness_down_little
-    $alt+XF86MonBrightnessUp exec $brightness_up_little
-
-    # Volume controll
-    XF86AudioLowerVolume exec $sink_volume_down
-    XF86AudioRaiseVolume exec $sink_volume_up
-    XF86AudioMute exec $sink_mute
-    XF86AudioMicMute exec $source_mute
-
-    # Mic volume controll
-    $alt+XF86AudioLowerVolume exec $source_volume_down
-    $alt+XF86AudioRaiseVolume exec $source_volume_up
-
-    # Music player
-    $mod+XF86AudioLowerVolume exec $player_prev
-    $mod+XF86AudioMute exec $player_pause_toggle
-    $mod+XF86AudioRaiseVolume exec $player_next
-}
-
-### Resizing containers
-bindsym $mod+r mode "resize"
-mode "resize" {
-    bindsym --to-code {
-        $left resize shrink width 10px
-        $down resize grow height 10px
-        $up resize shrink height 10px
-        $right resize grow width 10px
-
-        # Return to default mode
-        Return mode "default"
-        Escape mode "default"
+        $mod+Shift+1 move container to workspace number 1; workspace number 1
+        $mod+Shift+2 move container to workspace number 2; workspace number 2
+        $mod+Shift+3 move container to workspace number 3; workspace number 3
+        $mod+Shift+4 move container to workspace number 4; workspace number 4
+        $mod+Shift+5 move container to workspace number 5; workspace number 5
+        $mod+Shift+6 move container to workspace number 6; workspace number 6
+        $mod+Shift+7 move container to workspace number 7; workspace number 7
+        $mod+Shift+8 move container to workspace number 8; workspace number 8
+        $mod+Shift+9 move container to workspace number 9; workspace number 9
+        $mod+Shift+0 move container to workspace number 10; workspace number 10
+        $mod+BraceLeft move container to workspace prev; workspace prev
+        $mod+BraceRight move container to workspace next; workspace next
     }
-}
 
-### Quick search and opening websites
-# See sway/scripts/firefox_search
-bindsym --to-code  $mod+s mode "browser"
-mode "browser" {
-    # https://codeberg.org/dnkl/fuzzel/issues/106
-    set $dmenu $menu --lines=0 --dmenu
-    set $set_kb_ua swaymsg input $kb xkb_switch_layout 1
-    set $set_kb_us swaymsg input $kb xkb_switch_layout 0
+    # Lock screen
+    bindsym --locked --to-code {
+        XF86MonBrightnessDown       exec $brightness_down
+        XF86MonBrightnessUp         exec $brightness_up
+        $alt+XF86MonBrightnessDown  exec $brightness_down_little
+        $alt+XF86MonBrightnessUp    exec $brightness_up_little
 
-    # Search with with google
-    set $search $scripts/firefox_search "$dmenu --prompt google:" "https://www.google.com/search?client=firefox-b-d&q="
-    bindsym --to-code s mode "default"; exec $search
+        XF86AudioLowerVolume        exec $sink_volume_down
+        XF86AudioRaiseVolume        exec $sink_volume_up
+        XF86AudioMute               exec $sink_mute
+        XF86AudioMicMute            exec $source_mute
 
-    # Translate text from english to ukrainian
-    set $te $scripts/firefox_search "$dmenu --prompt en->uk:" "https://translate.google.com/?sl=en&tl=uk&text="
-    bindsym --to-code e mode "default"; exec $set_kb_us; exec $te
+        $alt+XF86AudioLowerVolume   exec $source_volume_down
+        $alt+XF86AudioRaiseVolume   exec $source_volume_up
 
-    # Translate text from ukrainian to english
-    set $tu $scripts/firefox_search "$dmenu --prompt uk->en:" "https://translate.google.com/?sl=uk&tl=en&text="
-    bindsym --to-code u mode "default"; exec $set_kb_ua; exec $tu;
+        $mod+XF86AudioLowerVolume   exec $player_prev
+        $mod+XF86AudioMute          exec $player_pause_toggle
+        $mod+XF86AudioRaiseVolume   exec $player_next
+    }
 
-    # Search on github.com
-    set $git $scripts/firefox_search "$dmenu --prompt github:" "https://github.com/search?q="
-    bindsym --to-code g mode "default"; exec $git
+### Resize
 
-    bindsym --to-code r mode "rust"
+    bindsym --to-code $mod+r mode "resize"
+    mode "resize" {
+        bindsym --to-code {
+            $left   resize shrink width 10px
+            $down   resize grow height 10px
+            $up     resize shrink height 10px
+            $right  resize grow width 10px
 
-    # Return to default mode
-    bindsym Escape mode "default"
-}
+            Return mode "default"
+            Escape mode "default"
+        }
+    }
 
-### Quick search for Rust documentation
-mode "rust" {
-    # Rust std
-    set $rstd $scripts/firefox_search "$dmenu --prompt std:" "https://doc.rust-lang.org/std/index.html?search="
-    bindsym --to-code s mode "default"; exec $rstd
-
-    # Rust crates
-    set $rcrates $scripts/firefox_search "$dmenu --prompt crate:" "https://docs.rs/"
-    bindsym --to-code c mode "default"; exec $rcrates
-
-    # Return to default mode
-    bindsym Escape mode "default"
-}
-
-### Quick opening of applications
-bindsym --to-code $mod+e mode "open"
-mode "open" {
-    set $gh firefox --new-tab "https://www.github.com/" && swaymsg "[app_id=Firefox] focus";
-    set $alerts firefox --new-tab "https://alerts.in.ua/" && swaymsg "[app_id=Firefox] focus";
-    set $weather firefox --new-tab "https://www.ventusky.com/" && swaymsg "[app_id=Firefox] focus";
-    set $timetable firefox --new-tab "https://lpnu.pp.ua/my" && swaymsg "[app_id=Firefox] focus";
-
-    bindsym --to-code g mode "default"; exec $gh
-    bindsym --to-code 1 mode "default"; exec $alerts
-    bindsym --to-code 2 mode "default"; exec $weather
-    bindsym --to-code 3 mode "default"; exec $timetable
-
-    bindsym Escape mode "default"
-}
-
-### Tmux tiling mode
-bindsym --to-code $mod+o mode "tmux"; exec swayidle -w timeout 1 'swaymsg mode "default"'
-mode "tmux" {
-    bindsym Escape mode "default"
-}
-
-# Status Bar:
 bar {
+    position top
     swaybar_command waybar
 }
-

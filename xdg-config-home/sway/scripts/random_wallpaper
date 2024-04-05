@@ -1,3 +1,0 @@
-#!/bin/sh
-
-echo $(find $HOME/Pictures/Wallpapers -type f | shuf -n 1)
