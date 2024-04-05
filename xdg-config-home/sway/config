@@ -39,6 +39,12 @@
         $menu $rofi_cmd -show combi -combi-modes drun#run -modes combi
     }
 
+    # Switch theme
+    set {
+        $light_theme gsettings set org.gnome.desktop.interface color-scheme default
+        $dark_theme  gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+    }
+
     # Audio player commands
     set {
         $player_pause           playerctl pause
@@ -197,6 +203,8 @@
     focus_follows_mouse         yes
     focus_on_window_activation  focus
     floating_modifier           $mod normal
+    default_border pixel 0
+    default_floating_border pixel 0
    
 ### Key bindings
 
@@ -219,6 +227,9 @@
         $mod+Escape         layout splith
         $mod+Shift+a        move scratchpad
         $mod+a              scratchpad show
+
+        $mod+XF86MonBrightnessDown   exec $dark_theme
+        $mod+XF86MonBrightnessUp     exec $light_theme
 
         $mod+$left          focus left
         $mod+$right         focus right
