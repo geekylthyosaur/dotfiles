@@ -48,7 +48,7 @@ autocmd FileType vim,go,lua,javascript,yaml,json,html,css,scss setlocal tabstop=
 
 set nonumber
 set norelativenumber
-set signcolumn=yes
+set signcolumn=no
 
 " Status line
 set ruler

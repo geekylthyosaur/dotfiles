@@ -25,18 +25,23 @@
 
 ### Commands
 
+    # Language
+    set {
+        $lang_0 input $keyboard xkb_switch_layout 0
+        $lang_1 input $keyboard xkb_switch_layout 1
+    }
+
     # Terminal
     set {
         $term                       alacritty
         $fterm                      alacritty --class floating
-        $start_terminal             $term; input $keyboard xkb_switch_layout 0
-        $start_floating_terminal    $fterm; input $keyboard xkb_switch_layout 0
+        $start_terminal             $term; $lang_0
+        $start_floating_terminal    $fterm; $lang_0
     }
 
     # Menu commands 
     set {
-        $rofi_cmd rofi -terminal '$term'
-        $menu $rofi_cmd -show combi -combi-modes drun#run -modes combi
+        $menu fuzzel --terminal '$term -e'
     }
 
     # Switch theme
@@ -106,16 +111,10 @@
 
 ### Idle configuration
 
-    exec LT=300 ST=600 LT=${LT:-300} ST=${ST:-60} && \
-        swayidle -w \
-            timeout $LT 'swaylock -f' \
-            timeout $((LT + ST)) 'swaymsg "output * power off"' \
-                          resume 'swaymsg "output * power on"'  \
-            timeout $ST 'pgrep -xu "$USER" swaylock >/dev/null && swaymsg "output * power off"' \
-                 resume 'pgrep -xu "$USER" swaylock >/dev/null && swaymsg "output * power on"'  \
-            before-sleep 'swaylock -f' \
-            lock 'swaylock -f' \
-            unlock 'pkill -xu "$USER" -SIGUSR1 swaylock'
+    exec swayidle -w \
+        timeout 300 'swaylock -f -c 000000' \
+        timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+        before-sleep 'swaylock -f -c 000000'
 
 ### Input configuration
 
@@ -172,28 +171,31 @@
         [app_id="firefox"]          mark Browser
 
         [con_mark="Browser"] inhibit_idle fullscreen
+    }
 
-        [app_id="floating"] floating enable
+    set $kill floating enable; kill;
+    for_window {
+        [app_id="firefox" title="Firefox — Sharing Indicator"] $kill
+    }
 
-        [app_id="firefox" title="Firefox — Sharing Indicator"] {
-            floating enable
-            kill
-        }
+    set $float floating enable; move position center;
+    for_window {
+        [app_id="floating"]             $float
+        [app_id="pavucontrol"]          $float
+        [app_id="pavucontrol-qt"]       $float
+        [app_id="lxqt-policykit-agent"] $float
 
-        [app_id="pavucontrol"] {
-            floating enable
-            move position center
-        }
+        [window_role="pop-up,task_dialog,About"] $float
+        [window_type="dialog"]        $float
+        [window_type="utility"]       $float
+        [window_type="toolbar"]       $float
+        [window_type="splash"]        $float
+        [window_type="menu"]          $float
+        [window_type="dropdown_menu"] $float
+        [window_type="popup_menu"]    $float
+        [window_type="tooltip"]       $float
+        [window_type="notification"]  $float
 
-        [app_id="pavucontrol-qt"] {
-            floating enable
-            move position center
-        }
-
-        [app_id="lxqt-policykit-agent"] {
-            floating enable
-            move position center
-        }
     }
 
 ### General
@@ -204,8 +206,8 @@
     focus_follows_mouse         yes
     focus_on_window_activation  focus
     floating_modifier           $mod normal
-    default_border pixel 0
-    default_floating_border pixel 0
+    default_border pixel          3
+    default_floating_border pixel 3
    
 ### Key bindings
 
@@ -278,19 +280,23 @@
 
         XF86AudioLowerVolume        exec $sink_volume_down
         XF86AudioRaiseVolume        exec $sink_volume_up
-        XF86AudioMute               exec $sink_mute
-        XF86AudioMicMute            exec $source_mute
 
         $alt+XF86AudioLowerVolume   exec $source_volume_down
         $alt+XF86AudioRaiseVolume   exec $source_volume_up
+    }
+
+    bindsym --locked --to-code --no-repeat {
+        XF86AudioMute               exec $sink_mute
+        XF86AudioMicMute            exec $source_mute
 
         $mod+XF86AudioLowerVolume   exec $player_prev
         $mod+XF86AudioMute          exec $player_pause_toggle
         $mod+XF86AudioRaiseVolume   exec $player_next
     }
 
-### Resize
+### Modes
 
+    # Resize
     bindsym --to-code $mod+r mode "resize"
     mode "resize" {
         bindsym --to-code {
@@ -298,6 +304,18 @@
             $down   resize grow height 10px
             $up     resize shrink height 10px
             $right  resize grow width 10px
+
+            Return mode "default"
+            Escape mode "default"
+        }
+    }
+
+    # Search
+    bindsym --to-code $mod+s mode "search"
+    mode "search" {
+        set $search bash -c 'INPUT=$(fuzzel --lines 0 --dmenu); if [ -n "$INPUT" ]; then swaymsg exec -- flatpak run org.mozilla.firefox --new-tab "https://www.google.com/search?q=$INPUT"; fi'
+        bindsym --to-code {
+            s mode "default"; exec $search
 
             Return mode "default"
             Escape mode "default"

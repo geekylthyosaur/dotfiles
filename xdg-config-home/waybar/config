@@ -1,13 +1,14 @@
 {
-    "position": "bottom",
+    "position": "top",
     "height": 24,
     "spacing": 4,
-    "margin-bottom": 5,
     "margin-left": 5,
     "margin-right": 5,
+    "margin-top": 5,
+    "margin-bottom": 5,
     "modules-left": ["sway/workspaces", "sway/scratchpad", "sway/mode"],
     "modules-center": ["clock"],
-    "modules-right": ["sway/language", "custom/download", "custom/fan", "pulseaudio", "backlight", "network", "battery"],
+    "modules-right": ["sway/language", "pulseaudio", "network", "battery"],
     "sway/workspaces": {
         "disable-scroll-wraparound": true,
         "smooth-scrolling-threshold": 3,

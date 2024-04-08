@@ -25,7 +25,6 @@ multiplier = 1
 
 [window]
 opacity = 1.0
-decorations = "None"
 
 [window.padding]
 x = 10
