@@ -39,7 +39,7 @@
         $start_floating_terminal    $fterm; $lang_0
     }
 
-    # Menu commands 
+    # Menu
     set {
         $menu fuzzel --terminal '$term -e'
     }
@@ -50,7 +50,7 @@
         $dark_theme  gsettings set org.gnome.desktop.interface color-scheme prefer-dark
     }
 
-    # Audio player commands
+    # Audio player
     set {
         $player_pause           playerctl pause
         $player_prev            playerctl previous
@@ -58,13 +58,13 @@
         $player_next            playerctl next
     }
 
-    # Screenshots commands
+    # Screenshots
     set {
         $fullscreen_screenshot_to_clipboard_and_file    IMG=~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && grim $IMG && wl-copy < $IMG
         $selection_screenshot_to_clipboard_and_file     IMG=~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && grim -g "$(slurp -b '#282828bb' -c '#458588ff' -w 1)" $IMG && wl-copy < $IMG
     }
 
-    # Brightness control commands
+    # Brightness control
     set {
         $brightness_notification  command -v notify-send >/dev/null && \
             VALUE=$(light) && VALUE=${VALUE%%.*} && \
@@ -77,14 +77,14 @@
         $brightness_up_little   light -A 1 && $brightness_notification
     }
 
-    # Volume control commands
+    # Volume control
     set {
         $sink_volume_down   pactl set-sink-volume @DEFAULT_SINK@ -5%
         $sink_volume_up     pactl set-sink-volume @DEFAULT_SINK@ +5%
         $sink_mute          pactl set-sink-mute @DEFAULT_SINK@ toggle
     }
 
-    # Mic control commands
+    # Mic control
     set {
         $source_volume_down pactl set-source-volume @DEFAULT_SOURCE@ -5%
         $source_volume_up   pactl set-source-volume @DEFAULT_SOURCE@ +5%
@@ -173,17 +173,13 @@
         [con_mark="Browser"] inhibit_idle fullscreen
     }
 
-    set $kill floating enable; kill;
-    for_window {
-        [app_id="firefox" title="Firefox — Sharing Indicator"] $kill
-    }
-
     set $float floating enable; move position center;
     for_window {
         [app_id="floating"]             $float
         [app_id="pavucontrol"]          $float
         [app_id="pavucontrol-qt"]       $float
         [app_id="lxqt-policykit-agent"] $float
+        [app_id="Thunar"] $float
 
         [window_role="pop-up,task_dialog,About"] $float
         [window_type="dialog"]        $float
@@ -314,8 +310,10 @@
     bindsym --to-code $mod+s mode "search"
     mode "search" {
         set $search bash -c 'INPUT=$(fuzzel --lines 0 --dmenu); if [ -n "$INPUT" ]; then swaymsg exec -- flatpak run org.mozilla.firefox --new-tab "https://www.google.com/search?q=$INPUT"; fi'
+        set $reddit_search bash -c 'INPUT=$(fuzzel --lines 0 --dmenu); if [ -n "$INPUT" ]; then swaymsg exec -- flatpak run org.mozilla.firefox --new-tab "https://www.google.com/search?q=$INPUT+site:reddit.com"; fi'
         bindsym --to-code {
             s mode "default"; exec $search
+            r mode "default"; exec $reddit_search
 
             Return mode "default"
             Escape mode "default"
@@ -326,3 +324,4 @@ bar {
     position top
     swaybar_command waybar
 }
+

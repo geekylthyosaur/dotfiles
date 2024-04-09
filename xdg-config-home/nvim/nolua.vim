@@ -4,6 +4,8 @@ set nocompatible
 " <Leader> is <Space>
 map <Space> <Leader>
 
+nnoremap U <C-r>
+
 nnoremap <Leader>= :tabnew<CR>
 nnoremap <Leader>\ :tabnew<CR>
 nnoremap <Leader>q :tabclose<CR>

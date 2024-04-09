@@ -1,7 +1,7 @@
 {
     "position": "top",
     "height": 24,
-    "spacing": 4,
+    "spacing": 5,
     "margin-left": 5,
     "margin-right": 5,
     "margin-top": 5,
@@ -11,7 +11,7 @@
     "modules-right": ["sway/language", "pulseaudio", "network", "battery"],
     "sway/workspaces": {
         "disable-scroll-wraparound": true,
-        "smooth-scrolling-threshold": 3,
+        "smooth-scrolling-threshold": 1,
         "format": "{icon}",
         "format-icons": {
             "1": "A",
