@@ -1,6 +1,9 @@
 set encoding=utf-8
 set nocompatible
 
+" Disable ~/.viminfo
+set viminfo=
+
 " <Leader> is <Space>
 map <Space> <Leader>
 
@@ -31,9 +34,6 @@ noremap q: <Nop>
 noremap Q <Nop>
 " Remove hightlights after search
 nnoremap <Leader>h :nohlsearch<CR>
-
-syntax enable
-filetype plugin indent on
 
 " Tab behavior
 set autoindent
@@ -82,3 +82,20 @@ set nowrap sidescroll=1 nowrap sidescroll=1 listchars=tab:\→\ ,trail:_,precede
 
 " Block cursor
 set guicursor=
+
+" If vim-plug is installed
+if filereadable(expand("~/.vim/autoload/plug.vim"))
+  call plug#begin()
+    Plug 'morhetz/gruvbox'
+    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+  call plug#end()
+
+  let g:go_fmt_fail_silently = 0
+  let g:go_fmt_command = 'goimports'
+  let g:go_fmt_autosave = 1
+  let g:go_gopls_enabled = 1
+
+  syntax enable
+  filetype plugin indent on
+else
+endif
