@@ -227,6 +227,9 @@
         $mod+Shift+a        move scratchpad
         $mod+a              scratchpad show
 
+        Print               exec $fullscreen_screenshot_to_clipboard_and_file
+        Shift+Print         exec $selection_screenshot_to_clipboard_and_file
+
         $mod+XF86MonBrightnessDown   exec $dark_theme
         $mod+XF86MonBrightnessUp     exec $light_theme
 
