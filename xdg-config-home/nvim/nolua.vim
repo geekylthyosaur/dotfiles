@@ -82,20 +82,3 @@ set nowrap sidescroll=1 nowrap sidescroll=1 listchars=tab:\→\ ,trail:_,precede
 
 " Block cursor
 set guicursor=
-
-" If vim-plug is installed
-if filereadable(expand("~/.vim/autoload/plug.vim"))
-  call plug#begin()
-    Plug 'morhetz/gruvbox'
-    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-  call plug#end()
-
-  let g:go_fmt_fail_silently = 0
-  let g:go_fmt_command = 'goimports'
-  let g:go_fmt_autosave = 1
-  let g:go_gopls_enabled = 1
-
-  syntax enable
-  filetype plugin indent on
-else
-endif
