@@ -27,6 +27,8 @@ nnoremap <C-w>v :vsplit<CR><C-w>l
 " Shift using single keypress
 nnoremap > >>
 nnoremap < <<
+vnoremap > >gv
+vnoremap < <gv
 
 " Disable history menu
 noremap q: <Nop>

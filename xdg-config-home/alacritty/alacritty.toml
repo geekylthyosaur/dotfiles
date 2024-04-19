@@ -25,7 +25,14 @@ multiplier = 1
 
 [window]
 opacity = 1.0
+blur = false
 
 [window.padding]
 x = 10
 y = 10
+
+[cursor]
+style = { shape = "Block", blinking = "Never" }
+
+[mouse]
+hide_when_typing = true
