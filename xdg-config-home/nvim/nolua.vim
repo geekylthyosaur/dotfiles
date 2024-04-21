@@ -18,8 +18,6 @@ nnoremap <Leader>[ :tabprevious<CR>
 nnoremap <Leader>} :tabmove +1<CR>
 nnoremap <Leader>{ :tabmove -1<CR>
 
-nnoremap <Leader>f :edit 
-
 " Focus new panel after split
 nnoremap <C-w>s :split<CR><C-w>j
 nnoremap <C-w>v :vsplit<CR><C-w>l
