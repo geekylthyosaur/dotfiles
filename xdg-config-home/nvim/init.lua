@@ -19,7 +19,7 @@ local colorscheme = {
     vim.cmd("colorscheme github_dark_default")
   end,
 }
-local lspconfig = {
+local lsp = {
   "neovim/nvim-lspconfig",
   config = function()
     local lsp = require("lspconfig")
@@ -36,7 +36,6 @@ local lspconfig = {
         vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
         vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
         vim.keymap.set("n", "<Leader>k", vim.lsp.buf.hover, opts)
-        vim.keymap.set("n", "<K>", vim.lsp.buf.signature_help, opts)
         vim.keymap.set("n", "<Leader>r", vim.lsp.buf.rename, opts)
         vim.keymap.set({ "n", "v" }, "<space>a", vim.lsp.buf.code_action, opts)
         vim.keymap.set("n", "<Leader>f", function()
@@ -89,12 +88,9 @@ local completion = {
     }
   end,
 }
-local plugins = { colorscheme, lspconfig, completion }
+local plugins = { colorscheme, lsp, completion }
 
 require("lazy").setup(plugins, {})
 
 local nolua_vim = vim.fn.stdpath("config") .. "/nolua.vim"
 vim.cmd("so " .. nolua_vim)
-
--- Used for CursorHold autocommand event
-vim.opt.updatetime = 300

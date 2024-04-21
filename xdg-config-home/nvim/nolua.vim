@@ -27,6 +27,7 @@ nnoremap <C-w>v :vsplit<CR><C-w>l
 " Shift using single keypress
 nnoremap > >>
 nnoremap < <<
+" Preserve selection on shift
 vnoremap > >gv
 vnoremap < <gv
 
@@ -34,8 +35,6 @@ vnoremap < <gv
 noremap q: <Nop>
 " Disable ex mode
 noremap Q <Nop>
-" Remove hightlights after search
-nnoremap <Leader>h :nohlsearch<CR>
 
 " Tab behavior
 set autoindent
@@ -52,7 +51,7 @@ autocmd FileType vim,go,lua,javascript,yaml,json,html,css,scss setlocal tabstop=
 
 set nonumber
 set norelativenumber
-set signcolumn=no
+set signcolumn=yes
 
 " Status line
 set ruler
@@ -63,8 +62,14 @@ set noshowcmd
 " Yank to system clipboard (`vim --version | grep "+clipboard"`)
 if has('clipboard')
   vnoremap Y "+y
+  nnoremap YY "+yy
+  vnoremap <Leader>Y "+y
+  nnoremap <Leader>Y "+yy
 else
-  " TODO
+  vnoremap Y :echo 'System clipboard is not supported'<CR>
+  nnoremap YY :echo 'System clipboard is not supported'<CR>
+  vnoremap <Leader>Y :echo 'System clipboard is not supported'<CR>
+  nnoremap <Leader>Y :echo 'System clipboard is not supported'<CR>
 endif
 
 " Scrolloff
@@ -78,6 +83,8 @@ set nowritebackup
 
 " Highlight search results
 set hlsearch
+" Remove hightlights after search
+nnoremap <Leader>h :nohlsearch<CR>
 " Highlight characters
 set list
 set nowrap sidescroll=1 nowrap sidescroll=1 listchars=tab:\→\ ,trail:_,precedes:<,extends:>,
