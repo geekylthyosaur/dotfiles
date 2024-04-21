@@ -23,11 +23,13 @@ local colorscheme = {
 local lsp = {
   "neovim/nvim-lspconfig",
   dependencies = {
-    'nvim-telescope/telescope.nvim',
+    'nvim-telescope/telescope.nvim', "hrsh7th/hrsh7th/cmp-nvim-lsp",
   },
   config = function()
     local lsp = require("lspconfig")
+    local capabilities = require('cmp_nvim_lsp').default_capabilities()
     lsp.rust_analyzer.setup {
+      capabilities = capabilities,
       settings = {
         ['rust-analyzer'] = {},
       },
@@ -41,7 +43,6 @@ local lsp = {
         vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
         vim.keymap.set("n", "<Leader>k", vim.lsp.buf.hover, opts)
         vim.keymap.set("n", "<Leader>r", vim.lsp.buf.rename, opts)
-        vim.keymap.set({ "n", "v" }, "<space>a", vim.lsp.buf.code_action, opts)
       end,
     })
 
