@@ -9,6 +9,7 @@ map <Space> <Leader>
 
 nnoremap U <C-r>
 
+" Tabs
 nnoremap <Leader>= :tabnew<CR>
 nnoremap <Leader>\ :tabnew<CR>
 nnoremap <Leader>q :tabclose<CR>
@@ -19,8 +20,8 @@ nnoremap <Leader>} :tabmove +1<CR>
 nnoremap <Leader>{ :tabmove -1<CR>
 
 " Focus new panel after split
-nnoremap <C-w>s :split<CR><C-w>j
-nnoremap <C-w>v :vsplit<CR><C-w>l
+nnoremap <C-w>s <C-w>s<C-w>j
+nnoremap <C-w>v <C-w>v<C-w>l
 
 " Shift using single keypress
 nnoremap > >>
@@ -45,11 +46,11 @@ set softtabstop=4
 set shiftwidth=4
 " Tab is 2 spaces for filetypes
 " FIXME
-autocmd FileType vim,go,lua,javascript,yaml,json,html,css,scss setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd FileType vim,go,lua,javascript,yaml,json,html,css,scss,vue setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 set nonumber
 set norelativenumber
-set signcolumn=yes
+set signcolumn=no
 
 " Status line
 set ruler
