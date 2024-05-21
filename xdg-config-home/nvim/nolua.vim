@@ -26,9 +26,6 @@ nnoremap <C-w>v <C-w>v<C-w>l
 " Shift using single keypress
 nnoremap > >>
 nnoremap < <<
-" Preserve selection on shift
-vnoremap > >gv
-vnoremap < <gv
 
 " Disable history menu
 noremap q: <Nop>
@@ -50,7 +47,7 @@ autocmd FileType vim,go,lua,javascript,yaml,json,html,css,scss,vue setlocal tabs
 
 set nonumber
 set norelativenumber
-set signcolumn=no
+set signcolumn=yes
 
 " Status line
 set ruler
