@@ -10,14 +10,14 @@ map <Space> <Leader>
 nnoremap U <C-r>
 
 " Tabs
-nnoremap <Leader>= :tabnew<CR>
-nnoremap <Leader>\ :tabnew<CR>
-nnoremap <Leader>q :tabclose<CR>
-nnoremap <Leader>- :tabclose<CR>
-nnoremap <Leader>] :tabnext<CR>
-nnoremap <Leader>[ :tabprevious<CR>
-nnoremap <Leader>} :tabmove +1<CR>
-nnoremap <Leader>{ :tabmove -1<CR>
+nnoremap <Leader>= <Cmd>tabnew<CR>
+nnoremap <Leader>\ <Cmd>tabnew<CR>
+nnoremap <Leader>q <Cmd>tabclose<CR>
+nnoremap <Leader>- <Cmd>tabclose<CR>
+nnoremap <Leader>] <Cmd>tabnext<CR>
+nnoremap <Leader>[ <Cmd>tabprevious<CR>
+nnoremap <Leader>} <Cmd>tabmove +1<CR>
+nnoremap <Leader>{ <Cmd>tabmove -1<CR>
 
 " Focus new panel after split
 nnoremap <C-w>s <C-w>s<C-w>j
@@ -80,7 +80,7 @@ set nowritebackup
 " Highlight search results
 set hlsearch
 " Remove hightlights after search
-nnoremap <Leader>h :nohlsearch<CR>
+nnoremap <Leader>h <Cmd>nohlsearch<CR>
 " Highlight characters
 set list
 set nowrap sidescroll=1 nowrap sidescroll=1 listchars=tab:\→\ ,trail:_,precedes:<,extends:>,

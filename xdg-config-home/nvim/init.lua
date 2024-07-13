@@ -20,11 +20,22 @@ local colorscheme = {
       require("github-theme").setup({
         options = {
           hide_end_of_buffer = false,
-        }
+          hide_nc_statusline = false,
+          transparent = true,
+        },
       })
       -- FIXME: https://github.com/stsewd/tree-sitter-comment/issues/22
       vim.api.nvim_set_hl(0, "@lsp.type.comment", {})
-      vim.cmd("colorscheme github_dark_default")
+
+      local handle = io.popen("/usr/bin/gsettings get org.gnome.desktop.interface color-scheme")
+      local result = handle:read("*a")
+      handle:close()
+
+      if result:match("'(.*)'") == "prefer-dark" then
+        vim.cmd("colorscheme github_dark_default")
+      else
+        vim.cmd("colorscheme github_light_default")
+      end
     end,
   },
   gruvbox = {
@@ -44,16 +55,32 @@ local colorscheme = {
   }
 }
 
+local treesitter = {
+  "nvim-treesitter/nvim-treesitter",
+  build = ":TSUpdate",
+  config = function ()
+    local configs = require("nvim-treesitter.configs")
+
+    configs.setup({
+      ensure_installed = { "lua", "vim", "markdown", "rust" },
+      sync_install = false,
+      highlight = { enable = true },
+      indent = { enable = true },
+    })
+  end
+}
+
 local lsp = {
   "neovim/nvim-lspconfig",
   dependencies = {
-    "nvim-telescope/telescope.nvim", "hrsh7th/hrsh7th/cmp-nvim-lsp",
+    "nvim-telescope/telescope.nvim",
   },
   config = function()
     local lsp = require("lspconfig")
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
     -- FIXME: https://github.com/hrsh7th/nvim-cmp/issues/373
     capabilities.textDocument.completion.completionItem.snippetSupport = false
+
     lsp.rust_analyzer.setup {
       capabilities = capabilities,
       settings = {
@@ -143,9 +170,15 @@ local ff = {
   end,
 }
 
-local plugins = { colorscheme["gruvbox"], lsp, completion, ff }
+local plugins = { colorscheme["github"], treesitter, lsp, completion, ff }
 
 require("lazy").setup(plugins, {})
 
 local nolua_vim = vim.fn.stdpath("config") .. "/nolua.vim"
 vim.cmd("so " .. nolua_vim)
+
+-- Disable mouse except scroll
+vim.opt.mouse = 'a'
+vim.api.nvim_set_keymap('', '<LeftMouse>', '<Nop>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('', '<RightMouse>', '<Nop>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('', '<MiddleMouse>', '<Nop>', { noremap = true, silent = true })

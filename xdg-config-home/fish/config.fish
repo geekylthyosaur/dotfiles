@@ -28,8 +28,6 @@ if status is-interactive
         alias cf="cargo fmt"
     end
 
-    alias dnf=dnf5
-
     alias tree="tree --dirsfirst"
 end
 
