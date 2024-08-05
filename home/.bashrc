@@ -13,6 +13,11 @@ export PATH
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
+if command -v nvim > /dev/null 2>&1; then
+    export EDITOR=/usr/bin/nvim
+else
+    export EDITOR=/usr/bin/vi
+fi
 
 # User specific aliases and functions
 if [ -d ~/.bashrc.d ]; then
