@@ -1,4 +1,4 @@
-if test -f "/var/home/dmytro/.local/share/cargo/env.fish"
-    . "/var/home/dmytro/.local/share/cargo/env.fish"
+if test -f "/home/dmytro/.local/share/cargo/env.fish"
+    . "/home/dmytro/.local/share/cargo/env.fish"
 end
 
