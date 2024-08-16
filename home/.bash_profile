@@ -6,3 +6,5 @@ if [ -f ~/.bashrc ]; then
 fi
 
 # User specific environment and startup programs
+
+export PATH="/home/dmytro/.local/share/solana/install/active_release/bin:$PATH"
