@@ -28,6 +28,16 @@ if status is-interactive
         alias cf="cargo fmt"
     end
 
+    if command -v "git" &> /dev/null
+        alias gd="git diff"
+        alias gds="git diff --staged"
+        alias gs="git status"
+
+        abbr -a gca --set-cursor=! 'git add -A; git commit -m "!"'
+        abbr -a gco 'git checkout'
+        abbr -a gu 'git reset --soft HEAD^'
+    end
+
     alias tree="tree --dirsfirst"
 end
 
