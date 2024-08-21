@@ -29,10 +29,13 @@ if status is-interactive
     end
 
     if command -v "git" &> /dev/null
+        alias gs="git status"
         alias gd="git diff"
         alias gds="git diff --staged"
-        alias gs="git status"
+        alias gaa="git add -A"
 
+        abbr -a ga 'git add'
+        abbr -a gc --set-cursor=! 'git commit -m "!"'
         abbr -a gca --set-cursor=! 'git add -A; git commit -m "!"'
         abbr -a gco 'git checkout'
         abbr -a gu 'git reset --soft HEAD^'

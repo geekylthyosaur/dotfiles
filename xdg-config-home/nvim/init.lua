@@ -12,21 +12,21 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local colorscheme = {
-  github = {
-    "projekt0n/github-nvim-theme",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require("github-theme").setup({
-        options = {
-          hide_end_of_buffer = false,
-          hide_nc_statusline = false,
-          transparent = true,
-        },
-      })
-      -- FIXME: https://github.com/stsewd/tree-sitter-comment/issues/22
-      vim.api.nvim_set_hl(0, "@lsp.type.comment", {})
+  "projekt0n/github-nvim-theme",
+  lazy = false,
+  priority = 1000,
+  config = function()
+    require("github-theme").setup({
+      options = {
+        hide_end_of_buffer = false,
+        hide_nc_statusline = false,
+        transparent = true,
+      },
+    })
+    -- FIXME: https://github.com/stsewd/tree-sitter-comment/issues/22
+    vim.api.nvim_set_hl(0, "@lsp.type.comment", {})
 
+    local function set()
       local handle = io.popen("/usr/bin/gsettings get org.gnome.desktop.interface color-scheme")
       local result = handle:read("*a")
       handle:close()
@@ -36,23 +36,17 @@ local colorscheme = {
       else
         vim.cmd("colorscheme github_light_default")
       end
-    end,
-  },
-  gruvbox = {
-    "ellisonleao/gruvbox.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require("gruvbox").setup({
-        contrast = "hard",
-        overrides = {
-          -- FIXME: https://github.com/stsewd/tree-sitter-comment/issues/22
-          ["@lsp.type.comment"] = {},
-        }
-      })
-      vim.cmd("colorscheme gruvbox")
-    end,
-  }
+    end
+
+    vim.api.nvim_create_autocmd("Signal", {
+      pattern = "SIGUSR1",
+      callback = function()
+        set()
+      end,
+    })
+
+    set()
+  end,
 }
 
 local treesitter = {
@@ -170,7 +164,7 @@ local ff = {
   end,
 }
 
-local plugins = { colorscheme["github"], treesitter, lsp, completion, ff }
+local plugins = { colorscheme, treesitter, lsp, completion, ff }
 
 require("lazy").setup(plugins, {})
 
