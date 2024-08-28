@@ -35,7 +35,7 @@ if status is-interactive
         alias gaa="git add -A"
 
         abbr -a ga 'git add'
-        abbr -a gc --set-cursor=! 'git commit -m "!"'
+        abbr -a gcm --set-cursor=! 'git commit -m "!"'
         abbr -a gca --set-cursor=! 'git add -A; git commit -m "!"'
         abbr -a gco 'git checkout'
         abbr -a gu 'git reset --soft HEAD^'
