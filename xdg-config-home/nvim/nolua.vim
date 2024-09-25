@@ -51,7 +51,7 @@ set signcolumn=yes
 
 " Status line
 set ruler
-set rulerformat=%79(%=%##%.99F\ [%{strlen(&ft)?&ft:'none'}]\ %l:%c\ %p%%%)
+set rulerformat=%30(%=%##%.99F\ [%{strlen(&ft)?&ft:'none'}]\ %l:%c\ %p%%%)
 set laststatus=0
 set noshowcmd
 

@@ -1,20 +1,18 @@
-theme = "github_dark"
+theme = "github_light"
 
 [editor]
 scrolloff = 11
 line-number = "relative"
 mouse = false
 middle-click-paste = false
-scroll-lines = 1
+# Number of lines to scroll per scroll wheel step
+scroll-lines = 1 # Default 3
 completion-trigger-len = 1
 auto-save = true
-idle-timeout = 200
 smart-tab = { enable = false }
 
-[editor.cursor-shape]
-insert = "block"
-normal = "block"
-select = "block"
+[editor.auto-pairs]
+'|' = '|'
 
 [editor.file-picker]
 hidden = false

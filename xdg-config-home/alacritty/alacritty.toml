@@ -1,4 +1,4 @@
-import = ["~/.config/alacritty/light-theme.toml",]
+import = ["~/.config/alacritty/dark-theme.toml",]
 shell = { program = "/bin/fish", args = ["--interactive"] }
 
 [font]
