@@ -4,7 +4,7 @@ set -eu -o pipefail
 
 sed -i 's/dark-theme/light-theme/g' $HOME/.config/alacritty/alacritty.toml
 
-kill -USR1 $(pgrep nvim)
+pkill -USR1 nvim
 
 sed -i 's/github_dark/github_light/g' $HOME/.config/helix/config.toml
-kill -USR1 $(pgrep hx)
+pkill -USR1 hx

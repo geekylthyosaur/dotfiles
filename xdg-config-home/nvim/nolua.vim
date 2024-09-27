@@ -87,3 +87,10 @@ set nowrap sidescroll=1 nowrap sidescroll=1 listchars=tab:\→\ ,trail:_,precede
 
 " Block cursor
 set guicursor=
+
+" Disable mouse except scroll
+set mouse=a
+nnoremap <LeftMouse> <Nop>
+nnoremap <RightMouse> <Nop>
+nnoremap <MiddleMouse> <Nop>
+

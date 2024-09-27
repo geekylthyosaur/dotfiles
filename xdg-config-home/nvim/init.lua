@@ -18,13 +18,18 @@ local colorscheme = {
   config = function()
     require("github-theme").setup({
       options = {
+        -- Do not hide the '~' character at the end of the buffer
         hide_end_of_buffer = false,
+        -- Do not override style of non-active statusline
         hide_nc_statusline = false,
-        transparent = true,
+      },
+      groups = {
+        all = {
+          -- Set listchars nbsp, space, tab and trail fg to red
+          Whitespace = { fg = "red" },
+        },
       },
     })
-    -- FIXME: https://github.com/stsewd/tree-sitter-comment/issues/22
-    vim.api.nvim_set_hl(0, "@lsp.type.comment", {})
 
     local function set()
       local handle = io.popen("/usr/bin/gsettings get org.gnome.desktop.interface color-scheme")
@@ -143,7 +148,8 @@ local completion = {
 }
 
 local ff = {
-  "nvim-telescope/telescope.nvim", branch = "0.1.x",
+  "nvim-telescope/telescope.nvim",
+  branch = "0.1.x",
   dependencies = { "nvim-lua/plenary.nvim" },
   config = function()
     local actions = require("telescope.actions")
@@ -159,20 +165,30 @@ local ff = {
 
     local builtin = require("telescope.builtin")
     vim.keymap.set("n", "<Leader>f", builtin.find_files, {})
+    vim.keymap.set("n", "<Leader>F", builtin.git_files, {})
     vim.keymap.set("n", "<Leader>/", builtin.live_grep, {})
     vim.keymap.set("n", "<Leader>b", builtin.buffers, {})
   end,
 }
 
-local plugins = { colorscheme, treesitter, lsp, completion, ff }
+local diagnostics = {
+  "dgagn/diagflow.nvim",
+  event = "LspAttach",
+  opts = {
+    scope = "line",
+  },
+}
+
+local git = {
+  "lewis6991/gitsigns.nvim",
+  config = function()
+    require("gitsigns").setup()
+  end,
+}
+
+local plugins = { colorscheme, treesitter, lsp, completion, ff, diagnostics, git }
 
 require("lazy").setup(plugins, {})
 
 local nolua_vim = vim.fn.stdpath("config") .. "/nolua.vim"
 vim.cmd("so " .. nolua_vim)
-
--- Disable mouse except scroll
-vim.opt.mouse = 'a'
-vim.api.nvim_set_keymap('', '<LeftMouse>', '<Nop>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('', '<RightMouse>', '<Nop>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('', '<MiddleMouse>', '<Nop>', { noremap = true, silent = true })
