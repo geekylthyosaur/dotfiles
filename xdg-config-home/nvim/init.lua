@@ -26,7 +26,7 @@ local colorscheme = {
       groups = {
         all = {
           -- Set listchars nbsp, space, tab and trail fg to red
-          Whitespace = { fg = "red" },
+          Whitespace = { fg = "palette.red" },
         },
       },
     })
@@ -186,7 +186,13 @@ local git = {
   end,
 }
 
-local plugins = { colorscheme, treesitter, lsp, completion, ff, diagnostics, git }
+local pairs = {
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    config = true
+}
+
+local plugins = { colorscheme, treesitter, lsp, completion, ff, diagnostics, git, pairs }
 
 require("lazy").setup(plugins, {})
 
