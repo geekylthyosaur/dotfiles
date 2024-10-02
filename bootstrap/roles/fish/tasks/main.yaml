@@ -1,0 +1,13 @@
+- name: Install fish
+  become: yes
+  become_user: root
+  dnf:
+    name: fish
+    state: present
+
+- name: Link
+  file:
+    src: "{{ ROOTDIR }}/roles/fish/files/fish.link"
+    dest: "{{ XDG_CONFIG_HOME }}/fish"
+    state: link
+    force: yes

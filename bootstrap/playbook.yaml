@@ -1,0 +1,4 @@
+- name: Bootstrap environment
+  hosts: localhost
+  roles:
+    - role: fish
