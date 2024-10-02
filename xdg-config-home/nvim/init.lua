@@ -22,6 +22,7 @@ local colorscheme = {
         hide_end_of_buffer = false,
         -- Do not override style of non-active statusline
         hide_nc_statusline = false,
+        transparent = true,
       },
       groups = {
         all = {
@@ -74,6 +75,7 @@ local lsp = {
   dependencies = {
     "nvim-telescope/telescope.nvim",
   },
+  event = { "BufReadPre", "BufNewFile" },
   config = function()
     local lsp = require("lspconfig")
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -96,22 +98,26 @@ local lsp = {
         vim.keymap.set("n", "gi", function() builtin.lsp_implementations() end, opts)
         vim.keymap.set("n", "<Leader>a", vim.lsp.buf.code_action, opts)
         vim.keymap.set("n", "<Leader>k", vim.lsp.buf.hover, opts)
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
         vim.keymap.set("n", "<Leader>r", vim.lsp.buf.rename, opts)
       end,
     })
 
-    vim.api.nvim_create_augroup("AutoFormat", {})
-    vim.api.nvim_create_autocmd(
-      "BufWritePre",
-      {
-        pattern = "*",
-        group = "AutoFormat",
-        callback = function()
-          -- Can cause freeze on save
-          vim.lsp.buf.format { async = false }
-        end,
-      }
-    )
+    vim.api.nvim_create_autocmd("LspAttach", {
+      group = vim.api.nvim_create_augroup("AutoFormat", {}),
+      callback = function(ev)
+        vim.api.nvim_create_autocmd(
+        "BufWritePre",
+        {
+          pattern = "*",
+          group = "AutoFormat",
+          callback = function()
+            -- Can cause freeze on save
+            vim.lsp.buf.format { async = false }
+          end,
+        })
+      end,
+    })
   end,
 }
 

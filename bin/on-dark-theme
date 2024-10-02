@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -eu -o pipefail
-
 sed -i 's/light-theme/dark-theme/g' $HOME/.config/alacritty/alacritty.toml
 
 pkill -USR1 nvim
