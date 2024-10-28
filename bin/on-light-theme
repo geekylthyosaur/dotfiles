@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set +e
+
 sed -i 's/dark-theme/light-theme/g' $HOME/.config/alacritty/alacritty.toml
 
 pkill -USR1 nvim
