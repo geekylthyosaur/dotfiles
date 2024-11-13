@@ -1,0 +1,26 @@
+- name: Install glib2 # Provides /usr/bin/gsettings
+  become: yes
+  become_user: root
+  dnf:
+    name: glib2
+    state: present
+
+- name: Deploy
+  file:
+    src: "{{ role_path }}/files/systemd.link"
+    dest: "{{ lookup('env', 'XDG_CONFIG_HOME') }}/systemd"
+    state: link
+    force: yes
+
+- name: Enable
+  systemd:
+    name: on-theme-switch.service
+    scope: user
+    enabled: yes
+    daemon_reload: yes
+
+- name: Start
+  systemd:
+    name: on-theme-switch.service
+    scope: user
+    state: started

@@ -5,9 +5,9 @@
     name: fish
     state: present
 
-- name: Link
+- name: Deploy
   file:
-    src: "{{ ROOTDIR }}/roles/fish/files/fish.link"
-    dest: "{{ XDG_CONFIG_HOME }}/fish"
+    src: "{{ role_path }}/files/fish.link"
+    dest: "{{ lookup('env', 'XDG_CONFIG_HOME') }}/fish"
     state: link
     force: yes
