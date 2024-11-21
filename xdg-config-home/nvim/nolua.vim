@@ -18,7 +18,7 @@ set softtabstop=4
 set shiftwidth=4
 " Tab is 2 spaces for filetypes
 " FIXME
-autocmd FileType vim,go,lua,javascript,yaml,json,html,css,scss,vue setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd FileType vim,markdown,go,lua,javascript,yaml,json,html,css,scss,vue setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 set nonumber
 set norelativenumber

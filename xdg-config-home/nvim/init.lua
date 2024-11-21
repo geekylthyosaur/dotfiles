@@ -198,7 +198,13 @@ local pairs = {
     config = true
 }
 
-local plugins = { colorscheme, treesitter, lsp, completion, ff, diagnostics, git, pairs }
+local md = {
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    opts = {},
+}
+
+local plugins = { colorscheme, treesitter, lsp, completion, ff, diagnostics, git, pairs, md }
 
 require("lazy").setup(plugins, {})
 
