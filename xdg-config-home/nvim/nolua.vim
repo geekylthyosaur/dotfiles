@@ -47,7 +47,11 @@ autocmd FileType vim,go,lua,javascript,yaml,json,html,css,scss,vue setlocal tabs
 
 set nonumber
 set norelativenumber
-set signcolumn=yes
+if has("nvim")
+  set signcolumn=yes
+else
+  set signcolumn=no
+endif
 
 " Status line
 set ruler
