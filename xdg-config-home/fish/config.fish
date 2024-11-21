@@ -35,6 +35,7 @@ if status is-interactive
 
     if command -v "git" &> /dev/null
         alias gs="git status"
+        alias gl="git log"
         alias gd="git diff"
         alias gds="git diff --staged"
         alias gaa="git add -A"
