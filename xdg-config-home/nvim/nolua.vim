@@ -66,9 +66,9 @@ if has('clipboard')
   vnoremap <Leader>Y "+y
   nnoremap <Leader>Y "+yy
 else
-  vnoremap Y :echo 'System clipboard is not supported'<CR>
+  vnoremap Y :<C-u>echo 'System clipboard is not supported'<CR>
   nnoremap YY :echo 'System clipboard is not supported'<CR>
-  vnoremap <Leader>Y :echo 'System clipboard is not supported'<CR>
+  vnoremap <Leader>Y :<C-u>echo 'System clipboard is not supported'<CR>
   nnoremap <Leader>Y :echo 'System clipboard is not supported'<CR>
 endif
 
