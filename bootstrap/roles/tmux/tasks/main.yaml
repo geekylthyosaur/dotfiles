@@ -1,0 +1,13 @@
+- name: Install tmux
+  become: yes
+  become_user: root
+  dnf:
+    name: tmux
+    state: present
+
+- name: Deploy
+  file:
+    src: "{{ role_path }}/files/tmux.link"
+    dest: "{{ lookup('env', 'XDG_CONFIG_HOME') }}/tmux"
+    state: link
+    force: yes

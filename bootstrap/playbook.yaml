@@ -3,4 +3,5 @@
   roles:
     - role: git
     - role: fish
+    - role: tmux
     - role: systemd
