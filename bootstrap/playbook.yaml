@@ -1,5 +1,6 @@
 - name: Bootstrap environment
   hosts: localhost
   roles:
+    - role: git
     - role: fish
     - role: systemd

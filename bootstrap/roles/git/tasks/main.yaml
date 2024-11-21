@@ -1,0 +1,13 @@
+- name: Install git
+  become: yes
+  become_user: root
+  dnf:
+    name: git
+    state: present
+
+- name: Deploy
+  file:
+    src: "{{ role_path }}/files/git.link"
+    dest: "{{ lookup('env', 'XDG_CONFIG_HOME') }}/git"
+    state: link
+    force: yes
