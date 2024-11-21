@@ -4,33 +4,8 @@ set nocompatible
 " Disable ~/.viminfo
 set viminfo=
 
-" <Leader> is <Space>
-map <Space> <Leader>
-
-nnoremap U <C-r>
-
-" Tabs
-nnoremap <Leader>= <Cmd>tabnew<CR>
-nnoremap <Leader>\ <Cmd>tabnew<CR>
-nnoremap <Leader>q <Cmd>tabclose<CR>
-nnoremap <Leader>- <Cmd>tabclose<CR>
-nnoremap <Leader>] <Cmd>tabnext<CR>
-nnoremap <Leader>[ <Cmd>tabprevious<CR>
-nnoremap <Leader>} <Cmd>tabmove +1<CR>
-nnoremap <Leader>{ <Cmd>tabmove -1<CR>
-
-" Focus new panel after split
-nnoremap <C-w>s <C-w>s<C-w>j
-nnoremap <C-w>v <C-w>v<C-w>l
-
-" Shift using single keypress
-nnoremap > >>
-nnoremap < <<
-
-" Disable history menu
-noremap q: <Nop>
-" Disable ex mode
-noremap Q <Nop>
+" Block cursor
+set guicursor=
 
 " Tab behavior
 set autoindent
@@ -59,6 +34,59 @@ set rulerformat=%30(%=%##%.99F\ [%{strlen(&ft)?&ft:'none'}]\ %l:%c\ %p%%%)
 set laststatus=0
 set noshowcmd
 
+" Scrolloff
+set scrolloff=11
+set sidescrolloff=29
+
+" Disable swap file
+set nobackup
+set noswapfile
+set nowritebackup
+
+" <Leader> is <Space>
+map <Space> <Leader>
+
+" Highlight search results
+set hlsearch
+" Remove hightlights after search
+nnoremap <Leader>h <Cmd>nohlsearch<CR>
+" Highlight characters
+set list
+set nowrap sidescroll=1 nowrap sidescroll=1 listchars=tab:\→\ ,trail:_,precedes:<,extends:>,
+
+" Disable mouse except scroll
+set mouse=a
+nnoremap <LeftMouse> <Nop>
+nnoremap <RightMouse> <Nop>
+nnoremap <MiddleMouse> <Nop>
+
+nnoremap U <C-r>
+
+" Tabs
+nnoremap <Leader>= <Cmd>tabnew<CR>
+nnoremap <Leader>\ <Cmd>tabnew<CR>
+nnoremap <Leader>q <Cmd>tabclose<CR>
+nnoremap <Leader>- <Cmd>tabclose<CR>
+nnoremap <Leader>] <Cmd>tabnext<CR>
+nnoremap <Leader>[ <Cmd>tabprevious<CR>
+nnoremap <Leader>} <Cmd>tabmove +1<CR>
+nnoremap <Leader>{ <Cmd>tabmove -1<CR>
+
+nnoremap <Leader>f :edit 
+
+" Focus new panel after split
+nnoremap <C-w>s <C-w>s<C-w>j
+nnoremap <C-w>v <C-w>v<C-w>l
+
+" Shift using single keypress
+nnoremap > >>
+nnoremap < <<
+
+" Disable history menu
+noremap q: <Nop>
+" Disable ex mode
+noremap Q <Nop>
+
 " Yank to system clipboard (`vim --version | grep "+clipboard"`)
 if has('clipboard')
   vnoremap Y "+y
@@ -71,30 +99,4 @@ else
   vnoremap <Leader>Y :<C-u>echo 'System clipboard is not supported'<CR>
   nnoremap <Leader>Y :echo 'System clipboard is not supported'<CR>
 endif
-
-" Scrolloff
-set scrolloff=11
-set sidescrolloff=29
-
-" Disable swap file
-set nobackup
-set noswapfile
-set nowritebackup
-
-" Highlight search results
-set hlsearch
-" Remove hightlights after search
-nnoremap <Leader>h <Cmd>nohlsearch<CR>
-" Highlight characters
-set list
-set nowrap sidescroll=1 nowrap sidescroll=1 listchars=tab:\→\ ,trail:_,precedes:<,extends:>,
-
-" Block cursor
-set guicursor=
-
-" Disable mouse except scroll
-set mouse=a
-nnoremap <LeftMouse> <Nop>
-nnoremap <RightMouse> <Nop>
-nnoremap <MiddleMouse> <Nop>
 
