@@ -1,3 +1,7 @@
+- name: SSH
+  ansible.builtin.include_tasks:
+    file: ssh.yaml
+
 - name: Install git
   become: yes
   become_user: root

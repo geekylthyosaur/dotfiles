@@ -1,0 +1,14 @@
+- name: Generate SSH key if not exists
+  ansible.builtin.shell: |
+    ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N "" -q
+  args:
+    creates: ~/.ssh/id_ed25519
+
+- name: Display the public key
+  ansible.builtin.command: cat ~/.ssh/id_ed25519.pub
+  register: pubkey
+
+- name: Show public key and wait for user confirmation
+  ansible.builtin.debug:
+    msg: |
+      {{ pubkey.stdout }}
