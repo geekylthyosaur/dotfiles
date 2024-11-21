@@ -7,10 +7,13 @@
 
 - name: Deploy
   file:
-    src: "{{ role_path }}/files/systemd.link"
-    dest: "{{ lookup('env', 'XDG_CONFIG_HOME') }}/systemd"
+    src: "{{ role_path }}/files/{{ item.src }}"
+    dest: "{{ lookup('env', 'XDG_CONFIG_HOME') }}/{{ item.dest }}"
     state: link
     force: yes
+  loop:
+    - { src: "systemd.link", dest: "systemd" }
+    - { src: "bin.link", dest: "bin" }
 
 - name: Enable
   systemd:
