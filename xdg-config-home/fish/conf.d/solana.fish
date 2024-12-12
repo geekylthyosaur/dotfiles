@@ -1,4 +1,2 @@
-if not contains "/home/dmytro/.local/share/solana/install/active_release/bin" $PATH
-    set -x PATH "/home/dmytro/.local/share/solana/install/active_release/bin" $PATH
-end
+fish_add_path $XDG_DATA_HOME/solana/install/active_release/bin
 
