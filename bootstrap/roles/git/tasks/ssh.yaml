@@ -8,7 +8,7 @@
   ansible.builtin.command: cat ~/.ssh/id_ed25519.pub
   register: pubkey
 
-- name: Show public key and wait for user confirmation
+- name: Show public key
   ansible.builtin.debug:
     msg: |
       {{ pubkey.stdout }}
