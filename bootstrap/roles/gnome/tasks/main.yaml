@@ -1,0 +1,5 @@
+- name: Resize windows with right button
+  command: gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
+
+- name: Scale wallpaper
+  command: gsettings set org.gnome.desktop.background picture-options zoom
