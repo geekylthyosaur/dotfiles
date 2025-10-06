@@ -18,7 +18,7 @@ set softtabstop=4
 set shiftwidth=4
 " Tab is 2 spaces for filetypes
 " FIXME
-autocmd FileType vim,markdown,go,lua,javascript,yaml,json,html,css,scss,vue setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd FileType vim,sh,bash,fish,markdown,yaml,json,just,go,lua,javascript,html,css setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 set nonumber
 set norelativenumber
@@ -72,7 +72,9 @@ nnoremap <Leader>[ <Cmd>tabprevious<CR>
 nnoremap <Leader>} <Cmd>tabmove +1<CR>
 nnoremap <Leader>{ <Cmd>tabmove -1<CR>
 
-nnoremap <Leader>f :edit 
+if !has("nvim")
+  nnoremap <Leader>f :edit 
+endif
 
 " Focus new panel after split
 nnoremap <C-w>s <C-w>s<C-w>j
@@ -94,9 +96,9 @@ if has('clipboard')
   vnoremap <Leader>Y "+y
   nnoremap <Leader>Y "+yy
 else
-  vnoremap Y :<C-u>echo 'System clipboard is not supported'<CR>
-  nnoremap YY :echo 'System clipboard is not supported'<CR>
-  vnoremap <Leader>Y :<C-u>echo 'System clipboard is not supported'<CR>
-  nnoremap <Leader>Y :echo 'System clipboard is not supported'<CR>
+  vnoremap Y :<C-u>echoerr 'System clipboard is not supported'<CR>
+  nnoremap YY :echoerr 'System clipboard is not supported'<CR>
+  vnoremap <Leader>Y :<C-u>echoerr 'System clipboard is not supported'<CR>
+  nnoremap <Leader>Y :echoerr 'System clipboard is not supported'<CR>
 endif
 
